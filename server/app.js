@@ -36,7 +36,7 @@ app.use(basicAuthenticationDeserializer);
 app.use(bindUserToViewLocals);
 
 app.use('/', baseRouter);
-app.use('/authentication', authenticationRouter);
+app.use('/auth', authenticationRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {

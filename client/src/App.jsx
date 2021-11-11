@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import { signOut, loadAuthenticatedUser } from './services/auth';
 
@@ -66,6 +66,15 @@ function App() {
         />
       </Switch>
       Hello {user?.name}
+      <Link to="/">
+        <span>Home</span>
+      </Link>
+      <Link to="/sign-up">
+        <span>Sign Up</span>
+      </Link>
+      <Link to="/sign-in">
+        <span>Sign In</span>
+      </Link>
       {user && <button onClick={signOutHandler}>Sign Out</button>}
     </div>
   );

@@ -10,16 +10,19 @@ function SignUpView(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await signUp(email, password);
+      const user = await signUp(name, email, password);
       props.onAuthenticationChange(user);
     } catch (error) {
-      console.log('Log in error: ', error);
+      console.log('Sign up error: ', error);
     }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
+      case 'name':
+        setName(value);
+        break;
       case 'email':
         setEmail(value);
         break;
@@ -33,8 +36,17 @@ function SignUpView(props) {
 
   return (
     <div>
-      <h1>Sign In</h1>
+      <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="input-name">Name</label>
+        <input
+          id="input-name"
+          type="name"
+          placeholder="Your Name"
+          name="name"
+          value={name}
+          onChange={handleInputChange}
+        />
         <label htmlFor="input-email">Email</label>
         <input
           id="input-email"
@@ -53,7 +65,7 @@ function SignUpView(props) {
           value={password}
           onChange={handleInputChange}
         />
-        <button>Sign In</button>
+        <button>Sign Up</button>
       </form>
     </div>
   );
