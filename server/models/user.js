@@ -15,6 +15,34 @@ const schema = new mongoose.Schema({
   },
   passwordHashAndSalt: {
     type: String
+  },
+  avatar: {
+    type: String,
+    default: ''
+  },
+  role: {
+    type: String,
+    enum: ['defaultUser', 'artist'],
+    default: 'defaultUser',
+    required: true
+  },
+  bio: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  genre: {
+    type: [String]
+  },
+  instruments: {
+    type: [String]
+  },
+  backgroundImg: {
+    type: String
+  }
+  paymentToken: {
+    type: String,
+    default: ''
   }
 });
 
