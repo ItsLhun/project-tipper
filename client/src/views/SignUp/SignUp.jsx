@@ -6,14 +6,45 @@ function SignUpView(props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fileInputState, setFileInputState] = useState('');
+  const [selectedFile, setSelectedFile] = useState('');
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    setFileInputState(e.target.value);
+    console.log(e.target.files[0]);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const user = await signUp(name, email, password);
       props.onAuthenticationChange(user);
+      // if (selectedFile) {
+      //   const reader = new FileReader();
+      //   console.log(reader);
+      // reader.readAsDataURL(selectedFile);
+      // reader.onloadend = () => {
+      //   uploadImage(reader.result);
+      // };
+      // }
     } catch (error) {
       console.log('Sign up error: ', error);
+    }
+  };
+
+  const uploadImage = async (base64EncodedImage) => {
+    console.log(base64EncodedImage);
+    try {
+      await fetch('/auth/sign-up', {
+        method: 'POST',
+        body: JSON.stringify({ data: base64EncodedImage }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      setFileInputState('');
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -65,6 +96,14 @@ function SignUpView(props) {
           value={password}
           onChange={handleInputChange}
         />
+        {/* <label htmlFor="fileInput">Your Avatar</label>
+        <input
+          id="fileInput"
+          type="file"
+          name="avatar"
+          onChange={handleFileInputChange}
+          value={fileInputState}
+        /> */}
         <button>Sign Up</button>
       </form>
     </div>

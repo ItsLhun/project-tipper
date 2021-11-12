@@ -7,6 +7,7 @@ const connectMongo = require('connect-mongo');
 const expressSession = require('express-session');
 const logger = require('morgan');
 const serveFavicon = require('serve-favicon');
+const cors = require('cors');
 const basicAuthenticationDeserializer = require('./middleware/basic-authentication-deserializer.js');
 const bindUserToViewLocals = require('./middleware/bind-user-to-view-locals.js');
 const baseRouter = require('./routes/index');
@@ -14,9 +15,16 @@ const authenticationRouter = require('./routes/authentication');
 
 const app = express();
 
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'https://hoppscotch.io'],
+    credentials: true
+  })
+);
 app.use(serveFavicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(
   expressSession({
     secret: process.env.SESSION_SECRET,

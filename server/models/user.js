@@ -19,7 +19,7 @@ const schema = new mongoose.Schema({
   // avatar: {
   //   type: String,
   //   default: ''
-  // },
+  // }
   // role: {
   //   type: String,
   //   enum: ['defaultUser', 'artist'],
