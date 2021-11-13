@@ -7,6 +7,7 @@ import SignInView from './views/SignIn/SignIn';
 import SignUpView from './views/SignUp/SignUp';
 import UserProfileView from './views/UserProfile/UserProfile';
 import HomeView from './views/Home/Home';
+import EventView from './views/Event/Event';
 import BottomNavbar from './BottomNavbar/BottomNavbar';
 
 import './App.css';
@@ -46,6 +47,11 @@ function App() {
         <Route
           path="/"
           render={(props) => <HomeView {...props} user={user} />}
+          exact
+        />
+        <Route
+          path="/event"
+          render={(props) => <EventView {...props} user={user} />}
           exact
         />
         <ProtectedRoute
