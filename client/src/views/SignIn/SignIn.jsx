@@ -8,7 +8,7 @@ function SignInView(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await signIn(email, password);
+      const user = await signIn({ email, password });
       props.onAuthenticationChange(user);
     } catch (error) {
       console.log('Log in error: ', error);
