@@ -9,7 +9,7 @@ import UserProfileView from './views/UserProfile/UserProfile';
 import HomeView from './views/Home/Home';
 import BottomNavbar from './BottomNavbar/BottomNavbar';
 
-import './App.css';
+import './App.scss';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -74,11 +74,7 @@ function App() {
           exact
         />
       </Switch>
-      Hello {user?.name}
       <BottomNavbar user={user} />
-      <Link to="/">
-        <span>Home</span>
-      </Link>
       <Link to="/sign-up">
         <span>Sign Up</span>
       </Link>

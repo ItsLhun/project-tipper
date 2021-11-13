@@ -1,11 +1,48 @@
+@import '../../styles/colors.scss';
+
 .UserProfileView {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.UserProfileView .UserProfileView__header {
+.UserProfileView .UserProfileView_header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 1rem;
+  margin-top: 4rem;
+}
+
+$diameter: 5rem;
+$circle-font: $diameter / 2;
+
+.UserProfileView_avatar,
+.UserProfileView_avatar_text {
+  width: $diameter;
+  height: $diameter;
+  border-radius: 50%;
+  margin-bottom: 0.3rem;
+}
+
+.UserProfileView_avatar {
+  object-fit: cover;
+}
+
+.UserProfileView_avatar_text {
+  background-color: $profile-noavatar-bg;
+  color: $profile-noavatar-text;
+  font-size: $circle-font;
+  line-height: $diameter;
+  text-align: center;
+}
+.Profile-name {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+.UserProfileView_body {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
   margin-bottom: 1rem;
 }
