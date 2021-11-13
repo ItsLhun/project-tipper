@@ -31,6 +31,14 @@ function BottomNavbar(props) {
           </Link>
         )}
       </div>
+      {props.user.role === 'artist' && (
+        <div className="button-wrapper">
+          <span className="circle circle-live" />
+          <Link to="/" className="button">
+            Go Live
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
