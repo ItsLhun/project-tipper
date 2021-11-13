@@ -13,32 +13,10 @@ function SignUpView(props) {
       console.log(name, email, password);
       const user = await signUp({ name, email, password });
       props.onAuthenticationChange(user);
-      // if (selectedFile) {
-      //   const reader = new FileReader();
-      //   console.log(reader);
-      // reader.readAsDataURL(selectedFile);
-      // reader.onloadend = () => {
-      //   uploadImage(reader.result);
-      // };
-      // }
     } catch (error) {
       console.log('Sign up error: ', error);
     }
   };
-
-  // const uploadImage = async (base64EncodedImage) => {
-  //   console.log(base64EncodedImage);
-  //   try {
-  //     await fetch('/auth/sign-up', {
-  //       method: 'POST',
-  //       body: JSON.stringify({ data: base64EncodedImage }),
-  //       headers: { 'Content-Type': 'application/json' }
-  //     });
-  //     setFileInputState('');
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -88,14 +66,6 @@ function SignUpView(props) {
           value={password}
           onChange={handleInputChange}
         />
-        {/* <label htmlFor="fileInput">Your Avatar</label>
-        <input
-          id="fileInput"
-          type="file"
-          name="avatar"
-          onChange={handleFileInputChange}
-          value={fileInputState}
-        /> */}
         <button>Sign Up</button>
       </form>
     </div>
