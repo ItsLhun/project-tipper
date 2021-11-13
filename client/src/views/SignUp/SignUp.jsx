@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 import { signUp } from '../../services/auth';
 
 function SignUpView(props) {
-  const [nameInput, setName] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(nameInput, email, password);
-      const user = await signUp({ nameInput, email, password });
+      console.log(name, email, password);
+      const user = await signUp({ name, email, password });
       props.onAuthenticationChange(user);
       // if (selectedFile) {
       //   const reader = new FileReader();
@@ -67,7 +67,7 @@ function SignUpView(props) {
           type="name"
           placeholder="Your Name"
           name="name"
-          value={nameInput}
+          value={name}
           onChange={handleInputChange}
         />
         <label htmlFor="input-email">Email</label>

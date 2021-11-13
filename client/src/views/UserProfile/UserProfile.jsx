@@ -5,7 +5,7 @@ import './UserProfile.scss';
 
 const transaction = {
   id: '1',
-  amount: '$100',
+  amount: '$5',
   date: '12/12/2019',
   concept: 'Tip to Nick Lager'
 };
@@ -26,11 +26,11 @@ function UserProfileView(props) {
           />
         ) : (
           <div className={'UserProfileView_avatar_text'}>
-            {/* {props.user?.firstName?.[0]} */}
-            {/* {props.user?.lastName?.[0]} */}
             <span className="Profile-letters">
-              <span>{'N'}</span>
-              <span>{'L'}</span>
+              {props.user?.name[0].toUpperCase()}
+              {props.user?.name[0].toUpperCase()}
+              {/* <span>{'N'}</span> */}
+              {/* <span>{'L'}</span> */}
             </span>
           </div>
         )}
@@ -46,6 +46,7 @@ function UserProfileView(props) {
         <div className="UserProfileView_body_section">
           <h4 className="UserProfileView_body_section_title">TRANSACTIONS</h4>
           <div className="UserProfileView_body_section_content">
+            {/* Map to transactions array goes here */}
             <div className="UserProfileView_transactions">
               <TransactionListItem transaction={transaction} />
               <TransactionListItem transaction={transaction} />
@@ -62,10 +63,11 @@ function UserProfileView(props) {
         <div className={'UserProfileView_body_section'}>
           <h4 className={'UserProfileView_body_section_title'}>ACCOUNT</h4>
           <div className={'UserProfileView_body_section_content'}>
-            content goes here
+            Email: {props.user?.email}
           </div>
         </div>
       </div>
+      <button className="save-changes-btn">Save Changes</button>
     </div>
   );
 }
