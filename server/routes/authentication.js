@@ -4,7 +4,7 @@ const { Router } = require('express');
 
 const bcryptjs = require('bcryptjs');
 const User = require('./../models/user');
-const { cloudinary } = require('../middleware/file-upload');
+const routeGuardMiddleware = require('./../middleware/route-guard');
 
 const router = new Router();
 
@@ -12,15 +12,6 @@ router.post('/sign-up', (req, res, next) => {
   console.log('signUp');
   const { name, email, password } = req.body;
   console.log(req.body);
-  // const avatar = req.body.data;
-  // cloudinary.uploader
-  //   .upload(avatar, {
-  //     upload_preset: 'avatar'
-  //   })
-  // .then((uploadResponse) => {
-  //   console.log(uploadResponse);
-  //   return bcryptjs.hash(password, 10);
-  // })
   bcryptjs
     .hash(password, 10)
     .then((hash) => {
@@ -28,7 +19,6 @@ router.post('/sign-up', (req, res, next) => {
         name,
         email,
         passwordHashAndSalt: hash
-        // avatar
       });
     })
     .then((user) => {
@@ -66,7 +56,7 @@ router.post('/sign-in', (req, res, next) => {
     });
 });
 
-router.post('/sign-out', (req, res, next) => {
+router.post('/sign-out', routeGuardMiddleware, (req, res, next) => {
   req.session.destroy();
   res.json({});
 });

@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import { signOut, loadAuthenticatedUser } from './services/auth';
+import { Image, Transformation, CloudinaryContext } from 'cloudinary-react';
 
 import SignInView from './views/SignIn/SignIn';
 import SignUpView from './views/SignUp/SignUp';
 import UserProfileView from './views/UserProfile/UserProfile';
 import HomeView from './views/Home/Home';
 import EventView from './views/Event/Event';
+import UploadAvatarView from './views/UploadAvatar/UploadAvatar';
 import BottomNavbar from './BottomNavbar/BottomNavbar';
 
 import './App.css';
@@ -79,6 +81,10 @@ function App() {
           render={(props) => <UserProfileView {...props} user={user} />}
           exact
         />
+        <Route
+          path="/profile/upload-avatar"
+          render={(props) => <UploadAvatarView {...props} />}
+        />
       </Switch>
       Hello {user?.name}
       <BottomNavbar user={user} />
@@ -90,6 +96,15 @@ function App() {
       </Link>
       <Link to="/sign-in">
         <span>Sign In</span>
+      </Link>
+      <Link to="/profile/upload-avatar">
+        {user && (
+          <CloudinaryContext cloudName={process.env.REACT_APP_CLOUDINARY_NAME}>
+            <Image publicId="user_blxuay.png">
+              <Transformation width="20" crop="scale" />
+            </Image>
+          </CloudinaryContext>
+        )}
       </Link>
       {user && <button onClick={signOutHandler}>Sign Out</button>}
     </div>

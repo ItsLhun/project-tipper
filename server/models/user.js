@@ -15,11 +15,11 @@ const schema = new mongoose.Schema({
   },
   passwordHashAndSalt: {
     type: String
+  },
+  avatar: {
+    type: String,
+    default: ''
   }
-  // avatar: {
-  //   type: String,
-  //   default: ''
-  // }
   // role: {
   //   type: String,
   //   enum: ['defaultUser', 'artist'],
