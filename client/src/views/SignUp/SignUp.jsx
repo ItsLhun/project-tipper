@@ -6,15 +6,6 @@ function SignUpView(props) {
   const [nameInput, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [fileInputState, setFileInputState] = useState('');
-  // const [selectedFile, setSelectedFile] = useState('');
-
-  // const handleFileInputChange = (e) => {
-  //   const file = e.target.files[0];
-  //   setSelectedFile(file);
-  //   setFileInputState(e.target.value);
-  //   console.log(e.target.files[0]);
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

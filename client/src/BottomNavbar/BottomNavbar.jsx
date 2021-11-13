@@ -24,14 +24,14 @@ function BottomNavbar(props) {
           {props.user ? 'Profile' : 'Sign In'}
         </div>
       </Link>
-      {props.user?.role === 'artist' && (
+      {/* {props.user?.role === 'artist' && (
         <Link to="/" className="button">
           <div className="button-wrapper">
             <span className="circle circle-live" />
             Go Live
           </div>
         </Link>
-      )}
+      )} */}
     </div>
   );
 }
