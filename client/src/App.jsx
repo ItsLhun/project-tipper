@@ -78,7 +78,13 @@ function App() {
           path="/profile"
           authorized={!loaded || user}
           redirect="/"
-          render={(props) => <UserProfileView {...props} user={user} />}
+          render={(props) => (
+            <UserProfileView
+              {...props}
+              user={user}
+              onSignOut={signOutHandler}
+            />
+          )}
           exact
         />
         <Route
@@ -86,7 +92,7 @@ function App() {
           render={(props) => <UploadAvatarView {...props} />}
         />
       </Switch>
-      <BottomNavbar user={user} />
+      <BottomNavbar user={user} onSignOut={signOutHandler} />
       <Link to="/sign-up">
         <span>Sign Up</span>
       </Link>
@@ -102,7 +108,6 @@ function App() {
           </CloudinaryContext>
         )}
       </Link>
-      {user && <button onClick={signOutHandler}>Sign Out</button>}
     </div>
   );
 }
