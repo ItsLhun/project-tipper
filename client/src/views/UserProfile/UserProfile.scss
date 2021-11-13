@@ -1,5 +1,11 @@
 .UserProfileView {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+}
+.UserProfileView .UserProfileView__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
 }
