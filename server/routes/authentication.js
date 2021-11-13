@@ -11,6 +11,7 @@ const router = new Router();
 router.post('/sign-up', (req, res, next) => {
   console.log('signUp');
   const { name, email, password } = req.body;
+  console.log(req.body);
   // const avatar = req.body.data;
   // cloudinary.uploader
   //   .upload(avatar, {
@@ -35,6 +36,7 @@ router.post('/sign-up', (req, res, next) => {
       res.json({ user });
     })
     .catch((error) => {
+      console.log('Error on signup');
       next(error);
     });
 });

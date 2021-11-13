@@ -3,23 +3,24 @@ import React, { useState } from 'react';
 import { signUp } from '../../services/auth';
 
 function SignUpView(props) {
-  const [name, setName] = useState('');
+  const [nameInput, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [fileInputState, setFileInputState] = useState('');
-  const [selectedFile, setSelectedFile] = useState('');
+  // const [fileInputState, setFileInputState] = useState('');
+  // const [selectedFile, setSelectedFile] = useState('');
 
-  const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
-    setFileInputState(e.target.value);
-    console.log(e.target.files[0]);
-  };
+  // const handleFileInputChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setSelectedFile(file);
+  //   setFileInputState(e.target.value);
+  //   console.log(e.target.files[0]);
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await signUp(name, email, password);
+      console.log(nameInput, email, password);
+      const user = await signUp({ nameInput, email, password });
       props.onAuthenticationChange(user);
       // if (selectedFile) {
       //   const reader = new FileReader();
@@ -34,19 +35,19 @@ function SignUpView(props) {
     }
   };
 
-  const uploadImage = async (base64EncodedImage) => {
-    console.log(base64EncodedImage);
-    try {
-      await fetch('/auth/sign-up', {
-        method: 'POST',
-        body: JSON.stringify({ data: base64EncodedImage }),
-        headers: { 'Content-Type': 'application/json' }
-      });
-      setFileInputState('');
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const uploadImage = async (base64EncodedImage) => {
+  //   console.log(base64EncodedImage);
+  //   try {
+  //     await fetch('/auth/sign-up', {
+  //       method: 'POST',
+  //       body: JSON.stringify({ data: base64EncodedImage }),
+  //       headers: { 'Content-Type': 'application/json' }
+  //     });
+  //     setFileInputState('');
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -75,7 +76,7 @@ function SignUpView(props) {
           type="name"
           placeholder="Your Name"
           name="name"
-          value={name}
+          value={nameInput}
           onChange={handleInputChange}
         />
         <label htmlFor="input-email">Email</label>
