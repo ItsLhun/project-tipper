@@ -56,6 +56,8 @@ $circle-font: $diameter / 2;
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+  background-color: transparent;
+  border: 0;
 }
 
 .UserProfileView_body_section {
@@ -96,4 +98,27 @@ $circle-font: $diameter / 2;
   color: $profile-save-button-text;
   padding: 0.5rem;
   border-radius: 15px;
+  width: 8rem;
+  align-self: center;
+  margin-top: 1rem;
+}
+.UserProfileView_body_section_content_inputs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  //   justify-content: space-between;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  span {
+    align-content: center;
+  }
+  input {
+    // margin-left: 1rem;
+    border: 1px solid $profile-input-border;
+    background-color: $profile-input-bg;
+    color: $profile-input-color;
+
+    border-radius: 5px;
+    padding: 0.3rem 0.4rem;
+  }
 }
