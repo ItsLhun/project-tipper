@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import TransactionListItem from '../../components/Transactions/TransactionListItem';
 
+import { updateAccountSettings } from '../../services/profile-settings';
+
 import './UserProfile.scss';
 
 const transaction = {
@@ -23,7 +25,7 @@ function UserProfileView(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //   await editAccountDetails({ email, password });
+      await updateAccountSettings({ email, password, confirmPassword });
     } catch (error) {
       console.log(error);
     }
