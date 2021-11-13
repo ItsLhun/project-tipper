@@ -6,6 +6,7 @@ import { signOut, loadAuthenticatedUser } from './services/auth';
 import SignInView from './views/SignIn/SignIn';
 import SignUpView from './views/SignUp/SignUp';
 import HomeView from './views/Home/Home';
+import BottomNavbar from './BottomNavbar/BottomNavbar';
 
 import './App.css';
 
@@ -66,6 +67,7 @@ function App() {
         />
       </Switch>
       Hello {user?.name}
+      <BottomNavbar user={user} />
       <Link to="/">
         <span>Home</span>
       </Link>
