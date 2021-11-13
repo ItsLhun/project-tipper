@@ -18,14 +18,15 @@
 }
 
 .circle {
-  width: 2rem;
-  height: 2rem;
+  width: 1.7rem;
+  height: 1.7rem;
   border-radius: 50%;
   margin-bottom: 0.25rem;
   background-color: $bottom-nav-circle;
 }
 
 .button-wrapper {
+  font-size: 0.85rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

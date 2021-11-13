@@ -6,38 +6,31 @@ import './BottomNavbar.scss';
 function BottomNavbar(props) {
   return (
     <div className={'BottomNavbar'}>
-      <div className="button-wrapper">
-        <span className="circle" />
-        <Link to="/" className="button">
-          Home
-        </Link>
-      </div>
-      <div className="button-wrapper">
-        <span className="circle" />
-        <Link to="/" className="button">
-          Search
-        </Link>
-      </div>
-      <div className="button-wrapper">
-        <span className="circle" />
-        {(props.user && (
-          <Link to="/profile" className="button">
-            Profile
-          </Link>
-        )) || (
-          <Link to="/sign-in" className="button">
-            {' '}
-            Sign In{' '}
-          </Link>
-        )}
-      </div>
-      {props.user.role === 'artist' && (
+      <Link to="/" className="button">
         <div className="button-wrapper">
-          <span className="circle circle-live" />
-          <Link to="/" className="button">
-            Go Live
-          </Link>
+          <span className="circle" />
+          Home
         </div>
+      </Link>
+      <Link to="/" className="button">
+        <div className="button-wrapper">
+          <span className="circle" />
+          Search
+        </div>
+      </Link>
+      <Link to={(props.user && '/profile') || '/sign-in'} className="button">
+        <div className="button-wrapper">
+          <span className="circle" />
+          {props.user ? 'Profile' : 'Sign In'}
+        </div>
+      </Link>
+      {props.user.role === 'artist' && (
+        <Link to="/" className="button">
+          <div className="button-wrapper">
+            <span className="circle circle-live" />
+            Go Live
+          </div>
+        </Link>
       )}
     </div>
   );

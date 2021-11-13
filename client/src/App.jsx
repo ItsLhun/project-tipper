@@ -5,6 +5,7 @@ import { signOut, loadAuthenticatedUser } from './services/auth';
 
 import SignInView from './views/SignIn/SignIn';
 import SignUpView from './views/SignUp/SignUp';
+import UserProfileView from './views/UserProfile/UserProfile';
 import HomeView from './views/Home/Home';
 import BottomNavbar from './BottomNavbar/BottomNavbar';
 
@@ -63,6 +64,13 @@ function App() {
           render={(props) => (
             <SignInView {...props} onAuthenticationChange={setUser} />
           )}
+          exact
+        />
+        <ProtectedRoute
+          path="/profile"
+          authorized={!loaded || user}
+          redirect="/"
+          render={(props) => <UserProfileView {...props} user={user} />}
           exact
         />
       </Switch>
