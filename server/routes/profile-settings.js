@@ -8,16 +8,18 @@ const bcryptjs = require('bcryptjs');
 
 const router = new Router();
 
-router.post('/upload-avatar', routeGuardMiddleware, async (req, res, next) => {
+router.post('/upload-avatar', async (req, res, next) => {
   try {
-    const fileStr = req.body.data;
+    console.log('Session ID', req.session, req.user);
+    const fileStr = req.body.avatar;
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-      upload_preset: 'dev_setups'
+      upload_preset: 'avatar'
     });
     console.log(uploadResponse);
-    const avatarUpdate = await User.findByIdAndUpdate(req.session.user._id, {
-      avatar: uploadResponse
+    const avatarUpdate = await User.findByIdAndUpdate(req.user._id, {
+      avatar: uploadResponse.url
     });
+    const user = req.user;
     res.json({ avatarUpdate });
   } catch (err) {
     next(err);

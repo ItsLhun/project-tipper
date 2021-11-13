@@ -1,9 +1,9 @@
 import api from './api';
 
 export const uploadAvatar = (body) => {
-  return api
+  api
     .post('/profile/upload-avatar', body)
-    .then((response) => response.data.user);
+    .then((response) => response.data.avatarUpdate);
 };
 
 export const updateAccountSettings = (body) => {

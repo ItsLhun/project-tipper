@@ -89,7 +89,9 @@ function App() {
         />
         <Route
           path="/profile/upload-avatar"
-          render={(props) => <UploadAvatarView {...props} />}
+          authorized={!loaded || user}
+          redirect="/"
+          render={(props) => <UploadAvatarView {...props} user={user} />}
         />
       </Switch>
       <BottomNavbar user={user} onSignOut={signOutHandler} />
