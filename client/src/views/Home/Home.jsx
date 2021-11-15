@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import './Home.scss';
+import GenreBlob from '../../components/GenreBlob/GenreBlob';
 
 function HomeView(props) {
   // Genres can be set dynamically or from a DB.
@@ -8,8 +9,8 @@ function HomeView(props) {
     'hip hop',
     'pop',
     'jazz',
-    'rock',
     'instrumental',
+    'rock',
     'country'
   ]);
   return (
@@ -24,9 +25,7 @@ function HomeView(props) {
         <h2>Genres</h2>
         <ul className="HomeView__genres">
           {genres.map((genre) => (
-            <div key={genre} className="HomeView__genre">
-              {genre}
-            </div>
+            <GenreBlob key={genre} genre={genre} />
           ))}
         </ul>
       </section>
