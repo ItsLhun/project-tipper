@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { signIn } from '../../services/auth';
 
 function SignInView(props) {
@@ -53,6 +54,12 @@ function SignInView(props) {
         />
         <button>Sign In</button>
       </form>
+      <p>
+        No account yet?{' '}
+        <Link to="/sign-up">
+          <span>Sign Up</span>
+        </Link>
+      </p>
     </div>
   );
 }

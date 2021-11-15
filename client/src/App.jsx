@@ -95,12 +95,6 @@ function App() {
         />
       </Switch>
       <BottomNavbar user={user} onSignOut={signOutHandler} />
-      <Link to="/sign-up">
-        <span>Sign Up</span>
-      </Link>
-      <Link to="/sign-in">
-        <span>Sign In</span>
-      </Link>
       <Link to="/profile/upload-avatar">
         {user && (
           <CloudinaryContext cloudName={process.env.REACT_APP_CLOUDINARY_NAME}>

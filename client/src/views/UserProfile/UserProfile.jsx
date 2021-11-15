@@ -14,13 +14,13 @@ const transaction = {
 
 function UserProfileView(props) {
   const [transactions, setTransactions] = useState(null);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(props.user?.email || '');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  useEffect(() => {
-    setEmail(props.user?.email);
-  }, [props.user]);
+  //   useEffect(() => {
+  //     setEmail(props.user?.email);
+  //   }, [props.user?.email]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,6 +48,7 @@ function UserProfileView(props) {
     }
   };
 
+  console.log(props.user);
   return (
     <div className={'UserProfileView'}>
       <button className={'sign-out-btn'} onClick={props.onSignOut}>
@@ -71,15 +72,13 @@ function UserProfileView(props) {
         ) : (
           <div className={'UserProfileView_avatar_text'}>
             <span className="Profile-letters">
-              {props.user?.name[0].toUpperCase()}
-              {props.user?.name[0].toUpperCase()}
-              {/* <span>{'N'}</span> */}
-              {/* <span>{'L'}</span> */}
+              {props.user?.firstName[0]}
+              {props.user?.lastName[0]}
             </span>
           </div>
         )}
         <h3 className="Profile-name">
-          {`${props.user?.name} ${props.user?.name}`}
+          {`${props.user?.firstName} ${props.user?.lastName}`}
         </h3>
       </div>
       <div className={'UserProfileView_body'}>
@@ -112,7 +111,8 @@ function UserProfileView(props) {
             <div className="UserProfileView_body_section_content_inputs">
               <span>Email:</span>
               <input
-                value={email}
+                //   This change is needed to prevent error of setting state to undefined
+                value={props.user?.email || email}
                 type="text"
                 id="email-input"
                 name="email"

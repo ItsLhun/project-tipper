@@ -10,13 +10,14 @@ const router = new Router();
 
 router.post('/sign-up', (req, res, next) => {
   console.log('signUp');
-  const { name, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
   console.log(req.body);
   bcryptjs
     .hash(password, 10)
     .then((hash) => {
       return User.create({
-        name,
+        firstName,
+        lastName,
         email,
         passwordHashAndSalt: hash
       });
