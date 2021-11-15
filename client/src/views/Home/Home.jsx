@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import './Home.scss';
 import GenreBlob from '../../components/GenreBlob/GenreBlob';
 
-function HomeView(props) {
+function HomeView() {
   // Genres can be set dynamically or from a DB.
-  const [genres, setGenres] = useState([
+  const [genres] = useState([
     'hip hop',
     'pop',
     'jazz',

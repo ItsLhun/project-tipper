@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TransactionListItem from '../../components/Transactions/TransactionListItem';
 
 import { updateAccountSettings } from '../../services/profile-settings';
@@ -13,14 +13,10 @@ const transaction = {
 };
 
 function UserProfileView(props) {
-  const [transactions, setTransactions] = useState(null);
+  // const [transactions, setTransactions] = useState(null);
   const [email, setEmail] = useState(props.user?.email || '');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-  //   useEffect(() => {
-  //     setEmail(props.user?.email);
-  //   }, [props.user?.email]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

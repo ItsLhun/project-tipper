@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { uploadAvatar } from '../../services/profile-settings';
+// import { uploadAvatar } from '../../services/profile-settings';
+
 import Alert from '../../components/Alert';
 
 function UploadAvatarView(props) {
@@ -48,6 +49,7 @@ function UploadAvatarView(props) {
     } catch (error) {
       console.log('Upload error: ', error);
     }
+    console.log(avatar);
   };
 
   const uploadImage = async (base64EncodedImage) => {
@@ -55,14 +57,11 @@ function UploadAvatarView(props) {
       //   await uploadAvatar({
       //     avatar: JSON.stringify({ data: base64EncodedImage })
       //   });
-      const avatarUpload = await fetch(
-        'http://localhost:3010/profile/upload-avatar',
-        {
-          method: 'POST',
-          body: JSON.stringify({ data: base64EncodedImage }),
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
+      await fetch('http://localhost:3010/profile/upload-avatar', {
+        method: 'POST',
+        body: JSON.stringify({ data: base64EncodedImage }),
+        headers: { 'Content-Type': 'application/json' }
+      });
       setFileInputState('');
       setPreviewSource('');
       setSuccessMsg('Image uploaded successfully');

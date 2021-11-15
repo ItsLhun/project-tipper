@@ -103,7 +103,7 @@ function App() {
         />
       </Switch>
       <BottomNavbar user={user} onSignOut={signOutHandler} />
-      {/* <Link to="/profile/upload-avatar">
+      <Link to="/profile/upload-avatar">
         {user && (
           <CloudinaryContext cloudName={process.env.REACT_APP_CLOUDINARY_NAME}>
             <Image publicId="user_blxuay.png">
@@ -111,7 +111,7 @@ function App() {
             </Image>
           </CloudinaryContext>
         )}
-      </Link> */}
+      </Link>
     </div>
   );
 }

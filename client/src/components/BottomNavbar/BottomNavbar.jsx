@@ -1,4 +1,4 @@
-import React, { useState, useEffect, browserHistory } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import './BottomNavbar.scss';
@@ -26,7 +26,7 @@ function BottomNavbar(props) {
 
   useEffect(() => {
     handlePathChange();
-  }, []);
+  });
 
   return (
     <div className={`BottomNavbar ${activeClass}`} onClick={handlePathChange}>
