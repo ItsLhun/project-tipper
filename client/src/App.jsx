@@ -8,7 +8,7 @@ import SignInView from './views/SignIn/SignIn';
 import SignUpView from './views/SignUp/SignUp';
 import UserProfileView from './views/UserProfile/UserProfile';
 import HomeView from './views/Home/Home';
-import HomeUnsignedView from './views/HomeUnsigned/HomeUnsigned';
+import HomeUnauthView from './views/HomeUnauth/HomeUnauth';
 
 import EventView from './views/Event/Event';
 import UploadAvatarView from './views/UploadAvatar/UploadAvatar';
@@ -54,7 +54,7 @@ function App() {
             return user ? (
               <HomeView {...props} user={user} />
             ) : (
-              <HomeUnsignedView {...props} />
+              <HomeUnauthView {...props} />
             );
           }}
           exact

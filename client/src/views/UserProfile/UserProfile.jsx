@@ -90,7 +90,7 @@ function UserProfileView(props) {
         <div className="UserProfileView_body_section">
           <h4 className="UserProfileView_body_section_title">TRANSACTIONS</h4>
           <div className="UserProfileView_body_section_content">
-            {/* Map to transactions array goes here */}
+            {/* Map to transactions array goes here, limit to last 10*/}
             <div className="UserProfileView_transactions">
               <TransactionListItem transaction={transaction} />
               <TransactionListItem transaction={transaction} />
@@ -103,6 +103,7 @@ function UserProfileView(props) {
               <TransactionListItem transaction={transaction} />
             </div>
           </div>
+          <p>See more...</p>
         </div>
         <form className="UserProfileView_body_section" onSubmit={handleSubmit}>
           <h4 className="UserProfileView_body_section_title">ACCOUNT</h4>

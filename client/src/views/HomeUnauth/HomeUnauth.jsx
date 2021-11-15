@@ -1,6 +1,6 @@
 import React from 'react';
 
-function HomeUnsignedView() {
+function HomeUnauthView() {
   return (
     <div>
       <h1>Home Unsigned</h1>
@@ -9,4 +9,4 @@ function HomeUnsignedView() {
   );
 }
 
-export default HomeUnsignedView;
+export default HomeUnauthView;
