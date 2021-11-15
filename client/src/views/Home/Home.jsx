@@ -1,9 +1,10 @@
 import React from 'react';
 
-function HomeView() {
+function HomeView(props) {
   return (
     <div>
-      <h1>Home</h1>
+      <h1>Home Signed in</h1>
+      <p>Hello {props.user.firstName}</p>
     </div>
   );
 }

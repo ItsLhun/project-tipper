@@ -48,7 +48,6 @@ function UserProfileView(props) {
     }
   };
 
-  console.log(props.user);
   return (
     <div className={'UserProfileView'}>
       <button className={'sign-out-btn'} onClick={props.onSignOut}>

@@ -8,6 +8,8 @@ import SignInView from './views/SignIn/SignIn';
 import SignUpView from './views/SignUp/SignUp';
 import UserProfileView from './views/UserProfile/UserProfile';
 import HomeView from './views/Home/Home';
+import HomeUnsignedView from './views/HomeUnsigned/HomeUnsigned';
+
 import EventView from './views/Event/Event';
 import UploadAvatarView from './views/UploadAvatar/UploadAvatar';
 import BottomNavbar from './BottomNavbar/BottomNavbar';
@@ -48,7 +50,13 @@ function App() {
       <Switch>
         <Route
           path="/"
-          render={(props) => <HomeView {...props} user={user} />}
+          render={(props) => {
+            return user ? (
+              <HomeView {...props} user={user} />
+            ) : (
+              <HomeUnsignedView {...props} />
+            );
+          }}
           exact
         />
         <Route
