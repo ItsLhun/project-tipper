@@ -1,59 +1,31 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 import { signUp } from '../../services/auth';
 
 function SignUpView(props) {
-  const [nameInput, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [fileInputState, setFileInputState] = useState('');
-  // const [selectedFile, setSelectedFile] = useState('');
-
-  // const handleFileInputChange = (e) => {
-  //   const file = e.target.files[0];
-  //   setSelectedFile(file);
-  //   setFileInputState(e.target.value);
-  //   console.log(e.target.files[0]);
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(nameInput, email, password);
-      const user = await signUp({ nameInput, email, password });
+      const user = await signUp({ firstName, lastName, email, password });
       props.onAuthenticationChange(user);
-      // if (selectedFile) {
-      //   const reader = new FileReader();
-      //   console.log(reader);
-      // reader.readAsDataURL(selectedFile);
-      // reader.onloadend = () => {
-      //   uploadImage(reader.result);
-      // };
-      // }
     } catch (error) {
       console.log('Sign up error: ', error);
     }
   };
 
-  // const uploadImage = async (base64EncodedImage) => {
-  //   console.log(base64EncodedImage);
-  //   try {
-  //     await fetch('/auth/sign-up', {
-  //       method: 'POST',
-  //       body: JSON.stringify({ data: base64EncodedImage }),
-  //       headers: { 'Content-Type': 'application/json' }
-  //     });
-  //     setFileInputState('');
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case 'name':
-        setName(value);
+      case 'firstName':
+        setFirstName(value);
+        break;
+      case 'lastName':
+        setLastName(value);
         break;
       case 'email':
         setEmail(value);
@@ -72,18 +44,27 @@ function SignUpView(props) {
       <form onSubmit={handleSubmit}>
         <label htmlFor="input-name">Name</label>
         <input
-          id="input-name"
-          type="name"
-          placeholder="Your Name"
-          name="name"
-          value={nameInput}
+          id="input-first-name"
+          type="text"
+          placeholder="First Name"
+          name="firstName"
+          value={firstName}
+          onChange={handleInputChange}
+        />
+        <label htmlFor="input-name">Name</label>
+        <input
+          id="input-last-name"
+          type="text"
+          placeholder="Last name"
+          name="lastName"
+          value={lastName}
           onChange={handleInputChange}
         />
         <label htmlFor="input-email">Email</label>
         <input
           id="input-email"
           type="email"
-          placeholder="Your Email"
+          placeholder="your@email.com"
           name="email"
           value={email}
           onChange={handleInputChange}
@@ -97,15 +78,14 @@ function SignUpView(props) {
           value={password}
           onChange={handleInputChange}
         />
-        {/* <label htmlFor="fileInput">Your Avatar</label>
-        <input
-          id="fileInput"
-          type="file"
-          name="avatar"
-          onChange={handleFileInputChange}
-          value={fileInputState}
-        /> */}
         <button>Sign Up</button>
+
+        <p>
+          Already have an account?{' '}
+          <Link to="/sign-in">
+            <span>Sign In</span>
+          </Link>
+        </p>
       </form>
     </div>
   );

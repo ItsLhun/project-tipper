@@ -1,11 +1,126 @@
+@import '../../styles/colors.scss';
+@import '../../index.scss';
+
 .UserProfileView {
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
+  margin-bottom: 3rem;
+  background-color: $profile-bg;
+  color: $profile-text;
 }
-.UserProfileView .UserProfileView__header {
+.UserProfileView_body_section {
+  box-sizing: border-box;
+}
+.UserProfileView .UserProfileView_header {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 1rem;
+  margin-top: 4rem;
+}
+
+$diameter: 5rem;
+$circle-font: $diameter / 2;
+
+.UserProfileView_avatar,
+.UserProfileView_avatar_text {
+  width: $diameter;
+  height: $diameter;
+  border-radius: 50%;
+  margin-bottom: 0.3rem;
+}
+
+.UserProfileView_avatar {
+  object-fit: cover;
+}
+
+.UserProfileView_avatar_text {
+  background-color: $profile-noavatar-bg;
+  color: $profile-noavatar-text;
+  font-size: $circle-font;
+  line-height: $diameter;
+  text-align: center;
+}
+.Profile-name {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+.UserProfileView_body {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+.sign-out-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: transparent;
+  border: 0;
+}
+
+.UserProfileView_body_section {
+  display: flex;
+  flex-direction: column;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  text-align: start;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.UserProfileView_body_section_title {
+  font-family: $font-bebas;
+  letter-spacing: 0.1rem;
+  font-weight: 400;
+  font-size: 1.2rem;
+  width: fit-content;
+}
+.UserProfileView_body_section_content {
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+
+.UserProfileView_transaction {
+  width: 100%;
+  display: flex;
+  flex: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.save-changes-btn {
+  border: 0px;
+  background-color: $profile-save-button-bg;
+  color: $profile-save-button-text;
+  padding: 0.5rem;
+  border-radius: 15px;
+  width: 8rem;
+  align-self: center;
+  margin-top: 1rem;
+}
+.UserProfileView_body_section_content_inputs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  //   justify-content: space-between;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  span {
+    align-content: center;
+  }
+  input {
+    // margin-left: 1rem;
+    border: 1px solid $profile-input-border;
+    background-color: $profile-input-bg;
+    color: $profile-input-color;
+
+    border-radius: 5px;
+    padding: 0.3rem 0.4rem;
+  }
 }

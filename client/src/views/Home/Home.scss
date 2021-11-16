@@ -1,0 +1,30 @@
+@import '../../styles/colors.scss';
+@import '../../index.scss';
+
+.HomeView {
+  $home-height: calc(100vh);
+  background-color: $home-bg;
+  color: $home-text;
+  min-height: $home-height;
+  padding-top: 5.5rem;
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  h2 {
+    margin-bottom: 1rem;
+    font-family: $font-merri;
+    text-align: start;
+    font-weight: 300;
+  }
+}
+.HomeView__section {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  min-height: 10rem;
+}
+.HomeView__genres {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
