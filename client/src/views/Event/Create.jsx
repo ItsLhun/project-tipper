@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { createEvent } from '../../services/event';
-import { GenreCheckbox } from '../../components/GenreCheckbox';
+import GenreCheckbox from '../../components/GenreCheckbox/GenreCheckbox';
 
 class EventCreate extends Component {
   constructor() {

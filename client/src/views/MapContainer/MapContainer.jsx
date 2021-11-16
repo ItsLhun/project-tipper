@@ -47,7 +47,7 @@ function MapContainerView() {
   const onUnmount = useCallback((map) => {
     setMap(null);
   }, []);
-
+  console.log(map);
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
