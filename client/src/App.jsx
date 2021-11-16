@@ -8,19 +8,13 @@ import SignInView from './views/SignIn/SignIn';
 import SignUpView from './views/SignUp/SignUp';
 import UserProfileView from './views/UserProfile/UserProfile';
 import HomeView from './views/Home/Home';
-<<<<<<< HEAD
 import EventDetail from './views/Event/Detail';
 import EventCreate from './views/Event/Create';
 import EventEdit from './views/Event/Edit';
 import EventList from './views/Event/List';
-import BottomNavbar from './BottomNavbar/BottomNavbar';
-=======
 import HomeUnauthView from './views/HomeUnauth/HomeUnauth';
-
-import EventView from './views/Event/Event';
 import UploadAvatarView from './views/UploadAvatar/UploadAvatar';
 import BottomNavbar from './components/BottomNavbar/BottomNavbar';
->>>>>>> 4655080fc685dc960123271f42b425e46b0ec6b0
 
 import './App.scss';
 

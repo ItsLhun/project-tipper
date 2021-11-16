@@ -1,7 +1,7 @@
 import React from 'react';
-import { createEvent } from './../services/event';
+import { createEvent } from '../../services/event';
 
-handleFormSubmission = (event) => {
+const handleFormSubmission = (event) => {
   event.preventDefault();
   const { title, location, description, genres, episodes } = this.state;
   createEvent({ title, description, episodes })
