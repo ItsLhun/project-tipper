@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// import { uploadAvatar } from '../../services/profile-settings';
+import { uploadAvatar } from '../../services/profile-settings';
 
 import Alert from '../../components/Alert';
 
@@ -32,44 +32,18 @@ function UploadAvatarView(props) {
   const handleSubmitFile = async (e) => {
     e.preventDefault();
     try {
-      //   const avatarUpload = await uploadAvatar({ avatar });
-      //   console.log(avatarUpload);
-      //   props.onAuthenticationChange(avatarUpload);
-      if (!selectedFile) return;
-      const reader = new FileReader();
-      reader.readAsDataURL(selectedFile);
-      reader.onloadend = () => {
-        uploadImage(reader.result);
-        console.log(reader.result);
-      };
-      reader.onerror = () => {
-        console.error('AHHHHHHHH!!');
-        setErrMsg('something went wrong!');
-      };
+      await uploadAvatar(selectedFile);
+      setFileInputState('');
+      setPreviewSource('');
+      setSuccessMsg('Image uploaded successfully');
     } catch (error) {
+      console.error(error);
+      setErrMsg('Something went wrong!');
       console.log('Upload error: ', error);
     }
     console.log(avatar);
   };
 
-  const uploadImage = async (base64EncodedImage) => {
-    try {
-      //   await uploadAvatar({
-      //     avatar: JSON.stringify({ data: base64EncodedImage })
-      //   });
-      await fetch('http://localhost:3010/profile/upload-avatar', {
-        method: 'POST',
-        body: JSON.stringify({ data: base64EncodedImage }),
-        headers: { 'Content-Type': 'application/json' }
-      });
-      setFileInputState('');
-      setPreviewSource('');
-      setSuccessMsg('Image uploaded successfully');
-    } catch (err) {
-      console.error(err);
-      setErrMsg('Something went wrong!');
-    }
-  };
   return (
     <div>
       <h1 className="title">Upload an Image</h1>
@@ -80,8 +54,8 @@ function UploadAvatarView(props) {
           id="fileInput"
           type="file"
           name="image"
-          onChange={handleFileInputChange}
           value={fileInputState}
+          onChange={handleFileInputChange}
           className="form-input"
         />
         <button className="btn" type="submit">
