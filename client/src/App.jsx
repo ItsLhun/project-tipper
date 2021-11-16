@@ -7,7 +7,10 @@ import SignInView from './views/SignIn/SignIn';
 import SignUpView from './views/SignUp/SignUp';
 import UserProfileView from './views/UserProfile/UserProfile';
 import HomeView from './views/Home/Home';
-import EventView from './views/Event/Event';
+import EventDetail from './views/Event/Detail';
+import EventCreate from './views/Event/Create';
+import EventEdit from './views/Event/Edit';
+import EventList from './views/Event/List';
 import BottomNavbar from './BottomNavbar/BottomNavbar';
 
 import './App.css';
@@ -50,8 +53,31 @@ function App() {
           exact
         />
         <Route
-          path="/event"
-          render={(props) => <EventView {...props} user={user} />}
+          path="/events"
+          render={(props) => <EventList {...props} user={user} />}
+          exact
+        />
+        <ProtectedRoute
+          path="/event/create"
+          authorized={!loaded || user}
+          redirect="/"
+          render={(props) => (
+            <EventCreate {...props} onAuthenticationChange={setUser} />
+          )}
+          exact
+        />
+        <ProtectedRoute
+          path="/event/edit/:id"
+          authorized={!loaded || user}
+          redirect="/"
+          render={(props) => (
+            <EventEdit {...props} onAuthenticationChange={setUser} />
+          )}
+          exact
+        />
+        <Route
+          path="/event/:id"
+          render={(props) => <EventDetail {...props} user={user} />}
           exact
         />
         <ProtectedRoute

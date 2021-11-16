@@ -22,6 +22,9 @@ const EventSchema = new mongoose.Schema(
     description: {
       type: String
     },
+    genre: {
+      type: [String]
+    },
     artist: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
