@@ -3,7 +3,6 @@ import { Route, Switch, Link } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import { signOut, loadAuthenticatedUser } from './services/auth';
 import { Image, Transformation, CloudinaryContext } from 'cloudinary-react';
-
 import SignInView from './views/SignIn/SignIn';
 import SignUpView from './views/SignUp/SignUp';
 import UserProfileView from './views/UserProfile/UserProfile';
@@ -15,7 +14,7 @@ import EventList from './views/Event/List';
 import HomeUnauthView from './views/HomeUnauth/HomeUnauth';
 import UploadAvatarView from './views/UploadAvatar/UploadAvatar';
 import BottomNavbar from './components/BottomNavbar/BottomNavbar';
-
+import MapContainerView from './views/MapContainer/MapContainer';
 import './App.scss';
 
 function App() {
@@ -120,6 +119,13 @@ function App() {
           )}
           exact
         />
+        <ProtectedRoute
+          path="/search"
+          authorized={!loaded || user}
+          redirect="/"
+          render={(props) => <MapContainerView />}
+          exact
+        />
         <Route
           path="/profile/upload-avatar"
           authorized={!loaded || user}
@@ -128,7 +134,7 @@ function App() {
         />
       </Switch>
       <BottomNavbar user={user} onSignOut={signOutHandler} />
-      <Link to="/profile/upload-avatar">
+      {/* <Link to="/profile/upload-avatar">
         {user && (
           <CloudinaryContext cloudName={process.env.REACT_APP_CLOUDINARY_NAME}>
             <Image publicId="user_blxuay.png">
@@ -136,7 +142,7 @@ function App() {
             </Image>
           </CloudinaryContext>
         )}
-      </Link>
+      </Link> */}
     </div>
   );
 }

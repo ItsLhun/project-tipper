@@ -36,7 +36,7 @@ function BottomNavbar(props) {
           <span>Home</span>
         </div>
       </Link>
-      <Link to="/" className="button">
+      <Link to="/search" className="button">
         <div className="button-wrapper">
           <span className="circle" />
           <span>Search</span>
