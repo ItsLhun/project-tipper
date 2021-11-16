@@ -6,6 +6,7 @@ import { Image, Transformation, CloudinaryContext } from 'cloudinary-react';
 import SignInView from './views/SignIn/SignIn';
 import SignUpView from './views/SignUp/SignUp';
 import UserProfileView from './views/UserProfile/UserProfile';
+import ArtistProfileView from './views/ArtistProfile/ArtistProfile';
 import HomeView from './views/Home/Home';
 import EventDetail from './views/Event/Detail';
 import EventCreate from './views/Event/Create';
@@ -128,9 +129,14 @@ function App() {
         />
         <Route
           path="/profile/upload-avatar"
-          authorized={!loaded || user}
+          authorized={loaded || user}
           redirect="/"
           render={(props) => <UploadAvatarView {...props} user={user} />}
+        />
+        <Route
+          path="/artist/mick"
+          render={(props) => <ArtistProfileView {...props} user={user} />}
+          exact
         />
       </Switch>
       <BottomNavbar user={user} onSignOut={signOutHandler} />

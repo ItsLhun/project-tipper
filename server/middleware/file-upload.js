@@ -1,15 +1,16 @@
-// const multer = require('multer');
-// const cloudinary = require('cloudinary');
-// const multerStorageCloudinary = require('multer-storage-cloudinary');
+const multer = require('multer');
+const cloudinary = require('cloudinary');
+const multerStorageCloudinary = require('multer-storage-cloudinary');
 
-// const storage = new multerStorageCloudinary.CloudinaryStorage({
-//   cloudinary: cloudinary.v2
-// });
+const storage = new multerStorageCloudinary.CloudinaryStorage({
+  cloudinary: cloudinary.v2
+});
 
-// const upload = multer({ storage });
+const upload = multer({ storage });
 
-// module.exports = upload;
+module.exports = upload;
 
+/*
 require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
@@ -19,3 +20,4 @@ cloudinary.config({
 });
 
 module.exports = { cloudinary };
+*/

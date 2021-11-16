@@ -1,0 +1,14 @@
+.star-rating {
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .on {
+    color: rgb(238, 238, 28);
+  }
+  .off {
+    color: #ccc;
+  }
+}
