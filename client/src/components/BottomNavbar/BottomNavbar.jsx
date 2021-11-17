@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import './BottomNavbar.scss';
 
 function BottomNavbar(props) {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  // const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [activeClass, setActiveClass] = useState('');
 
   const handlePathChange = () => {
-    console.log(currentPath);
     const { pathname } = window.location;
-    setCurrentPath(pathname);
+    // setCurrentPath(pathname);
 
     switch (pathname) {
       case '/':

@@ -1,0 +1,18 @@
+@import '../../index.scss';
+@import '../../styles/colors.scss';
+
+.SearchView {
+  position: relative;
+}
+
+.SearchBar {
+  position: absolute;
+  top: 2rem;
+  margin: 0 auto;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10rem;
+}

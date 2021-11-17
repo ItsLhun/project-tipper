@@ -2,20 +2,21 @@ a[href^="http://maps.google.com/maps"]
 {
   display: none !important;
 }
-a[href^="https://maps.google.com/maps"], a[title="Report problems with Street View imagery to Google"]
+a[href^="https://maps.google.com/maps"], a[title="Report problems with Street View imagery to Google"], button[aria-label='Toggle fullscreen view'], .gm-svpc
 {
   display: none !important;
 }
 
 .gmnoprint a,
 .gmnoprint span,
-.gm-style-cc {
+.gm-style-cc,
+.gmnoprint.gm-style-mtc {
   display: none;
 }
 .gmnoprint div {
   background: none !important;
 }
 // moving the map zoom controls
-.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
+.gmnoprint.gm-bundled-control {
   bottom: 200px !important;
 }

@@ -15,7 +15,7 @@ import EventList from './views/Event/List';
 import HomeUnauthView from './views/HomeUnauth/HomeUnauth';
 import UploadAvatarView from './views/UploadAvatar/UploadAvatar';
 import BottomNavbar from './components/BottomNavbar/BottomNavbar';
-import MapContainerView from './views/MapContainer/MapContainer';
+import SearchView from './views/Search/Search';
 import './App.scss';
 
 function App() {
@@ -124,7 +124,7 @@ function App() {
           path="/search"
           authorized={!loaded || user}
           redirect="/"
-          render={(props) => <MapContainerView />}
+          render={(props) => <SearchView />}
           exact
         />
         <Route
