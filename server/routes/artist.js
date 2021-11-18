@@ -7,9 +7,10 @@ const upload = require('../middleware/file-upload');
 const routeGuardMiddleware = require('./../middleware/route-guard');
 
 router.get('/list', async (req, res, next) => {
-  console.log(req.query.limit);
   try {
-    const artists = await Artist.find({}).limit(req.query.limit);
+    const artists = await Artist.find({ role: 'artist' }).limit(
+      req.query.limit
+    );
     res.json({ artists });
   } catch (error) {
     next(error);

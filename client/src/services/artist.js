@@ -12,8 +12,9 @@ export const uploadArtistBackground = (image) => {
     .then((response) => response.data.backgroundUpdate);
 };
 
+// For now this will only get random artists limited to the specified quantity
 export const getArtistList = (body) => {
   return api
-    .get(`/artist/list`, { params: { limit: body.limit } })
+    .get(`/artist/list`, { params: { limit: body?.limit || 0 } })
     .then((response) => response.data.artists);
 };

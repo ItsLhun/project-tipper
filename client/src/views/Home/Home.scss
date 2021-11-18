@@ -29,3 +29,10 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
+.featured-list {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}

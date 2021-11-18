@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './Home.scss';
 import GenreBlob from '../../components/GenreBlob/GenreBlob';
 import MapOverlay from '../../components/MapOverlay/MapOverlay';
+import FeaturedMini from '../../components/FeaturedMini/FeaturedMini';
 
 import { getArtistList } from '../../services/artist';
 
@@ -17,6 +18,13 @@ function HomeView() {
     'country'
   ]);
   const [showMap, setShowMap] = React.useState(false);
+  const [featuredArtists, setFeaturedArtists] = React.useState([]);
+
+  React.useEffect(() => {
+    getArtistList().then((artists) => {
+      setFeaturedArtists(artists);
+    });
+  }, []);
 
   const handleMapToggle = () => {
     setShowMap(!showMap);
@@ -25,7 +33,7 @@ function HomeView() {
   const getArtists = async () => {
     try {
       const response = await getArtistList({});
-      console.log(response.data);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -40,6 +48,11 @@ function HomeView() {
           </section>
           <section className="HomeView__section">
             <h2>Featured Artists</h2>
+            <ul className="featured-list">
+              {featuredArtists?.map((artist) => (
+                <FeaturedMini key={artist.firstName} artist={artist} />
+              ))}
+            </ul>
           </section>
           <section className="HomeView__section">
             <h2>Genres</h2>
