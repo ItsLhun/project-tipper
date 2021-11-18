@@ -1,13 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
-// import MapPin from '../../components/MapPin/MapPin';
+import img from '../MapContainer/Vector.svg';
 
-import img from './Vector.svg';
+import '../MapContainer/MapContainer.scss';
 
-import './MapContainer.scss';
-
-function MapContainerView() {
+function MapContainerView(props) {
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API
@@ -32,8 +30,8 @@ function MapContainerView() {
 
   const [map, setMap] = useState(null);
   const [centerMap, setCenterMap] = useState({
-    lat: 40.745,
-    lng: -3.523
+    lat: 0,
+    lng: 0
   });
 
   const onLoad = useCallback((map) => {
@@ -50,24 +48,16 @@ function MapContainerView() {
     });
   }, []);
 
-  const handleMapClick = (event) => {
-    console.log(event.latLng.lat());
-    console.log(event.latLng.lng());
-
-    let pos = navigator.geolocation.getCurrentPosition((position) => {
-      const pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      if (pos) {
-        console.log(pos);
-      }
-    });
-  };
-
   const onUnmount = useCallback(() => {
     setMap(null);
   }, []);
+
+  const handleConfirmation = () => {
+    let lat = map?.getCenter().lat();
+    let lng = map?.getCenter().lng();
+    console.log(lat, lng);
+    // props.onConfirmation();
+  };
 
   if (loadError) {
     return <div>Map cannot be loaded right now.</div>;
@@ -76,7 +66,8 @@ function MapContainerView() {
     <GoogleMap
       mapContainerStyle={{
         width: '100%',
-        height: '100vh'
+        height: '100%',
+        position: 'absolute'
       }}
       center={centerMap}
       zoom={14}
@@ -86,14 +77,20 @@ function MapContainerView() {
       // disableDefaultUI={true}
       defaultCenter={centerMap}
       options={setOptions(map)}
-      onClick={handleMapClick}
     >
       {/* Child components, such as markers, info windows, etc. */}
-      <Marker icon={img} position={centerMap} />
-      <Marker
-        icon={img}
-        position={{ lat: 40.42402331478584, lng: -3.7177830758856056 }}
-      />
+      <img src={img} alt="Pin" className="overlay-pin" />
+      <div className="buttons-container">
+        <button
+          className="confirm-btn overlay-btn"
+          onClick={handleConfirmation}
+        >
+          Confirm Location
+        </button>
+        <button className="exit-btn overlay-btn" onClick={props.onClose}>
+          Exit
+        </button>
+      </div>
     </GoogleMap>
   ) : (
     <>Loading view?...</>
