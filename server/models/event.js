@@ -2,19 +2,30 @@
 
 const mongoose = require('mongoose');
 
+const pointSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ['Point'],
+    required: true
+  },
+  coordinates: {
+    type: [Number],
+    required: true
+  }
+});
+
 const EventSchema = new mongoose.Schema(
   {
     title: {
       type: String,
       trim: true
     },
-    location: [
-      {
-        city: { type: String, trim: true },
-        state: { type: String, trim: true },
-        country: { type: String, trim: true }
-      }
-    ],
+    location: {
+      type: pointSchema,
+      default: {
+        type: 'Point',
+        coordinates: [-3.525, 40.745]
+    },
     date: {
       type: Date,
       default: Date.now
