@@ -3,8 +3,10 @@ import { Route, Switch, Link } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import { signOut, loadAuthenticatedUser } from './services/auth';
 import { Image, Transformation, CloudinaryContext } from 'cloudinary-react';
+import SplitUsersView from './views/SplitUsers/SplitUsers';
 import SignInView from './views/SignIn/SignIn';
 import SignUpView from './views/SignUp/SignUp';
+import ArtistSignUpView from './views/ArtistSignUp/ArtistSignUp';
 import UserProfileView from './views/UserProfile/UserProfile';
 import ArtistProfileView from './views/ArtistProfile/ArtistProfile';
 import HomeView from './views/Home/Home';
@@ -90,11 +92,29 @@ function App() {
           exact
         />
         <ProtectedRoute
+          path="/split"
+          authorized={!loaded || !user}
+          redirect="/"
+          render={(props) => (
+            <SplitUsersView {...props} onAuthenticationChange={setUser} />
+          )}
+          exact
+        />
+        <ProtectedRoute
           path="/sign-up"
           authorized={!loaded || !user}
           redirect="/"
           render={(props) => (
             <SignUpView {...props} onAuthenticationChange={setUser} />
+          )}
+          exact
+        />
+        <ProtectedRoute
+          path="/artist-sign-up"
+          authorized={!loaded || !user}
+          redirect="/"
+          render={(props) => (
+            <ArtistSignUpView {...props} onAuthenticationChange={setUser} />
           )}
           exact
         />
@@ -120,13 +140,16 @@ function App() {
           )}
           exact
         />
+        <Route path="/search" render={(props) => <SearchView {...props} />} />
+        {/*
+        Removing protection for now 
         <ProtectedRoute
           path="/search"
           authorized={!loaded || user}
           redirect="/"
           render={(props) => <SearchView />}
           exact
-        />
+        /> */}
         <Route
           path="/profile/upload-avatar"
           authorized={loaded || user}

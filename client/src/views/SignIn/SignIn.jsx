@@ -56,7 +56,7 @@ function SignInView(props) {
       </form>
       <p>
         No account yet?{' '}
-        <Link to="/sign-up">
+        <Link to="/split">
           <span>Sign Up</span>
         </Link>
       </p>

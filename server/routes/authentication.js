@@ -10,17 +10,27 @@ const router = new Router();
 
 router.post('/sign-up', (req, res, next) => {
   console.log('signUp');
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, role } = req.body;
   console.log(req.body);
   bcryptjs
     .hash(password, 10)
     .then((hash) => {
-      return User.create({
-        firstName,
-        lastName,
-        email,
-        passwordHashAndSalt: hash
-      });
+      if (!role) {
+        return User.create({
+          firstName,
+          lastName,
+          email,
+          passwordHashAndSalt: hash
+        });
+      } else {
+        return User.create({
+          firstName,
+          lastName,
+          email,
+          passwordHashAndSalt: hash,
+          role
+        });
+      }
     })
     .then((user) => {
       req.session.userId = user._id;

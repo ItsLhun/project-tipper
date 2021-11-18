@@ -29,12 +29,12 @@ const schema = new mongoose.Schema({
     type: String,
     default: ''
   },
-  // role: {
-  //   type: String,
-  //   enum: ['defaultUser', 'artist'],
-  //   default: 'defaultUser',
-  //   required: true
-  // },
+  role: {
+    type: String,
+    enum: ['defaultUser', 'artist'],
+    default: 'defaultUser',
+    required: true
+  },
   bio: {
     type: String,
     required: false,
