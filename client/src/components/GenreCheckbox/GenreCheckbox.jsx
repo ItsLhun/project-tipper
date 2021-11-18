@@ -5,6 +5,7 @@ const GenreCheckbox = ({ options, selected, onSelectedChange }) => {
   const handleCheckboxChange = (event) => {
     const { checked, name } = event.target;
     if (checked) {
+      // console.log(...selected);
       onSelectedChange([...selected, name]);
     } else {
       onSelectedChange(selected.filter((item) => item !== name));
@@ -14,13 +15,13 @@ const GenreCheckbox = ({ options, selected, onSelectedChange }) => {
     <>
       {options.map(({ value, label }) => (
         <div key={value}>
-          <label>{label}</label>
           <input
             type="checkbox"
             checked={selected?.includes(value)}
             name={value}
             onChange={handleCheckboxChange}
           />
+          <label>{label}</label>
         </div>
       ))}
     </>
