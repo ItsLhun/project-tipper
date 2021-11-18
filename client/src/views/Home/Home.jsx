@@ -4,6 +4,8 @@ import './Home.scss';
 import GenreBlob from '../../components/GenreBlob/GenreBlob';
 import MapOverlay from '../../components/MapOverlay/MapOverlay';
 
+import { getArtistList } from '../../services/artist';
+
 function HomeView() {
   // Genres can be set dynamically or from a DB.
   const [genres] = useState([
@@ -18,6 +20,15 @@ function HomeView() {
 
   const handleMapToggle = () => {
     setShowMap(!showMap);
+  };
+
+  const getArtists = async () => {
+    try {
+      const response = await getArtistList({});
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -39,6 +50,7 @@ function HomeView() {
             </ul>
           </section>
           <button onClick={handleMapToggle}>Select Point</button>
+          <button onClick={getArtists}>Get Artists</button>
         </div>
       )) || <MapOverlay onClose={handleMapToggle} />}
     </div>

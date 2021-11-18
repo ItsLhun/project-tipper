@@ -92,7 +92,7 @@ function MapContainerView() {
       <Marker icon={img} position={centerMap} />
       <Marker
         icon={img}
-        position={{ lat: 40.42402331478584, lng: -3.7177830758856056 }}
+        position={{ lat: 40.425668582770484, lng: -3.712250706743283 }}
       />
     </GoogleMap>
   ) : (
