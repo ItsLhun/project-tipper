@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import { signOut, loadAuthenticatedUser } from './services/auth';
-import { Image, Transformation, CloudinaryContext } from 'cloudinary-react';
-import SplitUsersView from './views/SplitUsers/SplitUsers';
 import SignInView from './views/SignIn/SignIn';
+import SplitUsersView from './views/SplitUsers/SplitUsers';
 import SignUpView from './views/SignUp/SignUp';
 import ArtistSignUpView from './views/ArtistSignUp/ArtistSignUp';
 import UserProfileView from './views/UserProfile/UserProfile';
@@ -18,6 +17,7 @@ import HomeUnauthView from './views/HomeUnauth/HomeUnauth';
 import UploadAvatarView from './views/UploadAvatar/UploadAvatar';
 import BottomNavbar from './components/BottomNavbar/BottomNavbar';
 import SearchView from './views/Search/Search';
+import UploadArtistBackgroundView from './views/UploadArtistBackground/UploadArtistBackground';
 import './App.scss';
 
 function App() {
@@ -166,22 +166,20 @@ function App() {
           redirect="/"
           render={(props) => <UploadAvatarView {...props} user={user} />}
         />
+        <ProtectedRoute
+          path="/artist/upload-background"
+          authorized={!loaded || user}
+          redirect="/"
+          render={(props) => <UploadArtistBackgroundView />}
+          exact
+        />
         <Route
-          path="/artist/mick"
+          path="/artist/:id"
           render={(props) => <ArtistProfileView {...props} user={user} />}
           exact
         />
       </Switch>
       <BottomNavbar user={user} onSignOut={signOutHandler} />
-      <Link to="/profile/upload-avatar">
-        {user && (
-          <CloudinaryContext cloudName={process.env.REACT_APP_CLOUDINARY_NAME}>
-            <Image publicId="user_blxuay.png">
-              <Transformation width="20" crop="scale" />
-            </Image>
-          </CloudinaryContext>
-        )}
-      </Link>
     </div>
   );
 }

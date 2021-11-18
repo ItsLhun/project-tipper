@@ -1,35 +1,23 @@
-import React, { useState } from 'react';
-import { updateAccountSettings } from '../../services/profile-settings';
+import React, { useState, useEffect } from 'react';
+import { loadArtist } from '../../services/artist';
+import { Link } from 'react-router-dom';
 import StarRating from './../../components/StarRating/StarRating';
 
-function ArtistProfileView(props) {
-  const [email, setEmail] = useState(props.user?.email || '');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+import './ArtistProfile.scss';
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+function ArtistProfileView(props) {
+  const [artist, setArtist] = useState('');
+
+  useEffect(() => {
+    getArtist();
+  }, []);
+
+  const getArtist = async () => {
     try {
-      await updateAccountSettings({ email, password, confirmPassword });
+      const artist = await loadArtist(this.props.match.params.id);
+      setArtist({ artist });
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    switch (name) {
-      case 'email':
-        setEmail(value);
-        break;
-      case 'password':
-        setPassword(value);
-        break;
-      case 'confirmPassword':
-        setConfirmPassword(value);
-        break;
-      default:
-        break;
     }
   };
 
@@ -46,35 +34,74 @@ function ArtistProfileView(props) {
         </svg>
       </button>
       <div className={'UserProfileView_header'}>
-        {/* <Link to='artist/upload-background'> */}
-        {/* {false props.user.backgroundImg ? ( */}
-        {/* <img src={props.user.backgroundImg} />
-        ) : ( */}
-        <img
-          src={'https://source.unsplash.com/400x500/?musician'}
-          alt="random musician"
-        />
-        {/* )} */}
-        {/* </Link> */}
-        <h3 className="Profile-name">
-          {`${props.user?.firstName} ${props.user?.lastName}`}
-        </h3>
-        {false /* props.user?.avatarUrl  */ ? (
-          <img
-            className={'UserProfileView_avatar'}
-            src={'https://source.unsplash.com/random'}
-            // src={props.user?.avatarUrl}
-            alt={'avatar'}
-          />
+        {props.user._id === artist._id ? (
+          <Link to="/artist/upload-background">
+            {artist.backgroundImg ? (
+              <img src={artist.backgroundImg} alt="Artist pic" />
+            ) : (
+              <img
+                src={'https://source.unsplash.com/400x500/?musician'}
+                alt="random musician"
+              />
+            )}
+          </Link>
         ) : (
-          <div className={'UserProfileView_avatar_text'}>
-            <span className="Profile-letters">
-              {props.user?.firstName[0]}
-              {props.user?.lastName[0]}
-            </span>
+          <div>
+            {artist.backgroundImg ? (
+              <img src={artist.backgroundImg} alt="Artist pic" />
+            ) : (
+              <img
+                src={'https://source.unsplash.com/400x500/?musician'}
+                alt="random musician"
+              />
+            )}
           </div>
         )}
-        {/* {props.user.bio && <span>{props.user.bio}</span>} */}
+
+        <h3 className="Profile-name">
+          {`${artist.firstName} ${artist.lastName}`}
+        </h3>
+        {props.user._id === artist._id ? (
+          <Link to="/profile/upload-avatar">
+            {artist.avatarUrl ? (
+              <img
+                className={'UserProfileView_avatar'}
+                // src={'https://source.unsplash.com/random'}
+                src={artist.avatarUrl}
+                alt={'avatar'}
+              />
+            ) : (
+              <div className={'UserProfileView_avatar_text'}>
+                <span className="Profile-letters">
+                  {/* {artist.firstName[0]}
+              {artist.lastName[0]} */}
+                  MJ
+                </span>
+              </div>
+            )}
+          </Link>
+        ) : (
+          <div>
+            {artist.avatarUrl ? (
+              <img
+                className={'UserProfileView_avatar'}
+                // src={'https://source.unsplash.com/random'}
+                src={artist.avatarUrl}
+                alt={'avatar'}
+              />
+            ) : (
+              <div className={'UserProfileView_avatar_text'}>
+                <span className="Profile-letters">
+                  {/* {artist.firstName[0]}
+              {artist.lastName[0]} */}
+                  MJ
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* {artist.bio && <span>{artist.bio}</span>} */}
         <p>This is my bio.</p>
         <StarRating />
         <span>4.3 (200)</span>
@@ -90,49 +117,19 @@ function ArtistProfileView(props) {
       </div>
 
       <div className={'UserProfileView_body'}>
-        <div className={'UserProfileView_body_section'}></div>
-
-        {/* If it's own artist's account, let them edit their profile */}
-        <form className="UserProfileView_body_section" onSubmit={handleSubmit}>
-          <h4 className="UserProfileView_body_section_title">ACCOUNT</h4>
-          <div className="UserProfileView_body_section_content">
-            <div className="UserProfileView_body_section_content_inputs">
-              <span>Email:</span>
-              <input
-                //   This change is needed to prevent error of setting state to undefined
-                value={props.user?.email || email}
-                type="text"
-                id="email-input"
-                name="email"
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="UserProfileView_body_section_content_inputs">
-              <span>Password:</span>
-              <input
-                value={password}
-                type="password"
-                id="password-input"
-                name="password"
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="UserProfileView_body_section_content_inputs">
-              <span>Confirm Password:</span>
-              <input
-                value={confirmPassword}
-                type="password"
-                id="password-confirm-input"
-                name="confirmPassword"
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-          </div>
-          <button className="save-changes-btn">Save Changes</button>
-        </form>
+        <div className={'UserProfileView_body_section'}>
+          <h3>Upcoming Events</h3>
+          {/* <EventDetailView /> */}
+          <p>
+            Location:
+            <br />
+            Time:
+            <br />
+            Date:
+            <br />
+            Price: free
+          </p>
+        </div>
       </div>
     </div>
   );
