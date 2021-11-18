@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TransactionListItem from '../../components/Transactions/TransactionListItem';
-
+import { Link } from 'react-router-dom';
 import { updateAccountSettings } from '../../services/profile-settings';
 
 import './UserProfile.scss';
@@ -57,21 +57,23 @@ function UserProfileView(props) {
         </svg>
       </button>
       <div className={'UserProfileView_header'}>
-        {false /* props.user?.avatarUrl  */ ? (
-          <img
-            className={'UserProfileView_avatar'}
-            src={'https://source.unsplash.com/random'}
-            // src={props.user?.avatarUrl}
-            alt={'avatar'}
-          />
-        ) : (
-          <div className={'UserProfileView_avatar_text'}>
-            <span className="Profile-letters">
-              {props.user?.firstName[0]}
-              {props.user?.lastName[0]}
-            </span>
-          </div>
-        )}
+        <Link to="profile/upload-avatar">
+          {props.user?.avatarUrl ? (
+            <img
+              className={'UserProfileView_avatar'}
+              // src={'https://source.unsplash.com/random'}
+              src={props.user?.avatarUrl}
+              alt={'avatar'}
+            />
+          ) : (
+            <div className={'UserProfileView_avatar_text'}>
+              <span className="Profile-letters">
+                {props.user?.firstName[0]}
+                {props.user?.lastName[0]}
+              </span>
+            </div>
+          )}
+        </Link>
         <h3 className="Profile-name">
           {`${props.user?.firstName} ${props.user?.lastName}`}
         </h3>
