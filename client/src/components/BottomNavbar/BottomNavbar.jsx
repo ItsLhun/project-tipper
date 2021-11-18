@@ -15,7 +15,12 @@ function BottomNavbar(props) {
       case '/':
         return setActiveClass('active-home');
       case '/profile':
-        return setActiveClass('active-profile');
+        if (props.user?.role === 'artist') {
+          return setActiveClass('active-profile-artist');
+        } else {
+          return setActiveClass('active-profile');
+        }
+
       case '/search':
         return setActiveClass('active-search');
       default:
@@ -47,14 +52,14 @@ function BottomNavbar(props) {
           <span>{props.user ? 'Profile' : 'Sign In'}</span>
         </div>
       </Link>
-      {/* {props.user?.role === 'artist' && (
-        <Link to="/" className="button">
+      {props.user?.role === 'artist' && (
+        <Link to="/event/create" className="button">
           <div className="button-wrapper">
             <span className="circle circle-live" />
             Go Live
           </div>
         </Link>
-      )} */}
+      )}
     </div>
   );
 }

@@ -1,17 +1,13 @@
 import React from 'react';
 
 import MapContainer from '../../components/MapContainer/MapContainer';
-
+import MapSearch from '../../components/MapSearch/MapSearch';
 import './Search.scss';
 
 function SearchView() {
   return (
     <div className="SearchView">
-      <input
-        type="text"
-        placeholder="Search for a location"
-        className="SearchBar"
-      />
+      <MapSearch />
       <MapContainer />
     </div>
   );

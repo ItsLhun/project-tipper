@@ -131,13 +131,23 @@ function App() {
           path="/profile"
           authorized={!loaded || user}
           redirect="/"
-          render={(props) => (
-            <UserProfileView
-              {...props}
-              user={user}
-              onSignOut={signOutHandler}
-            />
-          )}
+          render={(props) => {
+            return (
+              (user?.role === 'defaultUser' && (
+                <UserProfileView
+                  {...props}
+                  user={user}
+                  onSignOut={signOutHandler}
+                />
+              )) || (
+                <ArtistProfileView
+                  {...props}
+                  user={user}
+                  onSignOut={signOutHandler}
+                />
+              )
+            );
+          }}
           exact
         />
         <Route path="/search" render={(props) => <SearchView {...props} />} />

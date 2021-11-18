@@ -21,6 +21,10 @@
   background-color: transparent;
   backdrop-filter: blur(2px);
 }
+.active-profile-artist {
+  color: $profile-text;
+  background-color: #feb346;
+}
 .active-home {
   background-color: $home-bg;
   color: $home-text;

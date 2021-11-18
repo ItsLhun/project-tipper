@@ -17,7 +17,7 @@ const GenreCheckbox = ({ options, selected, onSelectedChange }) => {
           <label>{label}</label>
           <input
             type="checkbox"
-            checked={selected.includes(value)}
+            checked={selected?.includes(value)}
             name={value}
             onChange={handleCheckboxChange}
           />
