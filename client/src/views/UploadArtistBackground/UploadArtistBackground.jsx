@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 import { uploadArtistBackground } from '../../services/artist';
 
@@ -11,6 +12,16 @@ function UploadArtistBackgroundView(props) {
   const [successMsg, setSuccessMsg] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [background, setBackground] = useState('');
+  const [redirect, setRedirect] = useState(false);
+  const isInitialMount = useRef(true);
+
+  // useEffect(() => {
+  //   if (isInitialMount.current) {
+  //     isInitialMount.current = false;
+  //   } else {
+  //     props.history.push(`/artist/${props.user._id}`);
+  //   }
+  // }, [redirect]);
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -36,6 +47,9 @@ function UploadArtistBackgroundView(props) {
       setFileInputState('');
       setPreviewSource('');
       setSuccessMsg('Image uploaded successfully');
+      setTimeout(() => {
+        setRedirect(true);
+      }, 1000);
     } catch (error) {
       console.error(error);
       setErrMsg('Something went wrong!');
@@ -64,6 +78,11 @@ function UploadArtistBackgroundView(props) {
       </form>
       {previewSource && (
         <img src={previewSource} alt="chosen" style={{ height: '100px' }} />
+      )}
+      {redirect && (
+        <Link to={`/artist/${props.user._id}`}>
+          <button>Take me back to my profile</button>
+        </Link>
       )}
     </div>
   );

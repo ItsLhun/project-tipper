@@ -21,6 +21,7 @@ router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
   try {
     const artist = await Artist.findById(id);
+    console.log(artist);
     res.json({ artist });
   } catch (error) {
     next(error);
@@ -29,7 +30,6 @@ router.get('/:id', async (req, res, next) => {
 
 router.post(
   '/upload-background',
-  routeGuardMiddleware,
   upload.single('avatar'),
   async (req, res, next) => {
     const url = req.file.path;

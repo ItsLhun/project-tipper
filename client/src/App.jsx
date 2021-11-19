@@ -133,19 +133,19 @@ function App() {
           redirect="/"
           render={(props) => {
             return (
-              (user?.role === 'defaultUser' && (
-                <UserProfileView
-                  {...props}
-                  user={user}
-                  onSignOut={signOutHandler}
-                />
-              )) || (
-                <ArtistProfileView
-                  {...props}
-                  user={user}
-                  onSignOut={signOutHandler}
-                />
-              )
+              // (user?.role === 'defaultUser' && (
+              <UserProfileView
+                {...props}
+                user={user}
+                onSignOut={signOutHandler}
+              />
+              // )) || (
+              //       <ArtistProfileView
+              //         {...props}
+              //         user={user}
+              //         onSignOut={signOutHandler}
+              //       />
+              //     )
             );
           }}
           exact
@@ -170,12 +170,23 @@ function App() {
           path="/artist/upload-background"
           authorized={!loaded || user}
           redirect="/"
-          render={(props) => <UploadArtistBackgroundView />}
+          render={(props) => (
+            <UploadArtistBackgroundView {...props} user={user} />
+          )}
           exact
         />
-        <Route
+
+        <ProtectedRoute
           path="/artist/:id"
-          render={(props) => <ArtistProfileView {...props} user={user} />}
+          authorized={!loaded || user}
+          redirect="/"
+          render={(props) => (
+            <ArtistProfileView
+              {...props}
+              user={user}
+              onSignOut={signOutHandler}
+            />
+          )}
           exact
         />
       </Switch>

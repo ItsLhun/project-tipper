@@ -1,7 +1,7 @@
 import api from './api';
 
 export const loadArtist = (id) => {
-  api.get(`/artist/${id}`).then((response) => response.data.artist);
+  return api.get(`/artist/${id}`).then((response) => response.data.artist);
 };
 
 export const uploadArtistBackground = (image) => {

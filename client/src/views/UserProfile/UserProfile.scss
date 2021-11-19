@@ -1,6 +1,13 @@
 @import '../../styles/colors.scss';
 @import '../../index.scss';
 
+.avatar-btn {
+  position: absolute;
+  margin-top: -560px;
+  width: 33px;
+  height: 33px;
+}
+
 .UserProfileView {
   display: flex;
   flex-direction: column;

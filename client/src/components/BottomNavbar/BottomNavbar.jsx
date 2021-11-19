@@ -46,7 +46,14 @@ function BottomNavbar(props) {
           <span>Search</span>
         </div>
       </Link>
-      <Link to={(props.user && '/profile') || '/sign-in'} className="button">
+      <Link
+        to={
+          (props.user?.role === 'defaultUser' && '/profile') ||
+          (props.user?.role === 'artist' && `/artist/${props.user._id}`) ||
+          '/sign-in'
+        }
+        className="button"
+      >
         <div className="button-wrapper">
           <span className="circle" />
           <span>{props.user ? 'Profile' : 'Sign In'}</span>
