@@ -24,3 +24,15 @@ export const followArtist = (id) => {
     .post(`/artist/${id}/follow`, id)
     .then((response) => response.data.follow);
 };
+
+export const searchArtist = (body) => {
+  return api
+    .get(`/artist/search`, {
+      params: {
+        q: body?.q || '',
+        limit: body?.limit || 0,
+        genres: body?.genres || []
+      }
+    })
+    .then((response) => response.data.artists);
+};

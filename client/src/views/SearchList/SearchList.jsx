@@ -4,6 +4,8 @@ import closeIcon from './close-icon.svg';
 import GenreCheckbox from '../../components/GenreCheckbox/GenreCheckbox';
 import './SearchList.scss';
 
+import { searchArtist } from '../../services/artist';
+
 const queryString = require('query-string');
 
 function SearchListView(props) {
@@ -18,7 +20,6 @@ function SearchListView(props) {
 
   useEffect(() => {
     const parsed = queryString.parse(props.location.search);
-    console.log(parsed);
     // check if genre is array
     if (parsed.genre && Array.isArray(parsed.genre)) {
       setGenres([...genres, ...parsed.genre]);
@@ -26,7 +27,18 @@ function SearchListView(props) {
       setGenres([...genres, parsed.genre]);
     }
   }, []);
-  console.log(genres);
+
+  useEffect(() => {
+    if (search) {
+      searchArtist({ q: search, genres: genres, limit: 10 })
+        .then((res) => {
+          setSearchList(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [search, genres]);
 
   return (
     <div className="SearchListView">
@@ -42,6 +54,7 @@ function SearchListView(props) {
           placeholder="Search..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          autoComplete="off"
         />
         <img
           onClick={clearSearch}
@@ -100,13 +113,9 @@ function SearchListView(props) {
         </li>
       </ul>
       <div className="search-list">
-        <SearchArtistMini />
-        <SearchArtistMini />
-        <SearchArtistMini />
-        <SearchArtistMini />
-        <SearchArtistMini />
-        <SearchArtistMini />
-        <SearchArtistMini />
+        {searchList.map((artist) => (
+          <SearchArtistMini key={artist._id} artist={artist} />
+        ))}
       </div>
     </div>
   );

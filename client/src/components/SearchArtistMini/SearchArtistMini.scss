@@ -27,8 +27,11 @@ $diameter: 3.5rem;
 
 .SearchArtistMini_avatar {
   width: $diameter;
-
   height: $diameter;
+  max-width: $diameter;
+  max-height: $diameter;
+  min-width: $diameter;
+  min-height: $diameter;
 
   object-fit: cover;
   border-radius: 50%;

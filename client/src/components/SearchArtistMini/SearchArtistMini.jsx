@@ -12,15 +12,13 @@ function SearchArtistMini(props) {
       >
         <img
           className="SearchArtistMini_avatar"
-          src={
-            props.artist
-              ? props.artist.avatar
-              : 'https://source.unsplash.com/random'
-          }
+          src={props.artist?.avatarUrl || 'https://source.unsplash.com/random'}
           alt="artist"
         />
         <div className="SearchArtistMini_info">
-          <span>Jazz Man</span>
+          <span>
+            {props.artist?.firstName} {props.artist?.lastName}
+          </span>
           <span>XXXXX</span>
         </div>
       </Link>

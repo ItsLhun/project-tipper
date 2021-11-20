@@ -18,6 +18,29 @@ router.get('/list', async (req, res, next) => {
   }
 });
 
+router.get('/search', async (req, res, next) => {
+  const query = req.query.q;
+  const limit = req.query.limit;
+  const genres = req.query.genres;
+  try {
+    // use text mongooose to search for text
+    console.log(genres);
+    const artists = await Artist.find(
+      {
+        $or: [
+          { firstName: { $regex: query, $options: 'i' } },
+          { lastName: { $regex: query, $options: 'i' } }
+        ],
+        role: 'artist'
+      },
+      { firstName: 1, lastName: 1, _id: 1, avatarUrl: 1, bio: 1, genre: 1 }
+    ).limit(limit);
+    res.json({ artists });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/:id/follow', routeGuardMiddleware, async (req, res, next) => {
   const { id } = req.params;
   let follow;
