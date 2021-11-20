@@ -25,15 +25,6 @@ function HomeView() {
     });
   }, []);
 
-  const getArtists = async () => {
-    try {
-      const response = await getArtistList({});
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div>
       <div className="HomeView">
@@ -57,7 +48,6 @@ function HomeView() {
             ))}
           </ul>
         </section>
-        <button onClick={getArtists}>Get Artists</button>
       </div>
     </div>
   );
