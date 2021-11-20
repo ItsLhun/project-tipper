@@ -3,6 +3,8 @@ import { loadArtist } from '../../services/artist';
 import StarRating from './../../components/StarRating/StarRating';
 import { updateAccountSettings } from '../../services/profile-settings';
 import { Link } from 'react-router-dom';
+import { followArtist } from '../../services/artist';
+import GenreCheckbox from '../../components/GenreCheckbox/GenreCheckbox';
 
 import './ArtistProfile.scss';
 
@@ -10,9 +12,12 @@ function ArtistProfileView(props) {
   const [artist, setArtist] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [editSettings, setEditSettings] = useState(false);
-  const [email, setEmail] = useState(props.user?.email || '');
+  const [email, setEmail] = useState(props.user?.email);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [bio, setBio] = useState('');
+  const [instruments, setInstruments] = useState('');
+  const [genres, setGenres] = useState(['rock', 'blues']);
 
   useEffect(() => {
     getArtist();
@@ -22,7 +27,7 @@ function ArtistProfileView(props) {
   const getArtist = async () => {
     try {
       const artist = await loadArtist(props.match.params.id);
-      setArtist({ artist });
+      setArtist({ ...artist });
       console.log(artist);
       console.log(artist._id);
       console.log(props.user);
@@ -46,10 +51,23 @@ function ArtistProfileView(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateAccountSettings({ email, password, confirmPassword });
+      await updateAccountSettings({
+        email,
+        password,
+        confirmPassword,
+        bio,
+        genres,
+        instruments
+      });
+      changeSettings();
+      console.log(artist);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleGenreSelectionChange = (genres) => {
+    setGenres({ genres });
   };
 
   const handleInputChange = (e) => {
@@ -64,8 +82,26 @@ function ArtistProfileView(props) {
       case 'confirmPassword':
         setConfirmPassword(value);
         break;
+      case 'bio':
+        setBio(value);
+        break;
+      case 'instruments':
+        setInstruments(value);
+        break;
+      // case 'genres':
+      //   setGenres(value);
+      //   break;
       default:
         break;
+    }
+  };
+
+  const followNow = async () => {
+    try {
+      const response = await followArtist(artist._id);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -95,7 +131,6 @@ function ArtistProfileView(props) {
                 id="password-input"
                 name="password"
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="UserProfileView_body_section_content_inputs">
@@ -106,14 +141,52 @@ function ArtistProfileView(props) {
                 id="password-confirm-input"
                 name="confirmPassword"
                 onChange={handleInputChange}
+              />
+            </div>
+            <div className="UserProfileView_body_section_content_inputs">
+              <span>Write something about yourself:</span>
+              <input
+                value={bio}
+                type="text"
+                id="bio-input"
+                name="bio"
+                onChange={handleInputChange}
                 required
+              />
+            </div>
+            <div className="UserProfileView_body_section_content_inputs">
+              <span>Which Instruments Do You Play?:</span>
+              <input
+                value={instruments}
+                type="text"
+                id="bio-instruments"
+                name="instruments"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="UserProfileView_body_section_content_inputs">
+              <span>Please Select Your Genres:</span>
+              <GenreCheckbox
+                options={[
+                  { value: 'african', label: 'African' },
+                  { value: 'arabic', label: 'Arabic' },
+                  { value: 'axe', label: 'Axé' },
+                  { value: 'blues', label: 'Blues' },
+                  {
+                    value: 'bollywood-indian',
+                    label: 'Bollywood & Indian'
+                  },
+                  { value: 'classical', label: 'Classical' },
+                  { value: 'rock', label: 'Rock' }
+                ]}
+                selected={genres}
+                onSelectedChange={handleGenreSelectionChange}
               />
             </div>
           </div>
           <button className="save-changes-btn">Save Changes</button>
         </form>
       )}
-
       {isLoggedIn && (
         <button className={'settings-btn'} onClick={changeSettings}>
           <svg
@@ -145,47 +218,55 @@ function ArtistProfileView(props) {
         </svg>
       </button>
       <div className={'UserProfileView_header'}>
-        <div className={'background'}>
-          {artist?.backgroundImg ? (
-            <img src={artist.backgroundImg} alt="Artist pic" />
-          ) : (
-            <img
-              src={'https://source.unsplash.com/400x500/?musician'}
-              alt="random musician"
-            />
-          )}
-          {isLoggedIn && (
-            <Link to="/artist/upload-background">
-              <button className={'background-btn'}>
-                <svg
-                  version="1.1"
-                  id="Layer_1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 512 512"
-                >
-                  <g>
+        <div>
+          <div className={'BackgroundImgAndButton'}>
+            {artist?.backgroundImg ? (
+              <img
+                className={'Background'}
+                src={artist.backgroundImg}
+                alt="Artist pic"
+              />
+            ) : (
+              <img
+                className={'Background'}
+                src={'https://source.unsplash.com/400x500/?musician'}
+                alt="random musician"
+              />
+            )}
+
+            {isLoggedIn && (
+              <Link to="/artist/upload-background">
+                <button className={'background-btn'}>
+                  <svg
+                    version="1.1"
+                    id="Layer_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 512 512"
+                  >
                     <g>
-                      <path
-                        d="M403.914,0L54.044,349.871L0,512l162.128-54.044L512,108.086L403.914,0z M295.829,151.319l21.617,21.617L110.638,379.745
+                      <g>
+                        <path
+                          d="M403.914,0L54.044,349.871L0,512l162.128-54.044L512,108.086L403.914,0z M295.829,151.319l21.617,21.617L110.638,379.745
 			l-21.617-21.617L295.829,151.319z M71.532,455.932l-15.463-15.463l18.015-54.043l51.491,51.491L71.532,455.932z M153.871,422.979
 			l-21.617-21.617l206.809-206.809l21.617,21.617L153.871,422.979z M382.297,194.555l-64.852-64.852l21.617-21.617l64.852,64.852
 			L382.297,194.555z M360.679,86.468l43.234-43.235l64.853,64.853l-43.235,43.234L360.679,86.468z"
-                      />
+                        />
+                      </g>
                     </g>
-                  </g>
-                </svg>
-              </button>
-            </Link>
-          )}
+                  </svg>
+                </button>
+              </Link>
+            )}
+          </div>
         </div>
 
         <h3 className="Profile-name">
-          {`${artist?.firstName} ${artist?.lastName}`}
+          {artist?.firstName} {artist?.lastName}
         </h3>
 
-        <div>
+        <div className="Artist-avatar">
           {artist?.avatarUrl ? (
             <img
               className={'UserProfileView_avatar'}
@@ -200,7 +281,7 @@ function ArtistProfileView(props) {
           )}
           {isLoggedIn && (
             <Link to="/profile/upload-avatar">
-              <button className={'avatar-btn'}>
+              <button className={'avatar-btn-artist'}>
                 <svg
                   version="1.1"
                   id="Layer_1"
@@ -230,14 +311,21 @@ function ArtistProfileView(props) {
         <StarRating {...props} user={props.user} isLoggedIn={isLoggedIn} />
 
         <div className={'ArtistProfileView_follow'}>
-          <div>X followers</div>
-          {!isLoggedIn && <button>follow</button>}
+          <div>{artist?.followerCount} followers</div>
+          {!isLoggedIn && <button onClick={followNow}>follow</button>}
           {!isLoggedIn && <button>$ tip</button>}
         </div>
       </div>
       <div className={'UserProfileView_body'}>
         <div className={'UserProfileView_body_section'}>
-          <h3>Upcoming Events</h3>
+          <div className={'EventsAndNew'}>
+            <h3>Upcoming Events</h3>
+            {isLoggedIn && (
+              <Link to="/event/create">
+                <button>+</button>
+              </Link>
+            )}
+          </div>
           {/* <EventDetailView /> */}
           <p>
             Location:

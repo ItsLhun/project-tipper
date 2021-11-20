@@ -14,7 +14,7 @@ const schema = new mongoose.Schema({
     required: true
   },
   score: {
-    type: number,
+    type: Number,
     min: 1,
     max: 5,
     required: true

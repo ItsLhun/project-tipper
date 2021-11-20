@@ -60,7 +60,7 @@ function UploadArtistBackgroundView(props) {
 
   return (
     <div>
-      <h1 className="title">Upload an Image</h1>
+      <h1 className="title">Upload Your Background Image</h1>
       <Alert msg={errMsg} type="danger" />
       <Alert msg={successMsg} type="success" />
       <form onSubmit={handleSubmitFile} className="form">

@@ -1,7 +1,7 @@
 import api from './api';
 
 export const loadArtist = (id) => {
-  return api.get(`/artist/${id}`).then((response) => response.data.artist);
+  return api.get(`/artist/${id}`, id).then((response) => response.data.artist);
 };
 
 export const uploadArtistBackground = (image) => {
@@ -17,4 +17,10 @@ export const getArtistList = (body) => {
   return api
     .get(`/artist/list`, { params: { limit: body?.limit || 0 } })
     .then((response) => response.data.artists);
+};
+
+export const followArtist = (id) => {
+  return api
+    .post(`/artist/${id}/follow`, id)
+    .then((response) => response.data.follow);
 };
