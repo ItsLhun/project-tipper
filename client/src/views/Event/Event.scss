@@ -63,29 +63,28 @@
     color: $profile-input-color;
   }
 }
-.create-event-button {
-  background-color: $profile-save-button-bg;
-  color: $profile-save-button-text;
+.event-btn {
   border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;
   font-family: monospace;
   font-size: 1rem;
-  margin-top: 1rem;
-  max-width: 15rem;
   align-self: center;
-  margin-bottom: 3rem;
+  max-width: 15rem;
 }
 .right-now-btn {
   background-color: $create-event-now-btn;
   color: $profile-save-button-text;
-  border: none;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
-  font-family: monospace;
-  font-size: 1rem;
+  margin-bottom: 3rem;
+}
+.select-location-btn {
+  background-color: grey;
+  color: white;
   margin-top: 1rem;
-  max-width: 15rem;
-  align-self: center;
+}
+.create-event-button {
+  background-color: $profile-save-button-bg;
+  color: $profile-save-button-text;
+  margin-top: 1rem;
   margin-bottom: 3rem;
 }

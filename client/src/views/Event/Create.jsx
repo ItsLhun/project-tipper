@@ -111,7 +111,7 @@ class CreateEventView extends Component {
                   placeholder="Date of the event"
                 />
                 <span
-                  className="right-now-btn"
+                  className="right-now-btn event-btn"
                   onClick={this.handleRightNowClick}
                 >
                   Right Now!
@@ -158,7 +158,12 @@ class CreateEventView extends Component {
               <p>
                 Lat: {this.state.location.lat} Lng: {this.state.location.lng}
               </p>
-              <button onClick={this.handleMapToggle}>Select Location</button>
+              <span
+                className="select-location-btn event-btn"
+                onClick={this.handleMapToggle}
+              >
+                Select Location
+              </span>
 
               <h3>Genres</h3>
 
@@ -179,7 +184,7 @@ class CreateEventView extends Component {
                 onSelectedChange={this.handleGenreSelectionChange}
               />
 
-              <button className="create-event-button">Confirm</button>
+              <button className="create-event-button event-btn">Confirm</button>
             </form>
           </div>
         )) || (
