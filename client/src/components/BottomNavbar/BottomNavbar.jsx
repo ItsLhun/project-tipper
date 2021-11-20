@@ -20,7 +20,9 @@ function BottomNavbar(props) {
         } else {
           return setActiveClass('active-profile');
         }
-
+      case '/event/create':
+      case '/event/edit':
+        return setActiveClass('active-home');
       case '/search':
         return setActiveClass('active-search');
       default:

@@ -2,7 +2,6 @@
 @import '../../index.scss';
 
 .HomeView {
-  box-sizing: border-box;
   $home-height: calc(100vh);
   background-color: $home-bg;
   color: $home-text;
@@ -35,4 +34,12 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  &::-webkit-scrollbar {
+    width: 0.2rem;
+    height: 0.4rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(78, 77, 77);
+    border-radius: 10px;
+  }
 }

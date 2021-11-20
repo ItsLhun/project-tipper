@@ -1,13 +1,27 @@
 @import '../../styles/colors.scss';
 @import '../../index.scss';
 
-.GenreCheckbox {
-  //   display: inline-block;
-  //   background-color: #f5da00;
-  //   font-weight: 600;
-  color: black;
+.GenreCheckboxHolder {
+  display: flex;
+  flex-flow: row wrap;
   font-family: $font-robo;
-  //   padding: 0.5rem;
-  //   border-radius: 0.25rem;
-  //   margin: 0.2rem;
+
+  .GenreBox {
+    display: inline-block;
+    margin: 0.2rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-family: $font-robo;
+    border: 1px solid $profile-input-border;
+    background-color: $accent-opaque-yellow;
+    color: black;
+  }
+  .GenreBox-active {
+    background-color: $accent-yellow;
+    color: black;
+  }
+  input[type='checkbox'] {
+    display: none;
+  }
 }

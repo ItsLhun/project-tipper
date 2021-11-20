@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import './Home.scss';
 import GenreBlob from '../../components/GenreBlob/GenreBlob';
-import MapOverlay from '../../components/MapOverlay/MapOverlay';
 import FeaturedMini from '../../components/FeaturedMini/FeaturedMini';
 
 import { getArtistList } from '../../services/artist';
@@ -17,7 +16,6 @@ function HomeView() {
     'rock',
     'country'
   ]);
-  const [showMap, setShowMap] = React.useState(false);
   const [featuredArtists, setFeaturedArtists] = React.useState([]);
 
   React.useEffect(() => {
@@ -25,10 +23,6 @@ function HomeView() {
       setFeaturedArtists(artists);
     });
   }, []);
-
-  const handleMapToggle = () => {
-    setShowMap(!showMap);
-  };
 
   const getArtists = async () => {
     try {
@@ -41,31 +35,28 @@ function HomeView() {
 
   return (
     <div>
-      {(!showMap && (
-        <div className="HomeView">
-          <section className="HomeView__section">
-            <h2>Playing Today</h2>
-          </section>
-          <section className="HomeView__section">
-            <h2>Featured Artists</h2>
-            <ul className="featured-list">
-              {featuredArtists?.map((artist) => (
-                <FeaturedMini key={artist.firstName} artist={artist} />
-              ))}
-            </ul>
-          </section>
-          <section className="HomeView__section">
-            <h2>Genres</h2>
-            <ul className="HomeView__genres">
-              {genres.map((genre) => (
-                <GenreBlob key={genre} genre={genre} />
-              ))}
-            </ul>
-          </section>
-          <button onClick={handleMapToggle}>Select Point</button>
-          <button onClick={getArtists}>Get Artists</button>
-        </div>
-      )) || <MapOverlay onClose={handleMapToggle} />}
+      <div className="HomeView">
+        <section className="HomeView__section">
+          <h2>Playing Today</h2>
+        </section>
+        <section className="HomeView__section">
+          <h2>Featured Artists</h2>
+          <ul className="featured-list">
+            {featuredArtists?.map((artist) => (
+              <FeaturedMini key={artist.firstName} artist={artist} />
+            ))}
+          </ul>
+        </section>
+        <section className="HomeView__section">
+          <h2>Genres</h2>
+          <ul className="HomeView__genres">
+            {genres.map((genre) => (
+              <GenreBlob key={genre} genre={genre} />
+            ))}
+          </ul>
+        </section>
+        <button onClick={getArtists}>Get Artists</button>
+      </div>
     </div>
   );
 }

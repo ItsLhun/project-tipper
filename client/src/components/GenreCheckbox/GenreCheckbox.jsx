@@ -5,16 +5,32 @@ const GenreCheckbox = ({ options, selected, onSelectedChange }) => {
   const handleCheckboxChange = (event) => {
     const { checked, name } = event.target;
     if (checked) {
-      // console.log(...selected);
       onSelectedChange([...selected, name]);
     } else {
       onSelectedChange(selected.filter((item) => item !== name));
     }
   };
+  const handleClickChange = (value) => {
+    const checked = selected.includes(value);
+    if (!checked) {
+      onSelectedChange([...selected, value]);
+    } else {
+      onSelectedChange(selected.filter((item) => item !== value));
+    }
+  };
+
   return (
-    <>
+    <div className="GenreCheckboxHolder">
       {options.map(({ value, label }) => (
-        <div key={value}>
+        <div
+          className={`GenreBox ${
+            selected?.includes(value) ? 'GenreBox-active' : ''
+          }`}
+          key={value}
+          onClick={() => {
+            handleClickChange(value);
+          }}
+        >
           <input
             type="checkbox"
             checked={selected?.includes(value)}
@@ -24,7 +40,7 @@ const GenreCheckbox = ({ options, selected, onSelectedChange }) => {
           <label>{label}</label>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

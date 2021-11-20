@@ -10,7 +10,7 @@ import UserProfileView from './views/UserProfile/UserProfile';
 import ArtistProfileView from './views/ArtistProfile/ArtistProfile';
 import HomeView from './views/Home/Home';
 import EventDetail from './views/Event/Detail';
-import EventCreate from './views/Event/Create';
+import CreateEventView from './views/Event/Create';
 import EventEdit from './views/Event/Edit';
 import EventList from './views/Event/List';
 import HomeUnauthView from './views/HomeUnauth/HomeUnauth';
@@ -73,7 +73,7 @@ function App() {
           authorized={!loaded || user}
           redirect="/"
           render={(props) => (
-            <EventCreate {...props} onAuthenticationChange={setUser} />
+            <CreateEventView {...props} onAuthenticationChange={setUser} />
           )}
           exact
         />

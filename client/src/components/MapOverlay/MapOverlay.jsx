@@ -56,7 +56,8 @@ function MapContainerView(props) {
     let lat = map?.getCenter().lat();
     let lng = map?.getCenter().lng();
     console.log(lat, lng);
-    // props.onConfirmation();
+    props.onConfirmation({ lat, lng });
+    props.onClose();
   };
 
   if (loadError) {

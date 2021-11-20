@@ -7,7 +7,7 @@ function FeaturedMini(props) {
   return (
     <li className="FeaturedMini">
       {/* Link to artist public profile */}
-      <Link to={`/artists/${props.artist._id}`}>
+      <Link to={`/artist/${props.artist._id}`}>
         <img
           src={
             props.artist.backgroundImg ||
