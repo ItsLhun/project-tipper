@@ -6,5 +6,5 @@ export const listEvents = (data) =>
 export const listDetail = (id) =>
   api.get(`/event/${id}`).then((res) => res.data.event);
 
-export const createEvent = (data) =>
-  api.post('/event/create', data).then((res) => res.data.event);
+export const createEvent = (body) =>
+  api.post('/event/create', body).then((res) => res.data.event);

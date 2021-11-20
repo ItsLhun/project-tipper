@@ -9,10 +9,12 @@ class CreateEventView extends Component {
   constructor() {
     super();
     this.state = {
-      title: 'Event Name',
-      duration: 1,
-      description: 'Event Description',
-      genres: ['genre-arabic', 'genre-blues'],
+      title: '',
+      date: '',
+      time: '',
+      duration: 5,
+      description: '',
+      genres: [],
       showMap: false,
       location: {
         lat: 0,
@@ -20,21 +22,6 @@ class CreateEventView extends Component {
       }
     };
   }
-
-  handleFormSubmission = (e) => {
-    e.preventDefault();
-    const { title, duration, description, genres, location } = this.state;
-    console.log(title, duration, description, genres, location);
-    // createEvent({ title, duration, description, genres, location })
-    //   .then((event) => {
-    //     console.log(event);
-    //     this.props.history.push('/event/list');
-    //   })
-    //   .catch((error) => {
-    //     alert('There was an error creating event.');
-    //     console.log(error);
-    //   });
-  };
 
   handleGenreSelectionChange = (genres) => {
     this.setState({ genres });
@@ -48,6 +35,49 @@ class CreateEventView extends Component {
 
   handleLocationChange = (location) => {
     this.setState({ location });
+  };
+
+  handleDateChange = (e) => {
+    console.log(e.target.value);
+    const date = new Date(e.target.value);
+    this.setState({
+      date: date.toISOString().split('T')[0]
+    });
+  };
+
+  handleTimeChange = (e) => {
+    this.setState({ time: e.target.value });
+  };
+
+  handleRightNowClick = () => {
+    // account for timezone
+    const timeOffset = new Date().getTimezoneOffset() * 60 * 1000;
+    const date = new Date(Date.now() - timeOffset);
+    console.log(this.state.date);
+    this.setState({
+      date: date.toISOString().split('T')[0],
+      time: date.toISOString().split('T')[1]?.split('.')[0].slice(0, -3)
+    });
+  };
+
+  handleInputChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleFormSubmission = (e) => {
+    e.preventDefault();
+    const { title, date, time, duration, description, genres, location } =
+      this.state;
+    console.log(title, date, time, duration, description, genres, location);
+    createEvent({ title, date, time, duration, description, genres, location })
+      .then((event) => {
+        console.log(event);
+        this.props.history.push('/event/list');
+      })
+      .catch((error) => {
+        alert('There was an error creating event.');
+        console.log(error);
+      });
   };
 
   render() {
@@ -68,15 +98,24 @@ class CreateEventView extends Component {
                   id="event-date"
                   name="duration"
                   type="date"
+                  value={this.state.date}
+                  onChange={this.handleDateChange}
                   placeholder="Date of the event"
                 />
                 <input
                   id="event-time"
                   name="time"
                   type="time"
+                  value={this.state.time}
+                  onChange={this.handleTimeChange}
                   placeholder="Date of the event"
                 />
-                <span className="right-now-btn">Right Now!</span>
+                <span
+                  className="right-now-btn"
+                  onClick={this.handleRightNowClick}
+                >
+                  Right Now!
+                </span>
               </div>
               <div className="CreateEventView_inputs">
                 <label htmlFor="event-title">Title</label>
@@ -84,6 +123,8 @@ class CreateEventView extends Component {
                   id="event-title"
                   name="title"
                   type="text"
+                  value={this.state.title}
+                  onChange={this.handleInputChange}
                   placeholder="Title for event"
                 />
               </div>
@@ -95,7 +136,9 @@ class CreateEventView extends Component {
                   placeholder="Add more info about your event"
                   rows="5"
                   maxLength="140"
-                ></textarea>
+                  value={this.state.description}
+                  onChange={this.handleInputChange}
+                />
               </div>
 
               <div className="CreateEventView_inputs">
@@ -105,6 +148,9 @@ class CreateEventView extends Component {
                   name="duration"
                   type="number"
                   placeholder="Duration of the event"
+                  value={this.state.duration}
+                  onChange={this.handleInputChange}
+                  min="5"
                 />
               </div>
 

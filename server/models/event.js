@@ -21,11 +21,11 @@ const EventSchema = new mongoose.Schema(
       trim: true
     },
     location: {
-      type: pointSchema,
-      default: {
-        type: 'Point',
-        coordinates: [-3.525, 40.745]
-      }
+      type: pointSchema
+      // default: {
+      //   type: 'Point',
+      //   coordinates: [-3.525, 40.745]
+      // }
     },
     date: {
       type: Date,
