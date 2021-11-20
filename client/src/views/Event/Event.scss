@@ -6,7 +6,7 @@
   color: $home-text;
   margin: 0;
   padding-top: 1rem;
-  min-height: 100vh;
+  overflow: scroll;
   h1 {
     font-family: $font-merri;
     font-weight: 300;
@@ -15,6 +15,14 @@
   h3 {
     font-family: $font-merri;
     font-weight: 300;
+  }
+  &::-webkit-scrollbar {
+    width: 0rem;
+    height: 0.4rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(78, 77, 77);
+    border-radius: 10px;
   }
 }
 
@@ -34,7 +42,6 @@
   display: flex;
   flex-direction: column;
   margin-top: 0.5rem;
-  margin-bottom: 1rem;
   span {
     align-content: center;
   }
@@ -45,6 +52,7 @@
     border-radius: 5px;
     padding: 0.3rem 0.4rem;
     font-family: monospace;
+    margin-bottom: 0.5rem;
   }
   textarea {
     padding: 0.3rem 0.4rem;
@@ -54,4 +62,30 @@
     background-color: $profile-input-bg;
     color: $profile-input-color;
   }
+}
+.create-event-button {
+  background-color: $profile-save-button-bg;
+  color: $profile-save-button-text;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-family: monospace;
+  font-size: 1rem;
+  margin-top: 1rem;
+  max-width: 15rem;
+  align-self: center;
+  margin-bottom: 3rem;
+}
+.right-now-btn {
+  background-color: $create-event-now-btn;
+  color: $profile-save-button-text;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-family: monospace;
+  font-size: 1rem;
+  margin-top: 1rem;
+  max-width: 15rem;
+  align-self: center;
+  margin-bottom: 3rem;
 }

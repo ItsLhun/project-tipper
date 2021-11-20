@@ -55,13 +55,29 @@ class CreateEventView extends Component {
       <div>
         {(!this.state.showMap && (
           <div className="CreateEventView">
-            <h1>Create Event</h1>
+            <h1>New Event</h1>
 
             <form
               onSubmit={this.handleFormSubmission}
               className="CreateEventView_content_form"
             >
               <h3>Details</h3>
+              <div className="CreateEventView_inputs">
+                <label htmlFor="event-date">When</label>
+                <input
+                  id="event-date"
+                  name="duration"
+                  type="date"
+                  placeholder="Date of the event"
+                />
+                <input
+                  id="event-time"
+                  name="time"
+                  type="time"
+                  placeholder="Date of the event"
+                />
+                <span className="right-now-btn">Right Now!</span>
+              </div>
               <div className="CreateEventView_inputs">
                 <label htmlFor="event-title">Title</label>
                 <input
@@ -81,8 +97,9 @@ class CreateEventView extends Component {
                   maxLength="140"
                 ></textarea>
               </div>
+
               <div className="CreateEventView_inputs">
-                <label htmlFor="event-title">Duration (minutes)</label>
+                <label htmlFor="event-duration">Duration (minutes)</label>
                 <input
                   id="event-duration"
                   name="duration"
@@ -92,6 +109,9 @@ class CreateEventView extends Component {
               </div>
 
               <h3>Location</h3>
+              <p>
+                Lat: {this.state.location.lat} Lng: {this.state.location.lng}
+              </p>
               <button onClick={this.handleMapToggle}>Select Location</button>
 
               <h3>Genres</h3>
@@ -113,7 +133,7 @@ class CreateEventView extends Component {
                 onSelectedChange={this.handleGenreSelectionChange}
               />
 
-              <button>Create Event</button>
+              <button className="create-event-button">Confirm</button>
             </form>
           </div>
         )) || (
