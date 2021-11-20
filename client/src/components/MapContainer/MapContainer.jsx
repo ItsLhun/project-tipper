@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
-
+import { listPlayingNowEvents } from '../../services/event';
 // import MapPin from '../../components/MapPin/MapPin';
 
 import img from './Vector.svg';
@@ -12,6 +12,22 @@ function MapContainerView() {
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API
   });
+  const [map, setMap] = useState(null);
+  const [centerMap, setCenterMap] = useState({
+    lat: 40.745,
+    lng: -3.523
+  });
+  const [playingEvents, setPlayingEvents] = useState([]);
+
+  const fetchPlayingEvents = async () => {
+    try {
+      const events = await listPlayingNowEvents();
+      console.log(events);
+      setPlayingEvents(events);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const setOptions = (map) => {
     return {
@@ -30,12 +46,6 @@ function MapContainerView() {
     };
   };
 
-  const [map, setMap] = useState(null);
-  const [centerMap, setCenterMap] = useState({
-    lat: 40.745,
-    lng: -3.523
-  });
-
   const onLoad = useCallback((map) => {
     navigator.geolocation.getCurrentPosition((position) => {
       const pos = {
@@ -48,6 +58,7 @@ function MapContainerView() {
         setMap(map);
       }
     });
+    fetchPlayingEvents();
   }, []);
 
   const handleMapClick = (event) => {
@@ -83,17 +94,23 @@ function MapContainerView() {
       onLoad={onLoad}
       onUnmount={onUnmount}
       yesIWantToUseGoogleMapApiInternals
-      // disableDefaultUI={true}
       defaultCenter={centerMap}
       options={setOptions(map)}
       onClick={handleMapClick}
     >
       {/* Child components, such as markers, info windows, etc. */}
+      {playingEvents.map((event) => (
+        <Marker
+          key={event._id}
+          position={{
+            lat: event.location.coordinates[0],
+            lng: event.location.coordinates[1]
+          }}
+          icon={img}
+        />
+      ))}
+
       <Marker icon={img} position={centerMap} />
-      <Marker
-        icon={img}
-        position={{ lat: 40.425668582770484, lng: -3.712250706743283 }}
-      />
     </GoogleMap>
   ) : (
     <>Loading view?...</>

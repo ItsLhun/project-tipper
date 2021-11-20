@@ -24,15 +24,6 @@ router.post('/create', routeGuard, async (req, res, next) => {
       type: 'Point',
       coordinates: [location.lat, location.lng]
     };
-
-    console.log(
-      title,
-      formatedDate,
-      duration,
-      description,
-      genres,
-      formatedLocation
-    );
     const event = await Event.create({
       title,
       date: formatedDate,
@@ -42,29 +33,24 @@ router.post('/create', routeGuard, async (req, res, next) => {
       location: formatedLocation,
       artist: req.user._id
     });
-    console.log(event);
     res.json({ event });
   } catch (error) {
     next(error);
   }
+});
 
-  // Event.create(req.body.genres.map(({ title, url }) => ({ title, url })))
-  //   .then((genres) => {
-  //     const { title, duration, description } = req.body;
-  //     return Event.create({
-  //       creator: req.user._id,
-  //       title,
-  //       duration,
-  //       description,
-  //       genres: genres.map(({ _id }) => _id)
-  //     });
-  //   })
-  //   .then((event) => {
-  //     res.json({ event: event });
-  //   })
-  //   .catch((error) => {
-  //     next(error);
-  //   });
+router.get('/list/now', async (req, res, next) => {
+  try {
+    const events = await Event.find({ date: { $lte: new Date() } });
+    const runningEvents = events.filter((event) => {
+      const eventDate = new Date(event.date);
+      const now = new Date();
+      return eventDate.getTime() + event.duration * 60000 >= now.getTime();
+    });
+    res.json({ events: runningEvents });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

@@ -8,3 +8,6 @@ export const listDetail = (id) =>
 
 export const createEvent = (body) =>
   api.post('/event/create', body).then((res) => res.data.event);
+
+export const listPlayingNowEvents = () =>
+  api.get('/event/list/now').then((res) => res.data.events);
