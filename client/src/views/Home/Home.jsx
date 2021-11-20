@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './Home.scss';
 import GenreBlob from '../../components/GenreBlob/GenreBlob';
 import FeaturedMini from '../../components/FeaturedMini/FeaturedMini';
-// import PlayingTodayMini from '../../components/PlayingTodayMini/PlayingTodayMini';
+import PlayingTodayMini from '../../components/PlayingTodayMini/PlayingTodayMini';
 
 import { getArtistList } from '../../services/artist';
 
@@ -39,7 +39,9 @@ function HomeView() {
       <div className="HomeView">
         <section className="HomeView__section">
           <h2>Playing Today</h2>
-          <ul>{/* <PlayingTodayMini /> */}</ul>
+          <ul>
+            <PlayingTodayMini />
+          </ul>
         </section>
         <section className="HomeView__section">
           <h2>Featured Artists</h2>

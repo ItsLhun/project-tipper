@@ -12,13 +12,14 @@ function PlayingTodayMini(props) {
             props.artist.backgroundImg ||
             `https://source.unsplash.com/random?sig=${props.artist._id}`
           }
-          alt={props.artist.firstName} {props.artist.lastName}
+          alt={props.artist.firstName}
         />
-       <p> {props.artist.firstName} {props.artist.lastName}</p>
-       <figcaption>
-         
-        {props.event.time} @ {props.event.location}
-       </figcaption>
+        <p>
+          {props.artist.firstName} {props.artist.lastName}
+        </p>
+        <figcaption>
+          {props.event.time} @ {props.event.location}
+        </figcaption>
       </Link>
     </li>
   );
