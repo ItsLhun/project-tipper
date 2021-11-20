@@ -14,7 +14,7 @@ class CreateEventView extends Component {
       time: '',
       duration: 5,
       description: '',
-      genres: [],
+      genre: [],
       showMap: false,
       location: {
         lat: 0,
@@ -23,8 +23,8 @@ class CreateEventView extends Component {
     };
   }
 
-  handleGenreSelectionChange = (genres) => {
-    this.setState({ genres });
+  handleGenreSelectionChange = (genre) => {
+    this.setState({ genre });
   };
 
   handleMapToggle = () => {
@@ -66,10 +66,10 @@ class CreateEventView extends Component {
 
   handleFormSubmission = (e) => {
     e.preventDefault();
-    const { title, date, time, duration, description, genres, location } =
+    const { title, date, time, duration, description, genre, location } =
       this.state;
-    console.log(title, date, time, duration, description, genres, location);
-    createEvent({ title, date, time, duration, description, genres, location })
+    console.log(title, date, time, duration, description, genre, location);
+    createEvent({ title, date, time, duration, description, genre, location })
       .then((event) => {
         console.log(event);
         this.props.history.push('/event/list');
@@ -169,7 +169,7 @@ class CreateEventView extends Component {
 
               <GenreCheckbox
                 options={this.props.definedGenres}
-                selected={this.state.genres}
+                selected={this.state.genre}
                 onSelectedChange={this.handleGenreSelectionChange}
               />
 

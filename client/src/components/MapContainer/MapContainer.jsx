@@ -74,6 +74,7 @@ function MapContainerView() {
         console.log(pos);
       }
     });
+    console.log('Current position: ' + pos);
   };
 
   const onUnmount = useCallback(() => {

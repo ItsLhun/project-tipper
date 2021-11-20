@@ -22,5 +22,5 @@ export const searchEvent = (body) => {
         mode: body?.mode || 'query'
       }
     })
-    .then((response) => response.data.artists);
+    .then((response) => response.data);
 };

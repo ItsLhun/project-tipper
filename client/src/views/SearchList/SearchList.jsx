@@ -16,8 +16,8 @@ function SearchListView(props) {
   const [eventsSearchCount, setEventsSearchCount] = useState(0);
 
   const [search, setSearch] = useState('');
-  const [activeSearch, setActiveSearch] = useState('artists');
-  // const [activeSearch, setActiveSearch] = useState('events');
+  // const [activeSearch, setActiveSearch] = useState('artists');
+  const [activeSearch, setActiveSearch] = useState('events');
 
   const [genres, setGenres] = useState([]);
 
@@ -51,14 +51,15 @@ function SearchListView(props) {
         limit: 10,
         mode: 'query'
       });
-      setArtistsSearchList(artists);
-      setArtistSearchCount(artists.length);
+      setArtistsSearchList(artists.artists);
+      setArtistSearchCount(artists.artists.length);
       const eventCount = await searchEvent({
         q: search,
         genres: genres,
         limit: 10,
         mode: 'count'
       });
+
       setEventsSearchCount(eventCount.count);
     } catch (error) {
       console.log(error);
@@ -73,16 +74,16 @@ function SearchListView(props) {
         limit: 10,
         mode: 'query'
       });
-      setEventsSearchList(events);
-      setEventsSearchCount(events.length);
+      console.log(events.events);
+      setEventsSearchList(events.events);
+      setEventsSearchCount(events.events.length);
       const artistCount = await searchArtist({
         q: search,
         genres: genres,
         limit: 10,
         mode: 'count'
       });
-      console.log(artistCount);
-      setArtistSearchCount(artistCount);
+      setArtistSearchCount(artistCount.count);
     } catch (error) {
       console.log(error);
     }

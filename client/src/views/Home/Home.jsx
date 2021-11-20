@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // this has to be first, we're resetting some styles
 import './Home.scss';

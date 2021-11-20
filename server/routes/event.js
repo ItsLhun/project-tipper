@@ -24,7 +24,7 @@ router.get('/search', async (req, res, next) => {
     // use text mongooose to search for text
     // console.log(genres);
     if (mode === 'query') {
-      const artists = await Event.find({
+      const events = await Event.find({
         $or: [
           { title: { $regex: query, $options: 'i' } },
           { description: { $regex: query, $options: 'i' } }
@@ -32,7 +32,7 @@ router.get('/search', async (req, res, next) => {
       })
         .limit(limit)
         .populate('artist');
-      res.json({ artists });
+      res.json({ events });
     } else if (mode === 'count') {
       const artistsCount = await Event.countDocuments({
         $or: [
@@ -49,19 +49,20 @@ router.get('/search', async (req, res, next) => {
 
 router.post('/create', routeGuard, async (req, res, next) => {
   try {
-    const { title, date, time, duration, description, genres, location } =
+    const { title, date, time, duration, description, genre, location } =
       req.body;
     const formatedDate = new Date(date + 'T' + time);
     const formatedLocation = {
       type: 'Point',
       coordinates: [location.lat, location.lng]
     };
+    console.log(genre);
     const event = await Event.create({
       title,
       date: formatedDate,
       duration,
       description,
-      genres,
+      genre,
       location: formatedLocation,
       artist: req.user._id
     });

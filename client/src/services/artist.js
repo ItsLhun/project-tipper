@@ -35,16 +35,5 @@ export const searchArtist = (body) => {
         mode: body?.mode || 'query'
       }
     })
-    .then((response) => response.data.artists);
+    .then((response) => response.data);
 };
-
-// export const searchArtistCount = (body) => {
-//   return api
-//     .get(`/artist/search/count`, {
-//       params: {
-//         q: body?.q || '',
-//         genres: body?.genres || []
-//       }
-//     })
-//     .then((response) => response.data.artists);
-// };
