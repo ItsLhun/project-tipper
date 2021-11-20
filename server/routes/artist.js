@@ -21,10 +21,10 @@ router.get('/list', async (req, res, next) => {
 router.get('/search', async (req, res, next) => {
   const query = req.query.q;
   const limit = req.query.limit;
-  const genres = req.query.genres;
+  // const genres = req.query.genres;
   try {
     // use text mongooose to search for text
-    console.log(genres);
+    // console.log(genres);
     const artists = await Artist.find(
       {
         $or: [
@@ -36,6 +36,27 @@ router.get('/search', async (req, res, next) => {
       { firstName: 1, lastName: 1, _id: 1, avatarUrl: 1, bio: 1, genre: 1 }
     ).limit(limit);
     res.json({ artists });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get search document count
+router.get('/search/count', async (req, res, next) => {
+  const query = req.query.q;
+  // const genres = req.query.genres;
+  try {
+    const artistsCount = await Artist.countDocuments(
+      {
+        $or: [
+          { firstName: { $regex: query, $options: 'i' } },
+          { lastName: { $regex: query, $options: 'i' } }
+        ],
+        role: 'artist'
+      },
+      { firstName: 1, lastName: 1, _id: 1, avatarUrl: 1, bio: 1, genre: 1 }
+    );
+    res.json({ count: artistsCount });
   } catch (error) {
     next(error);
   }

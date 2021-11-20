@@ -9,7 +9,8 @@ import { searchArtist } from '../../services/artist';
 const queryString = require('query-string');
 
 function SearchListView(props) {
-  const [searchList, setSearchList] = useState([]);
+  const [artistsSearchList, setArtistsSearchList] = useState([]);
+  const [artistSearchCount, setArtistSearchCount] = useState(0);
   const [search, setSearch] = useState('');
   const [activeSearch, setActiveSearch] = useState('artists');
   const [genres, setGenres] = useState([]);
@@ -29,14 +30,24 @@ function SearchListView(props) {
   }, []);
 
   useEffect(() => {
-    if (search) {
+    if (activeSearch === 'artists') {
       searchArtist({ q: search, genres: genres, limit: 10 })
         .then((res) => {
-          setSearchList(res);
+          setArtistsSearchList(res);
+          setArtistSearchCount(res.length);
         })
         .catch((err) => {
           console.log(err);
         });
+    } else if (activeSearch === 'events') {
+      // searchEvents({ q: search, genres: genres, limit: 10 })
+      //   .then((res) => {
+      //     setEventsSearchList(res);
+      //     setEventsSearchCount(res.length);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     }
   }, [search, genres]);
 
@@ -102,7 +113,7 @@ function SearchListView(props) {
         <li className={(activeSearch === 'artists' && `active`) || ''}>
           Artists
           <span className={(activeSearch === 'artists' && `active`) || ''}>
-            999
+            {artistSearchCount > 99 ? '99+' : artistSearchCount}
           </span>
         </li>
         <li className={(activeSearch === 'events' && `active`) || ''}>
@@ -113,7 +124,7 @@ function SearchListView(props) {
         </li>
       </ul>
       <div className="search-list">
-        {searchList.map((artist) => (
+        {artistsSearchList.map((artist) => (
           <SearchArtistMini key={artist._id} artist={artist} />
         ))}
       </div>

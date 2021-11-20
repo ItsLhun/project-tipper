@@ -41,7 +41,8 @@ const schema = new mongoose.Schema({
     trim: true
   },
   genre: {
-    type: [String]
+    type: [String],
+    default: []
   },
   instruments: {
     type: [String]

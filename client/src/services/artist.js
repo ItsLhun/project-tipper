@@ -36,3 +36,14 @@ export const searchArtist = (body) => {
     })
     .then((response) => response.data.artists);
 };
+
+export const searchArtistCount = (body) => {
+  return api
+    .get(`/artist/search/count`, {
+      params: {
+        q: body?.q || '',
+        genres: body?.genres || []
+      }
+    })
+    .then((response) => response.data.artists);
+};
