@@ -52,6 +52,10 @@ const schema = new mongoose.Schema({
   paymentToken: {
     type: String,
     default: ''
+  },
+  followerCount: {
+    type: Number,
+    default: 0
   }
 });
 

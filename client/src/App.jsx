@@ -168,7 +168,7 @@ function App() {
         />
         <ProtectedRoute
           path="/artist/upload-background"
-          authorized={!loaded || user}
+          authorized={loaded || user}
           redirect="/"
           render={(props) => (
             <UploadArtistBackgroundView {...props} user={user} />
@@ -178,7 +178,7 @@ function App() {
 
         <ProtectedRoute
           path="/artist/:id"
-          authorized={!loaded || user}
+          authorized={loaded || user}
           redirect="/"
           render={(props) => (
             <ArtistProfileView

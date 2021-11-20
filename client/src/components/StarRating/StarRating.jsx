@@ -26,8 +26,13 @@ function StarRating(props) {
       )}
       {props.isLoggedIn && (
         <div className="star-rating">
-          {[...Array(5)].map((star) => {
-            return <span className="on">&#9733;</span>;
+          {[...Array(5)].map((star, index) => {
+            index += 1;
+            return (
+              <span key={index} className="on">
+                &#9733;
+              </span>
+            );
           })}
           <span>4.3 (200)</span>
         </div>

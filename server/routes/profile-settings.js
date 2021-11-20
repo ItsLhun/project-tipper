@@ -57,14 +57,18 @@ router.post('/upload-avatar', async (req, res, next) => {
 
 router.post('/edit', routeGuardMiddleware, async (req, res, next) => {
   console.log('Profile edit');
-  const { email, password, confirmPassword } = req.body;
+  const { email, password, confirmPassword, bio, genre, instruments } =
+    req.body;
   if (password !== confirmPassword) {
     return res.status(400).json({ message: 'Passwords do not match' });
   }
   try {
-    const user = await User.findByIdAndUpdate(req.session.user._id, {
+    const user = await User.findByIdAndUpdate(req.user._id, {
       email,
-      password: bcryptjs.hashSync(password, 10)
+      password: bcryptjs.hashSync(password, 10),
+      bio,
+      genre,
+      instruments
     });
     res.json({ user });
   } catch (err) {
