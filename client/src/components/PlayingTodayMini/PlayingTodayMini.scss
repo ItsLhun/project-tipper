@@ -1,0 +1,19 @@
+.PlayingTodayMini {
+  color: white;
+  list-style: none;
+  img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 30px;
+    object-fit: cover;
+  }
+  p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+  figcaption {
+    font-size: 0.8rem;
+    font-weight: normal;
+  }
+}
