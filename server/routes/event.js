@@ -15,6 +15,38 @@ router.get('/list', (req, res, next) => {
     });
 });
 
+router.get('/search', async (req, res, next) => {
+  const query = req.query.q;
+  const limit = req.query.limit;
+  const mode = req.query.mode;
+  // const genres = req.query.genres;
+  try {
+    // use text mongooose to search for text
+    // console.log(genres);
+    if (mode === 'query') {
+      const artists = await Event.find({
+        $or: [
+          { title: { $regex: query, $options: 'i' } },
+          { description: { $regex: query, $options: 'i' } }
+        ]
+      })
+        .limit(limit)
+        .populate('artist');
+      res.json({ artists });
+    } else if (mode === 'count') {
+      const artistsCount = await Event.countDocuments({
+        $or: [
+          { title: { $regex: query, $options: 'i' } },
+          { description: { $regex: query, $options: 'i' } }
+        ]
+      });
+      res.json({ count: artistsCount });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/create', routeGuard, async (req, res, next) => {
   try {
     const { title, date, time, duration, description, genres, location } =

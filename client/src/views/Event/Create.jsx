@@ -6,8 +6,8 @@ import MapOverlay from '../../components/MapOverlay/MapOverlay';
 import './Event.scss';
 
 class CreateEventView extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       title: '',
       date: '',
@@ -168,18 +168,7 @@ class CreateEventView extends Component {
               <h3>Genres</h3>
 
               <GenreCheckbox
-                options={[
-                  { value: 'genre-african', label: 'African' },
-                  { value: 'genre-arabic', label: 'Arabic' },
-                  { value: 'genre-axe', label: 'Axé' },
-                  { value: 'genre-blues', label: 'Blues' },
-                  {
-                    value: 'genre-bollywood-indian',
-                    label: 'Bollywood & Indian'
-                  },
-                  { value: 'genre-classical', label: 'Classical' },
-                  { value: 'genre-rock', label: 'Rock' }
-                ]}
+                options={this.props.definedGenres}
                 selected={this.state.genres}
                 onSelectedChange={this.handleGenreSelectionChange}
               />

@@ -31,19 +31,20 @@ export const searchArtist = (body) => {
       params: {
         q: body?.q || '',
         limit: body?.limit || 0,
-        genres: body?.genres || []
+        genres: body?.genres || [],
+        mode: body?.mode || 'query'
       }
     })
     .then((response) => response.data.artists);
 };
 
-export const searchArtistCount = (body) => {
-  return api
-    .get(`/artist/search/count`, {
-      params: {
-        q: body?.q || '',
-        genres: body?.genres || []
-      }
-    })
-    .then((response) => response.data.artists);
-};
+// export const searchArtistCount = (body) => {
+//   return api
+//     .get(`/artist/search/count`, {
+//       params: {
+//         q: body?.q || '',
+//         genres: body?.genres || []
+//       }
+//     })
+//     .then((response) => response.data.artists);
+// };

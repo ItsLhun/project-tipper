@@ -24,6 +24,36 @@ import './App.scss';
 function App() {
   const [user, setUser] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [genres] = useState([
+    {
+      label: 'hip hop',
+      value: 'hip-hop'
+    },
+    {
+      label: 'rock',
+      value: 'rock'
+    },
+    {
+      label: 'pop',
+      value: 'pop'
+    },
+    {
+      label: 'country',
+      value: 'country'
+    },
+    {
+      label: 'jazz',
+      value: 'jazz'
+    },
+    {
+      label: 'classical',
+      value: 'classical'
+    },
+    {
+      label: 'blues',
+      value: 'blues'
+    }
+  ]);
 
   useEffect(() => {
     loadUser();
@@ -57,7 +87,7 @@ function App() {
           path="/"
           render={(props) => {
             return user ? (
-              <HomeView {...props} user={user} />
+              <HomeView {...props} user={user} definedGenres={genres} />
             ) : (
               <HomeUnauthView {...props} />
             );
@@ -74,7 +104,11 @@ function App() {
           authorized={!loaded || user}
           redirect="/"
           render={(props) => (
-            <CreateEventView {...props} onAuthenticationChange={setUser} />
+            <CreateEventView
+              {...props}
+              onAuthenticationChange={setUser}
+              definedGenres={genres}
+            />
           )}
           exact
         />
@@ -154,7 +188,9 @@ function App() {
         <Route path="/explore" render={(props) => <ExploreView {...props} />} />
         <Route
           path="/search"
-          render={(props) => <SearchListView {...props} />}
+          render={(props) => (
+            <SearchListView {...props} definedGenres={genres} />
+          )}
         />
         {/*
         Removing protection for now 

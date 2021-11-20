@@ -21,46 +21,62 @@ router.get('/list', async (req, res, next) => {
 router.get('/search', async (req, res, next) => {
   const query = req.query.q;
   const limit = req.query.limit;
+  const mode = req.query.mode;
   // const genres = req.query.genres;
   try {
     // use text mongooose to search for text
     // console.log(genres);
-    const artists = await Artist.find(
-      {
-        $or: [
-          { firstName: { $regex: query, $options: 'i' } },
-          { lastName: { $regex: query, $options: 'i' } }
-        ],
-        role: 'artist'
-      },
-      { firstName: 1, lastName: 1, _id: 1, avatarUrl: 1, bio: 1, genre: 1 }
-    ).limit(limit);
-    res.json({ artists });
+    if (mode === 'query') {
+      const artists = await Artist.find(
+        {
+          $or: [
+            { firstName: { $regex: query, $options: 'i' } },
+            { lastName: { $regex: query, $options: 'i' } }
+          ],
+          role: 'artist'
+        },
+        { firstName: 1, lastName: 1, _id: 1, avatarUrl: 1, bio: 1, genre: 1 }
+      ).limit(limit);
+      res.json({ artists });
+    } else if (mode === 'count') {
+      const artistsCount = await Artist.countDocuments(
+        {
+          $or: [
+            { firstName: { $regex: query, $options: 'i' } },
+            { lastName: { $regex: query, $options: 'i' } }
+          ],
+          role: 'artist'
+        },
+        { firstName: 1, lastName: 1, _id: 1, avatarUrl: 1, bio: 1, genre: 1 }
+      );
+      console.log(artistsCount);
+      res.json({ count: artistsCount });
+    }
   } catch (error) {
     next(error);
   }
 });
 
 // Get search document count
-router.get('/search/count', async (req, res, next) => {
-  const query = req.query.q;
-  // const genres = req.query.genres;
-  try {
-    const artistsCount = await Artist.countDocuments(
-      {
-        $or: [
-          { firstName: { $regex: query, $options: 'i' } },
-          { lastName: { $regex: query, $options: 'i' } }
-        ],
-        role: 'artist'
-      },
-      { firstName: 1, lastName: 1, _id: 1, avatarUrl: 1, bio: 1, genre: 1 }
-    );
-    res.json({ count: artistsCount });
-  } catch (error) {
-    next(error);
-  }
-});
+// router.get('/search/count', async (req, res, next) => {
+//   const query = req.query.q;
+//   // const genres = req.query.genres;
+//   try {
+//     const artistsCount = await Artist.countDocuments(
+//       {
+//         $or: [
+//           { firstName: { $regex: query, $options: 'i' } },
+//           { lastName: { $regex: query, $options: 'i' } }
+//         ],
+//         role: 'artist'
+//       },
+//       { firstName: 1, lastName: 1, _id: 1, avatarUrl: 1, bio: 1, genre: 1 }
+//     );
+//     res.json({ count: artistsCount });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 router.post('/:id/follow', routeGuardMiddleware, async (req, res, next) => {
   const { id } = req.params;

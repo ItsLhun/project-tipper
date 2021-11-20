@@ -11,3 +11,16 @@ export const createEvent = (body) =>
 
 export const listPlayingNowEvents = () =>
   api.get('/event/list/now').then((res) => res.data.events);
+
+export const searchEvent = (body) => {
+  return api
+    .get(`/event/search`, {
+      params: {
+        q: body?.q || '',
+        limit: body?.limit || 0,
+        genres: body?.genres || [],
+        mode: body?.mode || 'query'
+      }
+    })
+    .then((response) => response.data.artists);
+};

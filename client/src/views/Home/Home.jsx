@@ -10,39 +10,7 @@ import FeaturedMini from '../../components/FeaturedMini/FeaturedMini';
 
 import { getArtistList } from '../../services/artist';
 
-function HomeView() {
-  // Genres can be set dynamically or from a DB.
-  // values can be different than name to allow special characters or spaces
-  const [genres] = useState([
-    {
-      label: 'hip hop',
-      value: 'hip-hop'
-    },
-    {
-      label: 'rock',
-      value: 'rock'
-    },
-    {
-      label: 'pop',
-      value: 'pop'
-    },
-    {
-      label: 'country',
-      value: 'country'
-    },
-    {
-      label: 'jazz',
-      value: 'jazz'
-    },
-    {
-      label: 'classical',
-      value: 'classical'
-    },
-    {
-      label: 'blues',
-      value: 'blues'
-    }
-  ]);
+function HomeView({ definedGenres }) {
   const [featuredArtists, setFeaturedArtists] = React.useState([]);
 
   React.useEffect(() => {
@@ -69,7 +37,7 @@ function HomeView() {
         <section className="HomeView__section">
           <h2>Genres</h2>
           <ul className="HomeView__genres">
-            {genres.map((genre) => (
+            {definedGenres.map((genre) => (
               <GenreBlob key={genre.value} genre={genre} />
             ))}
           </ul>

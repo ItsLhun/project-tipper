@@ -5,14 +5,20 @@ import GenreCheckbox from '../../components/GenreCheckbox/GenreCheckbox';
 import './SearchList.scss';
 
 import { searchArtist } from '../../services/artist';
+import { searchEvent } from '../../services/event';
 
 const queryString = require('query-string');
 
 function SearchListView(props) {
   const [artistsSearchList, setArtistsSearchList] = useState([]);
   const [artistSearchCount, setArtistSearchCount] = useState(0);
+  const [eventsSearchList, setEventsSearchList] = useState([]);
+  const [eventsSearchCount, setEventsSearchCount] = useState(0);
+
   const [search, setSearch] = useState('');
   const [activeSearch, setActiveSearch] = useState('artists');
+  // const [activeSearch, setActiveSearch] = useState('events');
+
   const [genres, setGenres] = useState([]);
 
   const clearSearch = () => {
@@ -31,25 +37,56 @@ function SearchListView(props) {
 
   useEffect(() => {
     if (activeSearch === 'artists') {
-      searchArtist({ q: search, genres: genres, limit: 10 })
-        .then((res) => {
-          setArtistsSearchList(res);
-          setArtistSearchCount(res.length);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      fetchArtists();
     } else if (activeSearch === 'events') {
-      // searchEvents({ q: search, genres: genres, limit: 10 })
-      //   .then((res) => {
-      //     setEventsSearchList(res);
-      //     setEventsSearchCount(res.length);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      fetchEvents();
     }
   }, [search, genres]);
+
+  const fetchArtists = async () => {
+    try {
+      const artists = await searchArtist({
+        q: search,
+        genres: genres,
+        limit: 10,
+        mode: 'query'
+      });
+      setArtistsSearchList(artists);
+      setArtistSearchCount(artists.length);
+      const eventCount = await searchEvent({
+        q: search,
+        genres: genres,
+        limit: 10,
+        mode: 'count'
+      });
+      setEventsSearchCount(eventCount.count);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchEvents = async () => {
+    try {
+      const events = await searchEvent({
+        q: search,
+        genres: genres,
+        limit: 10,
+        mode: 'query'
+      });
+      setEventsSearchList(events);
+      setEventsSearchCount(events.length);
+      const artistCount = await searchArtist({
+        q: search,
+        genres: genres,
+        limit: 10,
+        mode: 'count'
+      });
+      console.log(artistCount);
+      setArtistSearchCount(artistCount);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="SearchListView">
@@ -119,7 +156,7 @@ function SearchListView(props) {
         <li className={(activeSearch === 'events' && `active`) || ''}>
           Events
           <span className={(activeSearch === 'events' && `active`) || ''}>
-            999
+            {eventsSearchCount > 99 ? '99+' : eventsSearchCount}
           </span>
         </li>
       </ul>
