@@ -10,7 +10,8 @@ function FeaturedMini(props) {
       <Link to={`/artists/${props.artist._id}`}>
         <img
           src={
-            props.artist.backgroundImg || 'https://source.unsplash.com/random'
+            props.artist.backgroundImg ||
+            `https://source.unsplash.com/random?sig=${props.artist._id}`
           }
           alt={props.artist.firstName}
         />
