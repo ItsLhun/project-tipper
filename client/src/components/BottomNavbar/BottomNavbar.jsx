@@ -10,7 +10,7 @@ function BottomNavbar(props) {
   const handlePathChange = () => {
     const { pathname } = window.location;
     // setCurrentPath(pathname);
-
+    console.log(pathname);
     switch (pathname) {
       case '/':
         return setActiveClass('active-home');
@@ -23,10 +23,10 @@ function BottomNavbar(props) {
       case '/event/create':
       case '/event/edit':
         return setActiveClass('active-home');
-      case '/search':
-        return setActiveClass('active-search');
+      case '/explore':
+        return setActiveClass('active-explore');
       default:
-        return '';
+        return setActiveClass('active-home');
     }
   };
 
@@ -42,10 +42,10 @@ function BottomNavbar(props) {
           <span>Home</span>
         </div>
       </Link>
-      <Link to="/search" className="button">
+      <Link to="/explore" className="button">
         <div className="button-wrapper">
           <span className="circle" />
-          <span>Search</span>
+          <span>Explore</span>
         </div>
       </Link>
       <Link

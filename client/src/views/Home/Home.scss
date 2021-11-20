@@ -2,6 +2,7 @@
 @import '../../index.scss';
 
 .HomeView {
+  box-sizing: border-box;
   $home-height: calc(100vh);
   background-color: $home-bg;
   color: $home-text;

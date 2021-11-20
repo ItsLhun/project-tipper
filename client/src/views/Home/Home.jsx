@@ -1,21 +1,47 @@
 import React, { useState } from 'react';
 
+// this has to be first, we're resetting some styles
 import './Home.scss';
+
 import GenreBlob from '../../components/GenreBlob/GenreBlob';
 import FeaturedMini from '../../components/FeaturedMini/FeaturedMini';
+
 // import PlayingTodayMini from '../../components/PlayingTodayMini/PlayingTodayMini';
 
 import { getArtistList } from '../../services/artist';
 
 function HomeView() {
   // Genres can be set dynamically or from a DB.
+  // values can be different than name to allow special characters or spaces
   const [genres] = useState([
-    'hip hop',
-    'pop',
-    'jazz',
-    'instrumental',
-    'rock',
-    'country'
+    {
+      label: 'hip hop',
+      value: 'hip-hop'
+    },
+    {
+      label: 'rock',
+      value: 'rock'
+    },
+    {
+      label: 'pop',
+      value: 'pop'
+    },
+    {
+      label: 'country',
+      value: 'country'
+    },
+    {
+      label: 'jazz',
+      value: 'jazz'
+    },
+    {
+      label: 'classical',
+      value: 'classical'
+    },
+    {
+      label: 'blues',
+      value: 'blues'
+    }
   ]);
   const [featuredArtists, setFeaturedArtists] = React.useState([]);
 
@@ -44,7 +70,7 @@ function HomeView() {
           <h2>Genres</h2>
           <ul className="HomeView__genres">
             {genres.map((genre) => (
-              <GenreBlob key={genre} genre={genre} />
+              <GenreBlob key={genre.value} genre={genre} />
             ))}
           </ul>
         </section>

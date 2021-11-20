@@ -15,8 +15,9 @@ import EventEdit from './views/Event/Edit';
 import EventList from './views/Event/List';
 import HomeUnauthView from './views/HomeUnauth/HomeUnauth';
 import UploadAvatarView from './views/UploadAvatar/UploadAvatar';
+import ExploreView from './views/Explore/Explore';
+import SearchListView from './views/SearchList/SearchList';
 import BottomNavbar from './components/BottomNavbar/BottomNavbar';
-import SearchView from './views/Search/Search';
 import UploadArtistBackgroundView from './views/UploadArtistBackground/UploadArtistBackground';
 import './App.scss';
 
@@ -150,7 +151,11 @@ function App() {
           }}
           exact
         />
-        <Route path="/search" render={(props) => <SearchView {...props} />} />
+        <Route path="/explore" render={(props) => <ExploreView {...props} />} />
+        <Route
+          path="/search"
+          render={(props) => <SearchListView {...props} />}
+        />
         {/*
         Removing protection for now 
         <ProtectedRoute
