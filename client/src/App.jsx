@@ -24,6 +24,7 @@ import './App.scss';
 function App() {
   const [user, setUser] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [userLocation, setUserLocation] = useState(null);
   const [genres] = useState([
     {
       label: 'hip hop',
@@ -54,6 +55,20 @@ function App() {
       value: 'blues'
     }
   ]);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      if (pos) {
+        console.log(pos);
+        setUserLocation(pos);
+      }
+    });
+    console.log('useEffect');
+  }, []);
 
   useEffect(() => {
     loadUser();
@@ -108,6 +123,7 @@ function App() {
               {...props}
               onAuthenticationChange={setUser}
               definedGenres={genres}
+              userLocation={userLocation}
             />
           )}
           exact
@@ -185,11 +201,20 @@ function App() {
           }}
           exact
         />
-        <Route path="/explore" render={(props) => <ExploreView {...props} />} />
+        <Route
+          path="/explore"
+          render={(props) => (
+            <ExploreView {...props} userLocation={userLocation} />
+          )}
+        />
         <Route
           path="/search"
           render={(props) => (
-            <SearchListView {...props} definedGenres={genres} />
+            <SearchListView
+              {...props}
+              definedGenres={genres}
+              userLocation={userLocation}
+            />
           )}
         />
         {/*

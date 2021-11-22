@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchArtistMini from '../../components/SearchArtistMini/SearchArtistMini';
+import SearchEventMini from '../../components/SearchEventMini/SearchEventMini';
 import closeIcon from './close-icon.svg';
 import GenreCheckbox from '../../components/GenreCheckbox/GenreCheckbox';
 import './SearchList.scss';
@@ -17,7 +18,7 @@ function SearchListView(props) {
 
   const [search, setSearch] = useState('');
   // const [activeSearch, setActiveSearch] = useState('artists');
-  const [activeSearch, setActiveSearch] = useState('events');
+  const [activeSearch, setActiveSearch] = useState('artists');
 
   const [genres, setGenres] = useState([]);
 
@@ -41,14 +42,14 @@ function SearchListView(props) {
     } else if (activeSearch === 'events') {
       fetchEvents();
     }
-  }, [search, genres]);
+  }, [search, genres, activeSearch]);
 
   const fetchArtists = async () => {
     try {
       const artists = await searchArtist({
         q: search,
         genres: genres,
-        limit: 10,
+        limit: 100,
         mode: 'query'
       });
       setArtistsSearchList(artists.artists);
@@ -56,7 +57,7 @@ function SearchListView(props) {
       const eventCount = await searchEvent({
         q: search,
         genres: genres,
-        limit: 10,
+        limit: 100,
         mode: 'count'
       });
 
@@ -74,7 +75,6 @@ function SearchListView(props) {
         limit: 10,
         mode: 'query'
       });
-      console.log(events.events);
       setEventsSearchList(events.events);
       setEventsSearchCount(events.events.length);
       const artistCount = await searchArtist({
@@ -86,6 +86,12 @@ function SearchListView(props) {
       setArtistSearchCount(artistCount.count);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const toggleActiveSearch = (e) => {
+    if (activeSearch !== e.target.getAttribute('name')) {
+      setActiveSearch(e.target.getAttribute('name'));
     }
   };
 
@@ -148,23 +154,44 @@ function SearchListView(props) {
         blobSize={'small'}
       />
       <ul className="type-selection">
-        <li className={(activeSearch === 'artists' && `active`) || ''}>
+        <li
+          onClick={toggleActiveSearch}
+          name="artists"
+          className={(activeSearch === 'artists' && `active`) || ''}
+        >
           Artists
-          <span className={(activeSearch === 'artists' && `active`) || ''}>
+          <span
+            onClick={toggleActiveSearch}
+            name="artists"
+            className={(activeSearch === 'artists' && `active`) || ''}
+          >
             {artistSearchCount > 99 ? '99+' : artistSearchCount}
           </span>
         </li>
-        <li className={(activeSearch === 'events' && `active`) || ''}>
+        <li
+          onClick={toggleActiveSearch}
+          name="events"
+          className={(activeSearch === 'events' && `active`) || ''}
+        >
           Events
-          <span className={(activeSearch === 'events' && `active`) || ''}>
+          <span
+            onClick={toggleActiveSearch}
+            name="events"
+            className={(activeSearch === 'events' && `active`) || ''}
+          >
             {eventsSearchCount > 99 ? '99+' : eventsSearchCount}
           </span>
         </li>
       </ul>
       <div className="search-list">
-        {artistsSearchList.map((artist) => (
-          <SearchArtistMini key={artist._id} artist={artist} />
-        ))}
+        {activeSearch === 'artists' &&
+          artistsSearchList.map((artist) => (
+            <SearchArtistMini key={artist._id} artist={artist} />
+          ))}
+        {activeSearch === 'events' &&
+          eventsSearchList.map((event) => (
+            <SearchEventMini key={event._id} event={event} />
+          ))}
       </div>
     </div>
   );

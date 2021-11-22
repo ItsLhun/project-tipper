@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { listPlayingNowEvents } from '../../services/event';
 // import MapPin from '../../components/MapPin/MapPin';
@@ -7,16 +7,13 @@ import img from './Vector.svg';
 
 import './MapContainer.scss';
 
-function MapContainerView() {
+function MapContainerView(props) {
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API
   });
   const [map, setMap] = useState(null);
-  const [centerMap, setCenterMap] = useState({
-    lat: 40.745,
-    lng: -3.523
-  });
+  const [centerMap, setCenterMap] = useState(null);
   const [playingEvents, setPlayingEvents] = useState([]);
 
   const fetchPlayingEvents = async () => {
@@ -46,25 +43,18 @@ function MapContainerView() {
     };
   };
 
+  useEffect(() => {
+    setCenterMap(props.userLocation);
+  }, []);
+
   const onLoad = useCallback((map) => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      if (pos) {
-        console.log(pos);
-        setCenterMap(pos);
-        setMap(map);
-      }
-    });
+    setMap(map);
     fetchPlayingEvents();
   }, []);
 
   const handleMapClick = (event) => {
     console.log(event.latLng.lat());
     console.log(event.latLng.lng());
-
     let pos = navigator.geolocation.getCurrentPosition((position) => {
       const pos = {
         lat: position.coords.latitude,
@@ -84,18 +74,18 @@ function MapContainerView() {
   if (loadError) {
     return <div>Map cannot be loaded right now.</div>;
   }
-  return isLoaded ? (
+  return isLoaded && props.userLocation ? (
     <GoogleMap
       mapContainerStyle={{
         width: '100%',
         height: '100vh'
       }}
-      center={centerMap}
+      center={props.userLocation}
       zoom={14}
       onLoad={onLoad}
       onUnmount={onUnmount}
       yesIWantToUseGoogleMapApiInternals
-      defaultCenter={centerMap}
+      defaultCenter={props.userLocation}
       options={setOptions(map)}
       onClick={handleMapClick}
     >

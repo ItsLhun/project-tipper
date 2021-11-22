@@ -180,6 +180,7 @@ class CreateEventView extends Component {
           <MapOverlay
             onClose={this.handleMapToggle}
             onConfirmation={this.handleLocationChange}
+            userLocation={this.props.userLocation}
           />
         )}
       </div>

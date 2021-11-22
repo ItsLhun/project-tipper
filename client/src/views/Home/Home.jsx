@@ -12,6 +12,7 @@ import { getArtistList } from '../../services/artist';
 
 function HomeView({ definedGenres }) {
   const [featuredArtists, setFeaturedArtists] = React.useState([]);
+  // const [playingToday, setPlayingToday] = React.useState([]);
 
   React.useEffect(() => {
     getArtistList().then((artists) => {

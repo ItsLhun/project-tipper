@@ -4,14 +4,14 @@ import MapContainer from '../../components/MapContainer/MapContainer';
 import MapSearch from '../../components/MapSearch/MapSearch';
 import './Explore.scss';
 
-function ExploreView() {
+function ExploreView(props) {
   const handleSearchClick = (e) => {
     console.log('Search clicked');
   };
   return (
     <div className="ExploreView">
       <MapSearch onClick={handleSearchClick} />
-      <MapContainer />
+      <MapContainer userLocation={props.userLocation} />
     </div>
   );
 }
