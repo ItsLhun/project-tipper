@@ -37,7 +37,8 @@ function SearchEventMini(props) {
             )}
             {ongoing && (
               <span className="distance-span">
-                LIVE - ({minutesLeft} {minutesLeft === 1 ? 'min' : 'mins'} left)
+                LIVE - ({minutesLeft >= 0 ? minutesLeft : 0}
+                {minutesLeft === 1 ? 'min' : 'mins'} left)
               </span>
             )}
           </span>
