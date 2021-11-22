@@ -1,0 +1,11 @@
+@import '../../styles/colors.scss';
+@import '../../index.scss';
+
+.SplitUser {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  button:hover {
+    color: $accent-yellow;
+  }
+}
