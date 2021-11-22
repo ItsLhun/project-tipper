@@ -43,22 +43,25 @@ router.get('/search', async (req, res, next) => {
         .populate('artist');
       console.log(events);
       res.json({ events });
+      // Mongo does not allow the usage of countDocuments with the location
+      // indexed query, so the search list will have to query events and artists at the same time
     } else if (mode === 'count') {
-      const eventsCount = await Event.countDocuments({
-        $or: [
-          { title: { $regex: query, $options: 'i' } },
-          { description: { $regex: query, $options: 'i' } }
-        ],
-        location: {
-          $near: {
-            $geometry: {
-              type: 'Point',
-              coordinates: [req.query.userLat, req.query.userLng]
-            }
-          }
-        }
-      });
-      res.json({ count: eventsCount });
+      // const eventsCount = await Event.countDocuments({
+      //   $or: [
+      //     { title: { $regex: query, $options: 'i' } },
+      //     { description: { $regex: query, $options: 'i' } }
+      //   ],
+      //   location: {
+      //     $near: {
+      //       $geometry: {
+      //         type: 'Point',
+      //         coordinates: [req.query.userLat, req.query.userLng]
+      //       }
+      //     }
+      //   }
+      // });
+      // console.log(eventsCount);
+      // res.json({ count: eventsCount });
     }
   } catch (error) {
     next(error);
