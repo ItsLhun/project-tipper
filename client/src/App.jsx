@@ -63,11 +63,14 @@ function App() {
         lng: position.coords.longitude
       };
       if (pos) {
-        console.log(pos);
         setUserLocation(pos);
+      } else {
+        setUserLocation({
+          lat: 37.773972,
+          lng: -122.431297
+        });
       }
     });
-    console.log('useEffect');
   }, []);
 
   useEffect(() => {

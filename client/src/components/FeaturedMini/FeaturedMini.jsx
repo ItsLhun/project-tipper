@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './FeaturedMini.scss';
 
 function FeaturedMini(props) {
-  console.log(props);
   return (
     <li className="FeaturedMini">
       {/* Link to artist public profile */}

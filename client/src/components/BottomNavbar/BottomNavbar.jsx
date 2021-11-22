@@ -4,13 +4,10 @@ import { Link } from 'react-router-dom';
 import './BottomNavbar.scss';
 
 function BottomNavbar(props) {
-  // const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [activeClass, setActiveClass] = useState('');
 
   const handlePathChange = () => {
     const { pathname } = window.location;
-    // setCurrentPath(pathname);
-    console.log(pathname);
     switch (pathname) {
       case '/':
         return setActiveClass('active-home');

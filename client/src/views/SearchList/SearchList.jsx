@@ -4,6 +4,7 @@ import SearchEventMini from '../../components/SearchEventMini/SearchEventMini';
 import closeIcon from './close-icon.svg';
 import GenreCheckbox from '../../components/GenreCheckbox/GenreCheckbox';
 import './SearchList.scss';
+import { getDistancePoints } from '../../helpers/getDistancePoints';
 
 import { searchArtist } from '../../services/artist';
 import { searchEvent } from '../../services/event';
@@ -188,10 +189,35 @@ function SearchListView(props) {
           artistsSearchList.map((artist) => (
             <SearchArtistMini key={artist._id} artist={artist} />
           ))}
+
         {activeSearch === 'events' &&
+          eventsSearchList
+            .map((event) => {
+              event.distanceToUser = getDistancePoints(
+                event.location.coordinates[0],
+                event.location.coordinates[1],
+                props.userLocation.lat,
+                props.userLocation.lng
+              );
+              return event;
+            })
+            .sort((a, b) => a.distanceToUser - b.distanceToUser)
+            .map((event) => (
+              <SearchEventMini
+                key={event._id}
+                event={event}
+                distanceToUser={event.distanceToUser.toFixed(2)}
+              />
+            ))}
+
+        {/* {activeSearch === 'events' &&
           eventsSearchList.map((event) => (
-            <SearchEventMini key={event._id} event={event} />
-          ))}
+            <SearchEventMini
+              key={event._id}
+              event={event}
+              userLocation={props.userLocation}
+            />
+          ))} */}
       </div>
     </div>
   );

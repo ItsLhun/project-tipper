@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { getDistancePoints } from '../../helpers/getDistancePoints';
+
+import '../SearchArtistMini/SearchArtistMini.scss';
+
 import './SearchEventMini.scss';
 
 function SearchEventMini(props) {
@@ -20,7 +24,10 @@ function SearchEventMini(props) {
         />
         <div className="SearchArtistMini_info">
           <span>{props.event?.title}</span>
-          <span>Maybe genres here?</span>
+          <span>
+            {props.event?.artist.firstName} {props.event?.artist.lastName}
+          </span>
+          <span className="distance-span">{props.distanceToUser} km</span>
         </div>
       </Link>
 
