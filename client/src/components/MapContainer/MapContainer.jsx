@@ -28,7 +28,6 @@ function MapContainerView(props) {
 
   const setOptions = (map) => {
     return {
-      // disableDefaultUI: true,
       initZoomControl: true,
       zoomControlOptions: {
         // moved by SCSS
