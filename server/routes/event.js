@@ -21,25 +21,47 @@ router.get('/search', async (req, res, next) => {
   const mode = req.query.mode;
   console.log(req.query);
   // const maxDays = req.query.maxDays;
-  // const genres = req.query.genres;
+  const genres = req.query.genres;
+  console.log(genres);
   try {
     if (mode === 'query') {
-      const events = await Event.find({
-        $or: [
-          { title: { $regex: query, $options: 'i' } },
-          { description: { $regex: query, $options: 'i' } }
-        ],
-        location: {
-          $near: {
-            $geometry: {
-              type: 'Point',
-              coordinates: [req.query.userLat, req.query.userLng]
+      let events;
+      if (genres) {
+        events = await Event.find({
+          $or: [
+            { title: { $regex: query, $options: 'i' } },
+            { description: { $regex: query, $options: 'i' } }
+          ],
+          location: {
+            $near: {
+              $geometry: {
+                type: 'Point',
+                coordinates: [req.query.userLat, req.query.userLng]
+              }
+            }
+          },
+          genre: { $in: [genres] }
+        })
+          .limit(limit)
+          .populate('artist');
+      } else {
+        events = await Event.find({
+          $or: [
+            { title: { $regex: query, $options: 'i' } },
+            { description: { $regex: query, $options: 'i' } }
+          ],
+          location: {
+            $near: {
+              $geometry: {
+                type: 'Point',
+                coordinates: [req.query.userLat, req.query.userLng]
+              }
             }
           }
-        }
-      })
-        .limit(limit)
-        .populate('artist');
+        })
+          .limit(limit)
+          .populate('artist');
+      }
       // filtering out all expired events
       const filteredEvents = events.filter((event) => {
         const dateWithDuration =
