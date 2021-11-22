@@ -247,7 +247,7 @@ function App() {
 
         <ProtectedRoute
           path="/artist/:id"
-          authorized={loaded || user}
+          authorized={!loaded || user}
           redirect="/"
           render={(props) => (
             <ArtistProfileView

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { loadArtist } from '../../services/artist';
 import StarRating from './../../components/StarRating/StarRating';
 import { updateAccountSettings } from '../../services/profile-settings';
@@ -15,23 +15,53 @@ function ArtistProfileView(props) {
   const [email, setEmail] = useState(props.user?.email);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [bio, setBio] = useState('');
-  const [instruments, setInstruments] = useState('');
-  const [genres, setGenres] = useState(['rock', 'blues']);
+  const [bio, setBio] = useState(props.user?.bio);
+  const [instruments, setInstruments] = useState(props.user?.instruments);
+  const [genre, setGenre] = useState(props.user?.genre);
+  const [follow, setFollow] = useState();
+  const [rating, setRating] = useState();
+  // const isInitialMount = useRef(true);
 
   useEffect(() => {
     getArtist();
-    console.log('use effect');
-  }, []);
+  }, [
+    props.user?.email,
+    props.user?.password,
+    props.user?.bio,
+    props.user?.instruments,
+    props.user?.genre
+  ]);
+
+  useEffect(() => {
+    console.log('check for follows & ratings');
+    getFollowAndRating();
+  }, [props.user?.follow]);
+
+  const getFollowAndRating = async () => {
+    try {
+      const response = await loadArtist(props.match.params.id);
+      if (response.rating) {
+        setRating(true);
+      } else if (!response.rating) {
+        setRating(false);
+      }
+      if (response.follow) {
+        setFollow(true);
+      } else {
+        setFollow(false);
+      }
+      console.log(follow);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getArtist = async () => {
     try {
       const artist = await loadArtist(props.match.params.id);
-      setArtist({ ...artist });
+      setArtist({ ...artist.artistDetail });
       console.log(artist);
-      console.log(artist._id);
-      console.log(props.user);
-      console.log(props.user._id === artist._id);
+      console.log(props.user?._id === artist?._id);
       if (props.user?._id === artist?._id) {
         setIsLoggedIn(true);
       }
@@ -56,7 +86,7 @@ function ArtistProfileView(props) {
         password,
         confirmPassword,
         bio,
-        genres,
+        genre,
         instruments
       });
       changeSettings();
@@ -66,8 +96,9 @@ function ArtistProfileView(props) {
     }
   };
 
-  const handleGenreSelectionChange = (genres) => {
-    setGenres({ genres });
+  const handleGenreSelectionChange = (genre) => {
+    setGenre({ genre: genre });
+    console.log(genre);
   };
 
   const handleInputChange = (e) => {
@@ -88,8 +119,8 @@ function ArtistProfileView(props) {
       case 'instruments':
         setInstruments(value);
         break;
-      // case 'genres':
-      //   setGenres(value);
+      // case 'genre':
+      //   setGenre(value);
       //   break;
       default:
         break;
@@ -100,13 +131,14 @@ function ArtistProfileView(props) {
     try {
       const response = await followArtist(artist._id);
       console.log(response);
+      setFollow(!follow);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className={'UserProfileView'}>
+    <div className={('UserProfileView', 'ArtistView')}>
       {editSettings && (
         <form className="UserProfileView_body_section" onSubmit={handleSubmit}>
           <h4 className="UserProfileView_body_section_title">ACCOUNT</h4>
@@ -151,7 +183,6 @@ function ArtistProfileView(props) {
                 id="bio-input"
                 name="bio"
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="UserProfileView_body_section_content_inputs">
@@ -159,7 +190,7 @@ function ArtistProfileView(props) {
               <input
                 value={instruments}
                 type="text"
-                id="bio-instruments"
+                id="instruments-input"
                 name="instruments"
                 onChange={handleInputChange}
               />
@@ -168,18 +199,18 @@ function ArtistProfileView(props) {
               <span>Please Select Your Genres:</span>
               <GenreCheckbox
                 options={[
-                  { value: 'african', label: 'African' },
-                  { value: 'arabic', label: 'Arabic' },
-                  { value: 'axe', label: 'Axé' },
-                  { value: 'blues', label: 'Blues' },
+                  { value: 'genre-african', label: 'African' },
+                  { value: 'genre-arabic', label: 'Arabic' },
+                  { value: 'genre-axe', label: 'Axé' },
+                  { value: 'genre-blues', label: 'Blues' },
                   {
-                    value: 'bollywood-indian',
+                    value: 'genre-bollywood-indian',
                     label: 'Bollywood & Indian'
                   },
-                  { value: 'classical', label: 'Classical' },
+                  { value: 'genre-classical', label: 'Classical' },
                   { value: 'rock', label: 'Rock' }
                 ]}
-                selected={genres}
+                selected={genre}
                 onSelectedChange={handleGenreSelectionChange}
               />
             </div>
@@ -194,6 +225,7 @@ function ArtistProfileView(props) {
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
+            fill="#f5da00"
             viewBox="0 0 512 512"
           >
             <g>
@@ -213,6 +245,7 @@ function ArtistProfileView(props) {
           width="24"
           height="24"
           viewBox="0 0 24 24"
+          fill="#f5da00"
         >
           <path d="M10 9.408l2.963 2.592-2.963 2.592v-1.592h-8v-2h8v-1.592zm-2-4.408v4h-8v6h8v4l8-7-8-7zm6-3c-1.787 0-3.46.474-4.911 1.295l.228.2 1.396 1.221c1.004-.456 2.114-.716 3.287-.716 4.411 0 8 3.589 8 8s-3.589 8-8 8c-1.173 0-2.283-.26-3.288-.715l-1.396 1.221-.228.2c1.452.82 3.125 1.294 4.912 1.294 5.522 0 10-4.477 10-10s-4.478-10-10-10z" />
         </svg>
@@ -276,7 +309,9 @@ function ArtistProfileView(props) {
             />
           ) : (
             <div className={'UserProfileView_avatar_text'}>
-              <span>MJ</span>
+              <span>
+                {artist?.firstName[0]} {artist?.lastName[0]}
+              </span>
             </div>
           )}
           {isLoggedIn && (
@@ -288,6 +323,7 @@ function ArtistProfileView(props) {
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
                   height="20"
+                  fill="#f5da00"
                   viewBox="0 0 512 512"
                 >
                   <g>
@@ -306,14 +342,33 @@ function ArtistProfileView(props) {
           )}
         </div>
 
-        {artist?.bio && <span>{artist.bio}</span>}
+        <div className={'AboutArtist-section'}>
+          {artist?.bio && <span>{artist.bio}</span>}
+          {artist?.instruments && <span>I play {artist.instruments}</span>}
+          {artist?.genre && <span>{artist.genre}</span>}
+        </div>
 
-        <StarRating {...props} user={props.user} isLoggedIn={isLoggedIn} />
+        <StarRating
+          {...props}
+          artist={artist}
+          rating={rating}
+          user={props.user}
+          isLoggedIn={isLoggedIn}
+        />
 
         <div className={'ArtistProfileView_follow'}>
           <div>{artist?.followerCount} followers</div>
-          {!isLoggedIn && <button onClick={followNow}>follow</button>}
-          {!isLoggedIn && <button>$ tip</button>}
+          {!isLoggedIn && follow && (
+            <button className={'onFollow'} onClick={followNow}>
+              Followed
+            </button>
+          )}
+          {!isLoggedIn && !follow && (
+            <button className={'offFollow'} onClick={followNow}>
+              Follow
+            </button>
+          )}
+          {!isLoggedIn && <button className={'GenreBlob'}>$ tip</button>}
         </div>
       </div>
       <div className={'UserProfileView_body'}>
@@ -322,7 +377,7 @@ function ArtistProfileView(props) {
             <h3>Upcoming Events</h3>
             {isLoggedIn && (
               <Link to="/event/create">
-                <button>+</button>
+                <button className={'addEvent-btn'}>+</button>
               </Link>
             )}
           </div>

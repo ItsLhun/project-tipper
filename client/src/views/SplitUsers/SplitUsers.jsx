@@ -2,17 +2,25 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import './SplitUsers.scss';
+
 function SplitUsersView() {
   return (
-    <div>
+    <div className={'CreateEventView'}>
       <h1>Welcome</h1>
       {/* Make users select between player or listener */}
       <div className="split-users-container">
         <p>I am a ...</p>
 
-        <Link to="/sign-up">Listener</Link>
-        <br />
-        <Link to="/artist-sign-up">Player</Link>
+        <div className={'SplitUser'}>
+          <Link to="/sign-up">
+            <button className={'event-btn'}>Listener</button>
+          </Link>
+
+          <Link to="/artist-sign-up">
+            <button className={'event-btn'}>Player</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

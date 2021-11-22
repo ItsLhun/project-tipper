@@ -7,6 +7,7 @@
   margin: 0;
   padding-top: 1rem;
   overflow: scroll;
+  height: 100vh;
   h1 {
     font-family: $font-merri;
     font-weight: 300;
@@ -71,6 +72,9 @@
   font-size: 1rem;
   align-self: center;
   max-width: 15rem;
+  button:hover {
+    color: $accent-yellow;
+  }
 }
 .right-now-btn {
   background-color: $create-event-now-btn;

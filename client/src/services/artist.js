@@ -38,3 +38,9 @@ export const searchArtist = (body) => {
     })
     .then((response) => response.data);
 };
+
+export const enterRating = (id, body) => {
+  return api
+    .post(`/artist/${id}/rate`, body)
+    .then((response) => response.data.rate);
+};
