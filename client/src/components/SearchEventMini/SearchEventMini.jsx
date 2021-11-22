@@ -1,21 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { getDistancePoints } from '../../helpers/getDistancePoints';
-
 import '../SearchArtistMini/SearchArtistMini.scss';
 
 import './SearchEventMini.scss';
 
 function SearchEventMini(props) {
+  const eventDate = props.event.date.split('T')[0];
+  const eventTime = props.event.date.split('T')[1]?.split('.')[0].slice(0, -3);
+  let ongoing = false;
+  let minutesLeft = 0;
+  if (new Date(props.event.date) < new Date()) {
+    ongoing = true;
+    minutesLeft =
+      props.event.duration +
+      Math.floor((new Date(props.event.date) - new Date().getTime()) / 60000);
+  }
   return (
     <div className="SearchArtistMini">
-      <Link
-        to={`/artist/${props.event?._id}`}
-        className="SearchArtistMini_left"
-      >
+      <Link to={`/event/${props.event?._id}`} className="SearchArtistMini_left">
         <img
-          className="SearchArtistMini_avatar"
+          className={`SearchArtistMini_avatar ${ongoing ? 'live-avatar' : ''}`}
           src={
             props.event?.artist?.avatarUrl ||
             'https://source.unsplash.com/random'
@@ -25,7 +30,16 @@ function SearchEventMini(props) {
         <div className="SearchArtistMini_info">
           <span>{props.event?.title}</span>
           <span>
-            {props.event?.artist.firstName} {props.event?.artist.lastName}
+            {!ongoing && (
+              <span className="distance-span">
+                {eventDate + ' @ ' + eventTime}
+              </span>
+            )}
+            {ongoing && (
+              <span className="distance-span">
+                LIVE - ({minutesLeft} {minutesLeft === 1 ? 'min' : 'mins'} left)
+              </span>
+            )}
           </span>
           <span className="distance-span">{props.distanceToUser} km</span>
         </div>

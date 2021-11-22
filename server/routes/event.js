@@ -20,10 +20,9 @@ router.get('/search', async (req, res, next) => {
   const limit = req.query.limit;
   const mode = req.query.mode;
   console.log(req.query);
+  // const maxDays = req.query.maxDays;
   // const genres = req.query.genres;
   try {
-    // use text mongooose to search for text
-    // console.log(genres);
     if (mode === 'query') {
       const events = await Event.find({
         $or: [
@@ -41,27 +40,16 @@ router.get('/search', async (req, res, next) => {
       })
         .limit(limit)
         .populate('artist');
-      console.log(events);
-      res.json({ events });
+      // filtering out all expired events
+      const filteredEvents = events.filter((event) => {
+        const dateWithDuration =
+          new Date(event.date).getTime() + event.duration * 60000;
+        const now = new Date();
+        return new Date(dateWithDuration) >= now;
+      });
+      res.json({ events: filteredEvents });
       // Mongo does not allow the usage of countDocuments with the location
       // indexed query, so the search list will have to query events and artists at the same time
-    } else if (mode === 'count') {
-      // const eventsCount = await Event.countDocuments({
-      //   $or: [
-      //     { title: { $regex: query, $options: 'i' } },
-      //     { description: { $regex: query, $options: 'i' } }
-      //   ],
-      //   location: {
-      //     $near: {
-      //       $geometry: {
-      //         type: 'Point',
-      //         coordinates: [req.query.userLat, req.query.userLng]
-      //       }
-      //     }
-      //   }
-      // });
-      // console.log(eventsCount);
-      // res.json({ count: eventsCount });
     }
   } catch (error) {
     next(error);

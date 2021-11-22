@@ -57,16 +57,6 @@ function SearchListView(props) {
       });
       setArtistsSearchList(artists.artists);
       setArtistSearchCount(artists.artists.length);
-      // console.log(props.userLocation);
-      // const eventCount = await searchEvent({
-      //   userLat: props.userLocation.lat,
-      //   userLng: props.userLocation.lng,
-      //   q: search,
-      //   genres: genres,
-      //   limit: 100,
-      //   mode: 'count'
-      // });
-      // setEventsSearchCount(eventCount.count);
     } catch (error) {
       console.log(error);
     }
@@ -83,16 +73,7 @@ function SearchListView(props) {
         mode: 'query'
       });
       setEventsSearchList(events.events);
-      setEventsSearchCount(events.events.length);
-      // const artistCount = await searchArtist({
-      //   userLat: props.userLocation.lat,
-      //   userLng: props.userLocation.lng,
-      //   q: search,
-      //   genres: genres,
-      //   limit: 100,
-      //   mode: 'count'
-      // });
-      // setArtistSearchCount(artistCount.count);
+      setEventsSearchCount(events.events?.length ?? 0);
     } catch (error) {
       console.log(error);
     }
