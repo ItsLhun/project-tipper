@@ -32,7 +32,8 @@ export const searchArtist = (body) => {
         q: body?.q || '',
         limit: body?.limit || 0,
         genres: body?.genres || [],
-        mode: body?.mode || 'query'
+        mode: body?.mode || 'query',
+        userLocation: body.userLocation
       }
     })
     .then((response) => response.data);

@@ -48,6 +48,8 @@ function SearchListView(props) {
   const fetchArtists = async () => {
     try {
       const artists = await searchArtist({
+        userLat: props.userLocation.lat,
+        userLng: props.userLocation.lng,
         q: search,
         genres: genres,
         limit: 100,
@@ -55,13 +57,15 @@ function SearchListView(props) {
       });
       setArtistsSearchList(artists.artists);
       setArtistSearchCount(artists.artists.length);
+      console.log(props.userLocation);
       const eventCount = await searchEvent({
+        userLat: props.userLocation.lat,
+        userLng: props.userLocation.lng,
         q: search,
         genres: genres,
         limit: 100,
         mode: 'count'
       });
-
       setEventsSearchCount(eventCount.count);
     } catch (error) {
       console.log(error);
@@ -71,17 +75,21 @@ function SearchListView(props) {
   const fetchEvents = async () => {
     try {
       const events = await searchEvent({
+        userLat: props.userLocation.lat,
+        userLng: props.userLocation.lng,
         q: search,
         genres: genres,
-        limit: 10,
+        limit: 100,
         mode: 'query'
       });
       setEventsSearchList(events.events);
       setEventsSearchCount(events.events.length);
       const artistCount = await searchArtist({
+        userLat: props.userLocation.lat,
+        userLng: props.userLocation.lng,
         q: search,
         genres: genres,
-        limit: 10,
+        limit: 100,
         mode: 'count'
       });
       setArtistSearchCount(artistCount.count);
@@ -191,33 +199,21 @@ function SearchListView(props) {
           ))}
 
         {activeSearch === 'events' &&
-          eventsSearchList
-            .map((event) => {
-              event.distanceToUser = getDistancePoints(
-                event.location.coordinates[0],
-                event.location.coordinates[1],
-                props.userLocation.lat,
-                props.userLocation.lng
-              );
-              return event;
-            })
-            .sort((a, b) => a.distanceToUser - b.distanceToUser)
-            .map((event) => (
+          eventsSearchList.map((event) => {
+            let distanceToUser = getDistancePoints(
+              event.location.coordinates[0],
+              event.location.coordinates[1],
+              props.userLocation.lat,
+              props.userLocation.lng
+            );
+            return (
               <SearchEventMini
                 key={event._id}
                 event={event}
-                distanceToUser={event.distanceToUser.toFixed(2)}
+                distanceToUser={distanceToUser.toFixed(2)}
               />
-            ))}
-
-        {/* {activeSearch === 'events' &&
-          eventsSearchList.map((event) => (
-            <SearchEventMini
-              key={event._id}
-              event={event}
-              userLocation={props.userLocation}
-            />
-          ))} */}
+            );
+          })}
       </div>
     </div>
   );

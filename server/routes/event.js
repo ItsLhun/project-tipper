@@ -19,6 +19,7 @@ router.get('/search', async (req, res, next) => {
   const query = req.query.q;
   const limit = req.query.limit;
   const mode = req.query.mode;
+  console.log(req.query);
   // const genres = req.query.genres;
   try {
     // use text mongooose to search for text
@@ -28,19 +29,36 @@ router.get('/search', async (req, res, next) => {
         $or: [
           { title: { $regex: query, $options: 'i' } },
           { description: { $regex: query, $options: 'i' } }
-        ]
+        ],
+        location: {
+          $near: {
+            $geometry: {
+              type: 'Point',
+              coordinates: [req.query.userLat, req.query.userLng]
+            }
+          }
+        }
       })
         .limit(limit)
         .populate('artist');
+      console.log(events);
       res.json({ events });
     } else if (mode === 'count') {
-      const artistsCount = await Event.countDocuments({
+      const eventsCount = await Event.countDocuments({
         $or: [
           { title: { $regex: query, $options: 'i' } },
           { description: { $regex: query, $options: 'i' } }
-        ]
+        ],
+        location: {
+          $near: {
+            $geometry: {
+              type: 'Point',
+              coordinates: [req.query.userLat, req.query.userLng]
+            }
+          }
+        }
       });
-      res.json({ count: artistsCount });
+      res.json({ count: eventsCount });
     }
   } catch (error) {
     next(error);

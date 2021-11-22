@@ -19,7 +19,9 @@ export const searchEvent = (body) => {
         q: body?.q || '',
         limit: body?.limit || 0,
         genres: body?.genres || [],
-        mode: body?.mode || 'query'
+        mode: body?.mode || 'query',
+        userLat: body?.userLat || 0,
+        userLng: body?.userLng || 0
       }
     })
     .then((response) => response.data);
