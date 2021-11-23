@@ -19,7 +19,6 @@ function MapContainerView(props) {
   const fetchPlayingEvents = async () => {
     try {
       const events = await listPlayingNowEvents();
-      console.log(events);
       setPlayingEvents(events);
     } catch (error) {
       console.log(error);

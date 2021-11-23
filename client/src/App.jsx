@@ -105,7 +105,12 @@ function App() {
           path="/"
           render={(props) => {
             return user ? (
-              <HomeView {...props} user={user} definedGenres={genres} />
+              <HomeView
+                {...props}
+                user={user}
+                definedGenres={genres}
+                userLocation={userLocation}
+              />
             ) : (
               <HomeUnauthView {...props} />
             );

@@ -12,6 +12,9 @@ export const createEvent = (body) =>
 export const listPlayingNowEvents = () =>
   api.get('/event/list/now').then((res) => res.data.events);
 
+export const listPlayingTodayEvents = () =>
+  api.get('/event/list/today').then((res) => res.data.events);
+
 export const searchEvent = (body) => {
   return api
     .get(`/event/search`, {

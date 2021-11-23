@@ -23,6 +23,10 @@ class CreateEventView extends Component {
     };
   }
 
+  handleGenreSelectionChange = (genre) => {
+    this.setState({ genre });
+  };
+
   handleMapToggle = () => {
     this.setState((prevState) => {
       return { showMap: !prevState.showMap };

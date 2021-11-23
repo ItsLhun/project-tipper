@@ -117,4 +117,28 @@ router.get('/list/now', async (req, res, next) => {
   }
 });
 
+router.get('/list/today', async (req, res, next) => {
+  let start = new Date();
+  let end = new Date();
+  // set end to midnight + 6 hours
+  end.setHours(23, 59, 59, 999);
+  end.setHours(end.getHours() + 6);
+  console.log(start);
+  console.log(end);
+  try {
+    const events = await Event.find({ date: { $lte: end } })
+      .sort({ date: 1 })
+      .populate('artist');
+    const runningEvents = events.filter((event) => {
+      const eventDate = new Date(event.date);
+      const now = new Date();
+      return eventDate.getTime() + event.duration * 60000 >= now.getTime();
+    });
+    console.log(events);
+    res.json({ events: runningEvents });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
