@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { formatTimeWithOffset } from '../../helpers/formatTimeWithOffset';
+
 import '../SearchArtistMini/SearchArtistMini.scss';
 
 import './SearchEventMini.scss';
@@ -32,7 +34,7 @@ function SearchEventMini(props) {
           <span>
             {!ongoing && (
               <span className="distance-span">
-                {eventDate + ' @ ' + eventTime}
+                {eventDate + ' @ ' + formatTimeWithOffset(eventTime)}
               </span>
             )}
             {ongoing && (
