@@ -260,6 +260,8 @@ function App() {
               {...props}
               user={user}
               onSignOut={signOutHandler}
+              definedGenres={genres}
+              onUserRefresh={loadUser}
             />
           )}
           exact

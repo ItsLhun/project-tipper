@@ -52,10 +52,6 @@ const schema = new mongoose.Schema({
   },
   paymentToken: {
     type: String
-  },
-  followerCount: {
-    type: Number,
-    min: 0
   }
 });
 
