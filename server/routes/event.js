@@ -105,7 +105,9 @@ router.post('/create', routeGuard, async (req, res, next) => {
 
 router.get('/list/now', async (req, res, next) => {
   try {
-    const events = await Event.find({ date: { $lte: new Date() } });
+    const events = await Event.find({ date: { $lte: new Date() } }).populate(
+      'artist'
+    );
     const runningEvents = events.filter((event) => {
       const eventDate = new Date(event.date);
       const now = new Date();

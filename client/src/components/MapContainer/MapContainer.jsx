@@ -1,7 +1,14 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  useJsApiLoader,
+  Marker,
+  InfoWindow
+} from '@react-google-maps/api';
 import { listPlayingNowEvents } from '../../services/event';
-// import MapPin from '../../components/MapPin/MapPin';
+import MapPin from '../../components/MapPin/MapPin';
+import MapPopover from '../MapPopover/MapPopover';
+import { getDistancePoints } from '../../helpers/getDistancePoints';
 
 import img from './Vector.svg';
 import userLocation from './userlocation.svg';
@@ -16,6 +23,7 @@ function MapContainerView(props) {
   const [map, setMap] = useState(null);
   const [centerMap, setCenterMap] = useState(null);
   const [playingEvents, setPlayingEvents] = useState([]);
+  const [activeInfo, setActiveInfo] = useState(null);
 
   const fetchPlayingEvents = async () => {
     try {
@@ -88,18 +96,24 @@ function MapContainerView(props) {
       options={setOptions(map)}
       onClick={handleMapClick}
     >
-      {/* Child components, such as markers, info windows, etc. */}
-      {playingEvents.map((event) => (
-        <Marker
-          key={event._id}
-          position={{
-            lat: event.location.coordinates[0],
-            lng: event.location.coordinates[1]
-          }}
-          icon={img}
-        />
-      ))}
-
+      {playingEvents.map((event) => {
+        let distanceToUser = getDistancePoints(
+          event.location.coordinates[0],
+          event.location.coordinates[1],
+          props.userLocation.lat,
+          props.userLocation.lng
+        );
+        return (
+          <MapPin
+            event={event}
+            key={event._id}
+            icon={img}
+            activeInfo={activeInfo}
+            setActiveInfo={setActiveInfo}
+            distanceToUser={distanceToUser}
+          />
+        );
+      })}
       <Marker icon={userLocation} position={centerMap} />
     </GoogleMap>
   ) : (
