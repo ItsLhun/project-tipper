@@ -4,6 +4,7 @@ import { listPlayingNowEvents } from '../../services/event';
 // import MapPin from '../../components/MapPin/MapPin';
 
 import img from './Vector.svg';
+import userLocation from './userlocation.svg';
 
 import './MapContainer.scss';
 
@@ -99,7 +100,7 @@ function MapContainerView(props) {
         />
       ))}
 
-      <Marker icon={img} position={centerMap} />
+      <Marker icon={userLocation} position={centerMap} />
     </GoogleMap>
   ) : (
     <>Loading view?...</>
