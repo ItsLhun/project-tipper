@@ -192,6 +192,7 @@ function App() {
                 {...props}
                 user={user}
                 onSignOut={signOutHandler}
+                onUserRefresh={loadUser}
               />
               // )) || (
               //       <ArtistProfileView
