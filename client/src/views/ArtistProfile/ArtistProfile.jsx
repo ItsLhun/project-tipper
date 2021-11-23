@@ -3,8 +3,10 @@ import { loadArtist } from '../../services/artist';
 import StarRating from './../../components/StarRating/StarRating';
 import { updateAccountSettings } from '../../services/profile-settings';
 import { Link } from 'react-router-dom';
-import { followArtist } from '../../services/artist';
+import { countFollow, followArtist } from '../../services/follow';
 import GenreCheckbox from '../../components/GenreCheckbox/GenreCheckbox';
+import { checkFollow } from '../../services/follow';
+import { checkRating } from '../../services/rating';
 
 import './ArtistProfile.scss';
 
@@ -24,6 +26,7 @@ function ArtistProfileView(props) {
   const [genre, setGenre] = useState(props.user?.genre);
   const [follow, setFollow] = useState();
   const [rating, setRating] = useState();
+  const [count, setCount] = useState();
   // const isInitialMount = useRef(true);
 
   const isOwnProfile = props.match.params.id === props.user?._id;
@@ -52,23 +55,33 @@ function ArtistProfileView(props) {
 
   useEffect(() => {
     console.log('check for follows & ratings');
-    getFollowAndRating();
-  }, [props.user?.follow]);
+    getFollow();
+    getCount();
+    getRating();
+  }, []);
 
-  const getFollowAndRating = async () => {
+  const getFollow = async () => {
     try {
-      const response = await loadArtist(props.match.params.id);
-      if (response.rating) {
-        setRating(true);
-      } else if (!response.rating) {
-        setRating(false);
-      }
-      if (response.follow) {
+      const response = await checkFollow(props.match.params.id);
+      console.log(response);
+      if (response) {
         setFollow(true);
       } else {
         setFollow(false);
       }
-      console.log(follow);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getRating = async () => {
+    try {
+      const response = await checkRating(props.match.params.id);
+      if (response) {
+        setRating(true);
+      } else if (!response) {
+        setRating(false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -131,11 +144,22 @@ function ArtistProfileView(props) {
     }
   };
 
+  const getCount = async () => {
+    const count = await countFollow(artist?._id);
+    setCount(count);
+  };
+
   const followNow = async () => {
     try {
-      const response = await followArtist(artist._id);
+      const response = await followArtist(artist?._id);
       console.log(response);
       setFollow(!follow);
+      await countFollow(artist?._id);
+      if (!follow) {
+        setCount(count + 1);
+      } else {
+        setCount(count - 1);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -328,9 +352,18 @@ function ArtistProfileView(props) {
         <StarRating {...props} user={props.user} isLoggedIn={isLoggedIn} />
 
         <div className={'ArtistProfileView_follow'}>
-          <div>{artist?.followerCount} followers</div>
-          {!isOwnProfile && <button onClick={followNow}>follow</button>}
-          {!isOwnProfile && <button>$ tip</button>}
+          <div>{count} followers</div>
+          {!isOwnProfile && follow && (
+            <button className={'onFollow'} onClick={followNow}>
+              followed
+            </button>
+          )}
+          {!isOwnProfile && !follow && (
+            <button className={'offFollow'} onClick={followNow}>
+              follow
+            </button>
+          )}
+          {!isOwnProfile && <button className={'tip-btn'}>$ tip</button>}
         </div>
       </div>
       <div className={'UserProfileView_body'}>

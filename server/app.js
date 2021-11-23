@@ -15,6 +15,8 @@ const authenticationRouter = require('./routes/authentication');
 const eventRouter = require('./routes/event');
 const profileSettingsRouter = require('./routes/profile-settings');
 const ArtistRouter = require('./routes/artist');
+const followRouter = require('./routes/follow');
+const rateRouter = require('./routes/rating');
 
 const app = express();
 
@@ -54,6 +56,8 @@ app.use('/auth', authenticationRouter);
 app.use('/event', eventRouter);
 app.use('/profile', profileSettingsRouter);
 app.use('/artist', ArtistRouter);
+app.use('/artist', followRouter);
+app.use('/artist', rateRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {

@@ -4,6 +4,17 @@
 $diameter: 5rem;
 $circle-font: $diameter / 2;
 
+.tip-btn {
+  background-color: $accent-yellow;
+  font-weight: 600;
+  color: black;
+  font-family: $font-robo;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin: 0.2rem;
+  display: inline-block;
+}
+
 .ArtistProfileView {
   form {
     margin-top: 2rem;

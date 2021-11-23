@@ -19,12 +19,6 @@ export const getArtistList = (body) => {
     .then((response) => response.data.artists);
 };
 
-export const followArtist = (id) => {
-  return api
-    .post(`/artist/${id}/follow`, id)
-    .then((response) => response.data.follow);
-};
-
 export const searchArtist = (body) => {
   return api
     .get(`/artist/search`, {
@@ -37,10 +31,4 @@ export const searchArtist = (body) => {
       }
     })
     .then((response) => response.data);
-};
-
-export const enterRating = (id, body) => {
-  return api
-    .post(`/artist/${id}/rate`, body)
-    .then((response) => response.data.rate);
 };
