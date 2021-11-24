@@ -9,21 +9,9 @@ $font-michroma: 'Michroma', sans-serif;
 
 $nav-height: 3rem;
 
-html,
-body {
-  margin: 0;
-  font-family: $font-robo, 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-* {
-  box-sizing: border-box;
-}
-
-a,
-a:visited,
-a:active {
-  color: inherit;
-  text-decoration: none;
-}
+// Breakpoints
+$break-xs: 480px;
+$break-sm: 768px;
+$break-md: 992px;
+$break-lg: 1200px;
+$break-xl: 1600px;

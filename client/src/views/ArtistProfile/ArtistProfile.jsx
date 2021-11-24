@@ -355,12 +355,12 @@ function ArtistProfileView(props) {
           <div>{count} followers</div>
           {!isOwnProfile && follow && (
             <button className={'onFollow'} onClick={followNow}>
-              followed
+              Unfollow
             </button>
           )}
           {!isOwnProfile && !follow && (
             <button className={'offFollow'} onClick={followNow}>
-              follow
+              Follow
             </button>
           )}
           {!isOwnProfile && <button className={'tip-btn'}>$ tip</button>}

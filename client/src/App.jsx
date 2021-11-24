@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
-import { signOut, loadAuthenticatedUser } from './services/auth';
 import SignInView from './views/SignIn/SignIn';
+import { signOut, loadAuthenticatedUser } from './services/auth';
 import SplitUsersView from './views/SplitUsers/SplitUsers';
 import SignUpView from './views/SignUp/SignUp';
 import ArtistSignUpView from './views/ArtistSignUp/ArtistSignUp';
 import UserProfileView from './views/UserProfile/UserProfile';
 import ArtistProfileView from './views/ArtistProfile/ArtistProfile';
+import TipArtistView from './views/TipArtist/TipArtist';
 import HomeView from './views/Home/Home';
 import EventDetail from './views/Event/Detail';
 import CreateEventView from './views/Event/Create';
@@ -257,6 +258,21 @@ function App() {
           redirect="/"
           render={(props) => (
             <ArtistProfileView
+              {...props}
+              user={user}
+              onSignOut={signOutHandler}
+              definedGenres={genres}
+              onUserRefresh={loadUser}
+            />
+          )}
+          exact
+        />
+        <ProtectedRoute
+          path="/artist/:id/tip"
+          authorized={!loaded || user}
+          redirect="/"
+          render={(props) => (
+            <TipArtistView
               {...props}
               user={user}
               onSignOut={signOutHandler}
