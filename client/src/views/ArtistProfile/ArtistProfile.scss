@@ -27,7 +27,6 @@ $circle-font: $diameter / 2;
     filter: invert(100%) !important;
     height: 2.5rem;
   }
-
   .avatar-circle {
     margin: 0;
     margin-top: -2.5rem !important;
@@ -138,8 +137,8 @@ $circle-font: $diameter / 2;
   justify-content: space-between;
   align-items: baseline;
   button {
-    background-color: $accent-yellow;
-    border: none;
+    background-color: white;
+    border: 1px solid black;
     height: 25px;
     width: 25px;
     font-weight: 800;

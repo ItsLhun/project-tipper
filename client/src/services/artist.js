@@ -32,3 +32,9 @@ export const searchArtist = (body) => {
     })
     .then((response) => response.data);
 };
+
+export const findEvents = (id) => {
+  return api
+    .get(`artist/${id}/events`, id)
+    .then((response) => response.data.events);
+};

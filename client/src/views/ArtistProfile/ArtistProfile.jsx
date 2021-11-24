@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { loadArtist } from '../../services/artist';
+import { loadArtist, findEvents } from '../../services/artist';
 import StarRating from './../../components/StarRating/StarRating';
 import { updateAccountSettings } from '../../services/profile-settings';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { countFollow, followArtist } from '../../services/follow';
 import GenreCheckbox from '../../components/GenreCheckbox/GenreCheckbox';
 import { checkFollow } from '../../services/follow';
 import { checkRating } from '../../services/rating';
+import EventMini from '../../components/ArtistEventMini/ArtistEventMini';
 
 import './ArtistProfile.scss';
 
@@ -17,7 +18,6 @@ import signOutIcon from './sign-out.svg';
 
 function ArtistProfileView(props) {
   const [artist, setArtist] = useState();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [editSettings, setEditSettings] = useState(false);
   const [email, setEmail] = useState(props.user?.email);
   const [password, setPassword] = useState('');
@@ -28,7 +28,7 @@ function ArtistProfileView(props) {
   const [follow, setFollow] = useState();
   const [rating, setRating] = useState();
   const [count, setCount] = useState();
-  // const isInitialMount = useRef(true);
+  const [events, setEvents] = useState();
 
   const isOwnProfile = props.match.params.id === props.user?._id;
 
@@ -61,6 +61,7 @@ function ArtistProfileView(props) {
   useEffect(() => {
     getFollow();
     getRating();
+    getEvents();
     if (isOwnProfile) {
       setGenre([...props.user.genre]);
     }
@@ -150,12 +151,23 @@ function ArtistProfileView(props) {
     try {
       await followArtist(artist?._id);
       setFollow(!follow);
-      await countFollow(artist?._id);
+      await countFollow(artist?.id);
       if (!follow) {
         setCount(count + 1);
       } else {
         setCount(count - 1);
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getEvents = async () => {
+    try {
+      const response = await findEvents(props.match.params.id);
+      await setEvents([response]);
+      console.log(typeof events);
+      console.log(events);
     } catch (error) {
       console.log(error);
     }
@@ -219,6 +231,7 @@ function ArtistProfileView(props) {
                 onChange={handleInputChange}
               />
             </div>
+
             <div className="UserProfileView_body_section_content_inputs">
               <span>Please Select Your Genres:</span>
               <GenreCheckbox
@@ -228,6 +241,7 @@ function ArtistProfileView(props) {
               />
             </div>
           </div>
+
           <button className="save-changes-btn">Save Changes</button>
         </form>
       )}
@@ -303,7 +317,7 @@ function ArtistProfileView(props) {
           {(artist?.bio && <em>{artist.bio}</em>) || <em></em>}
         </div>
 
-        <StarRating {...props} user={props.user} isLoggedIn={isLoggedIn} />
+        {/* <StarRating {...props} user={props.user} isLoggedIn={isLoggedIn} /> */}
 
         <div className={'ArtistProfileView_follow'}>
           <div>
@@ -338,15 +352,8 @@ function ArtistProfileView(props) {
             )}
           </div>
           {/* <EventDetailView /> */}
-          <p>
-            Location:
-            <br />
-            Time:
-            <br />
-            Date:
-            <br />
-            Price: free
-          </p>
+
+          {events && <EventMini {...props} events={events} />}
         </div>
       </div>
     </div>

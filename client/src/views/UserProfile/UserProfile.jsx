@@ -115,8 +115,10 @@ function UserProfileView(props) {
           <div className={'UserProfileView_body_section_content'}>
             {props.user?.paymentToken && payment && (
               <div>
-                <p>To Change Your Credit Card Details, click here:</p>
-                <button onClick={() => setPayment(false)}>
+                <button
+                  className={'save-changes-btn'}
+                  onClick={() => setPayment(false)}
+                >
                   Change Credit Card Info
                 </button>
               </div>

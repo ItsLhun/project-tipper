@@ -6,6 +6,7 @@ const Artist = require('./../models/user');
 const upload = require('../middleware/file-upload');
 const routeGuardMiddleware = require('./../middleware/route-guard');
 const Rating = require('./../models/rating');
+const Event = require('./../models/event');
 
 router.get('/list', async (req, res, next) => {
   try {
@@ -85,7 +86,6 @@ router.post(
     const url = req.file.path;
     console.log(req.user);
     try {
-      // console.log('Session ID', req.session, req.user);
       const backgroundUpdate = await Artist.findByIdAndUpdate(req.user._id, {
         backgroundImg: url
       });
@@ -95,6 +95,17 @@ router.post(
     }
   }
 );
+
+router.get('/:id/events', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const events = await Event.find({ artist: id });
+    console.log(events);
+    res.json({ events });
+  } catch (error) {
+    next(error);
+  }
+});
 
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
