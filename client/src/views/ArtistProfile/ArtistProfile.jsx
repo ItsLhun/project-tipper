@@ -352,18 +352,20 @@ function ArtistProfileView(props) {
         <StarRating {...props} user={props.user} isLoggedIn={isLoggedIn} />
 
         <div className={'ArtistProfileView_follow'}>
-          <div>{count} followers</div>
+          <div>
+            {count} <span>followers</span>
+          </div>
           {!isOwnProfile && follow && (
-            <button className={'onFollow'} onClick={followNow}>
-              Unfollow
+            <button className="unfollow-btn" onClick={followNow}>
+              unfollow
             </button>
           )}
           {!isOwnProfile && !follow && (
-            <button className={'offFollow'} onClick={followNow}>
-              Follow
+            <button className="follow-btn artist-btn" onClick={followNow}>
+              follow
             </button>
           )}
-          {!isOwnProfile && <button className={'tip-btn'}>$ tip</button>}
+          {!isOwnProfile && <button className="artist-btn">$ tip 🤑</button>}
         </div>
       </div>
       <div className={'UserProfileView_body'}>

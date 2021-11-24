@@ -4,17 +4,6 @@
 $diameter: 5rem;
 $circle-font: $diameter / 2;
 
-.tip-btn {
-  background-color: $accent-yellow;
-  font-weight: 600;
-  color: black;
-  font-family: $font-robo;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  margin: 0.2rem;
-  display: inline-block;
-}
-
 .ArtistProfileView {
   form {
     margin-top: 2rem;
@@ -100,28 +89,17 @@ $circle-font: $diameter / 2;
   }
 }
 
-.onFollow {
+.unfollow-btn {
+  font-weight: 600;
+  color: black;
+  font-family: $font-robo;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin: 0.2rem;
+  display: inline-block;
+  border: 0;
   background-color: $accent-yellow;
-  font-weight: 600;
-  color: black;
-  font-family: $font-robo;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  margin: 0.2rem;
-  display: inline-block;
 }
-
-.offFollow {
-  background-color: white;
-  font-weight: 600;
-  color: black;
-  font-family: $font-robo;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  margin: 0.2rem;
-  display: inline-block;
-}
-
 .EventsAndNew {
   display: flex;
   justify-content: space-between;
@@ -134,4 +112,32 @@ $circle-font: $diameter / 2;
     font-weight: 800;
     font-size: 20px;
   }
+}
+
+.follow-btn {
+  border: 0;
+  font-weight: 600;
+  color: black;
+  font-family: $font-robo;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin: 0.2rem;
+  display: inline-block;
+}
+
+.ArtistProfileView_follow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+.artist-btn {
+  background-color: #38377b;
+  color: white;
+  border: 0;
+  font-weight: 500;
+  font-family: $font-robo;
+  padding: 0.55rem;
+  border-radius: 0.6rem;
 }
