@@ -45,18 +45,24 @@ function ArtistProfileView(props) {
       try {
         const artist = await loadArtist(props.match.params.id);
         setArtist(artist);
+        getCount(artist._id);
       } catch (error) {
         console.log(error);
       }
     } else {
       setArtist(props.user);
+      getCount(props.user._id);
     }
+  };
+
+  const getCount = async (id) => {
+    const count = await countFollow(id);
+    setCount(count);
   };
 
   useEffect(() => {
     console.log('check for follows & ratings');
     getFollow();
-    getCount();
     getRating();
   }, []);
 
@@ -142,11 +148,6 @@ function ArtistProfileView(props) {
       default:
         break;
     }
-  };
-
-  const getCount = async () => {
-    const count = await countFollow(artist?._id);
-    setCount(count);
   };
 
   const followNow = async () => {
@@ -353,7 +354,8 @@ function ArtistProfileView(props) {
 
         <div className={'ArtistProfileView_follow'}>
           <div>
-            {count} <span>followers</span>
+            <span>{count}</span>
+            <span>followers</span>
           </div>
           {!isOwnProfile && follow && (
             <button className="unfollow-btn" onClick={followNow}>
@@ -365,7 +367,11 @@ function ArtistProfileView(props) {
               follow
             </button>
           )}
-          {!isOwnProfile && <button className="artist-btn">$ tip 🤑</button>}
+          {!isOwnProfile && (
+            <button className="artist-btn">
+              <Link to={`/artist/${artist?._id}/tip`}>$ tip 🤑</Link>
+            </button>
+          )}
         </div>
       </div>
       <div className={'UserProfileView_body'}>

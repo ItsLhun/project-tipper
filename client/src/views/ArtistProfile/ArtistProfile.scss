@@ -131,6 +131,17 @@ $circle-font: $diameter / 2;
   align-items: center;
   gap: 1rem;
   margin-top: 1.2rem;
+  div:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    span:first-child {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: black;
+    }
+  }
 }
 .artist-btn {
   background-color: #38377b;
