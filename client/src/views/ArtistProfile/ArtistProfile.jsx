@@ -24,16 +24,13 @@ function ArtistProfileView(props) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [bio, setBio] = useState(props.user?.bio);
   const [instruments, setInstruments] = useState(props.user?.instruments);
-  const [genre, setGenre] = useState(props.user?.genre);
+  const [genre, setGenre] = useState([]);
   const [follow, setFollow] = useState();
   const [rating, setRating] = useState();
   const [count, setCount] = useState();
   // const isInitialMount = useRef(true);
 
   const isOwnProfile = props.match.params.id === props.user?._id;
-
-  console.log(isOwnProfile);
-  console.log(artist);
 
   // the dependency is necessary to make sure that the component is re-rendered
   // if user comes from another artist's profile
@@ -62,15 +59,16 @@ function ArtistProfileView(props) {
   };
 
   useEffect(() => {
-    console.log('check for follows & ratings');
     getFollow();
     getRating();
+    if (isOwnProfile) {
+      setGenre([...props.user.genre]);
+    }
   }, []);
 
   const getFollow = async () => {
     try {
       const response = await checkFollow(props.match.params.id);
-      console.log(response);
       if (response) {
         setFollow(true);
       } else {
@@ -101,7 +99,6 @@ function ArtistProfileView(props) {
       console.log(error);
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -114,15 +111,13 @@ function ArtistProfileView(props) {
         instruments
       });
       changeSettings();
-      console.log(artist);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleGenreSelectionChange = (genre) => {
-    setGenre({ genre: genre });
-    console.log(genre);
+    setGenre(genre);
   };
 
   const handleInputChange = (e) => {
@@ -153,8 +148,7 @@ function ArtistProfileView(props) {
 
   const followNow = async () => {
     try {
-      const response = await followArtist(artist?._id);
-      console.log(response);
+      await followArtist(artist?._id);
       setFollow(!follow);
       await countFollow(artist?._id);
       if (!follow) {
@@ -208,7 +202,7 @@ function ArtistProfileView(props) {
             <div className="UserProfileView_body_section_content_inputs">
               <span>Write something about yourself:</span>
               <input
-                value={bio}
+                value={props.user?.bio || bio}
                 type="text"
                 id="bio-input"
                 name="bio"
@@ -228,19 +222,8 @@ function ArtistProfileView(props) {
             <div className="UserProfileView_body_section_content_inputs">
               <span>Please Select Your Genres:</span>
               <GenreCheckbox
-                options={[
-                  { value: 'genre-african', label: 'African' },
-                  { value: 'genre-arabic', label: 'Arabic' },
-                  { value: 'genre-axe', label: 'Axé' },
-                  { value: 'genre-blues', label: 'Blues' },
-                  {
-                    value: 'genre-bollywood-indian',
-                    label: 'Bollywood & Indian'
-                  },
-                  { value: 'genre-classical', label: 'Classical' },
-                  { value: 'rock', label: 'Rock' }
-                ]}
-                selected={genre}
+                options={props.definedGenres}
+                selected={props.user?.genre || genre}
                 onSelectedChange={handleGenreSelectionChange}
               />
             </div>

@@ -7,14 +7,15 @@ $circle-font: $diameter / 2;
 .ArtistProfileView {
   position: relative;
   form {
-    margin-top: 2rem;
+    h4 {
+      margin-top: 4rem;
+      margin-bottom: 0rem;
+    }
   }
   margin-bottom: 4rem;
   .profile-name {
     font-family: $font-michroma;
-    // make sure color is correct with background
     color: white;
-    // mix-blend-mode: difference;
     -webkit-text-stroke-width: 0.5px;
     -webkit-text-stroke-color: black;
     position: absolute;

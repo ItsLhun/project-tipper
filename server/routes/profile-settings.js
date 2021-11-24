@@ -54,12 +54,13 @@ router.post('/edit', routeGuardMiddleware, async (req, res, next) => {
   if (password !== confirmPassword) {
     return res.status(400).json({ message: 'Passwords do not match' });
   }
+
   try {
     const user = await User.findByIdAndUpdate(req.user._id, {
       email,
       password: bcryptjs.hashSync(password, 10),
       bio,
-      genre,
+      genre: [...genre],
       instruments
     });
     res.json({ user });
