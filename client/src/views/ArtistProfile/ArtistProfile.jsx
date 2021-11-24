@@ -24,11 +24,11 @@ function ArtistProfileView(props) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [bio, setBio] = useState(props.user?.bio);
   const [instruments, setInstruments] = useState(props.user?.instruments);
-  const [genre, setGenre] = useState([]);
+  const [genre, setGenre] = useState(props.user?.genre);
   const [follow, setFollow] = useState();
   const [rating, setRating] = useState();
   const [count, setCount] = useState();
-  const [events, setEvents] = useState();
+  const [events, setEvents] = useState([]);
 
   const isOwnProfile = props.match.params.id === props.user?._id;
 
@@ -37,6 +37,8 @@ function ArtistProfileView(props) {
   useEffect(() => {
     getArtist();
   }, [props.match.params.id]);
+
+  console.log(genre);
 
   const getArtist = async () => {
     if (!isOwnProfile) {
@@ -234,9 +236,10 @@ function ArtistProfileView(props) {
 
             <div className="UserProfileView_body_section_content_inputs">
               <span>Please Select Your Genres:</span>
+
               <GenreCheckbox
                 options={props.definedGenres}
-                selected={props.user?.genre || genre}
+                selected={genre || props.user?.genre}
                 onSelectedChange={handleGenreSelectionChange}
               />
             </div>
@@ -352,7 +355,6 @@ function ArtistProfileView(props) {
             )}
           </div>
           {/* <EventDetailView /> */}
-
           {events && <EventMini {...props} events={events} />}
         </div>
       </div>

@@ -1,8 +1,10 @@
 import React from 'react';
 
+import './TipArtist.scss';
+
 function TipArtistView(props) {
   return (
-    <div>
+    <div className="TipArtistView">
       <h1>TipArtist</h1>
     </div>
   );
