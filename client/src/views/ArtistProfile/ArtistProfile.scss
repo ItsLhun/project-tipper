@@ -5,6 +5,7 @@ $diameter: 5rem;
 $circle-font: $diameter / 2;
 
 .ArtistProfileView {
+  position: relative;
   form {
     margin-top: 2rem;
   }
@@ -25,6 +26,7 @@ $circle-font: $diameter / 2;
     filter: invert(100%) !important;
     height: 2.5rem;
   }
+
   .avatar-circle {
     margin: 0;
     margin-top: -2.5rem !important;
@@ -56,6 +58,14 @@ $circle-font: $diameter / 2;
     margin-bottom: 0.5rem;
     width: 100%;
   }
+  .UserProfileView_header {
+    position: relative;
+    z-index: 1;
+  }
+  .sign-out-btn {
+    height: 2.5rem;
+    mix-blend-mode: difference;
+  }
 }
 
 .Background {
@@ -81,11 +91,33 @@ $circle-font: $diameter / 2;
 
 .BackgroundImgAndButton {
   display: flex;
-  button {
-    margin-left: -30px;
-    background-color: $accent-yellow;
-    border: none;
-    padding: 4px;
+  position: relative;
+  z-index: -1;
+  img:first-child {
+    width: 100%;
+    z-index: -1;
+    height: 100%;
+    object-fit: cover;
+  }
+  .background-btn {
+    position: absolute;
+    z-index: 999;
+    right: 3px;
+    bottom: 3px;
+    mix-blend-mode: lighten;
+    width: 1.7rem;
+    height: 1.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    img {
+      width: 1.1rem;
+      height: 1.1rem;
+      filter: invert(80%) sepia(47%) saturate(1894%) hue-rotate(6deg)
+        brightness(103%) contrast(108%);
+      mix-blend-mode: lighten;
+    }
   }
 }
 
@@ -131,6 +163,7 @@ $circle-font: $diameter / 2;
   align-items: center;
   gap: 1rem;
   margin-top: 1.2rem;
+  margin-bottom: 2.4rem;
   div:first-child {
     display: flex;
     justify-content: center;
@@ -139,6 +172,11 @@ $circle-font: $diameter / 2;
     span:first-child {
       font-size: 1.5rem;
       font-weight: 600;
+      color: black;
+    }
+    span:last-child {
+      font-size: 0.9rem;
+      font-weight: 400;
       color: black;
     }
   }
@@ -151,4 +189,7 @@ $circle-font: $diameter / 2;
   font-family: $font-robo;
   padding: 0.55rem;
   border-radius: 0.6rem;
+}
+.top-icon {
+  z-index: 999 !important;
 }
