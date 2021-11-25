@@ -1,13 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import {
-  GoogleMap,
-  useJsApiLoader,
-  Marker,
-  InfoWindow
-} from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { listPlayingNowEvents } from '../../services/event';
 import MapPin from '../../components/MapPin/MapPin';
-import MapPopover from '../MapPopover/MapPopover';
 import { getDistancePoints } from '../../helpers/getDistancePoints';
 
 import img from './Vector.svg';

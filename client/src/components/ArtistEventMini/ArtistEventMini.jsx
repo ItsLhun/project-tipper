@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const EventMini = (props) => {
-  const [events, setEvents] = useState(props.events);
-
   return (
     <div>
       {props.events.map((event) => {

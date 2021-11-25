@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './GenreCheckbox.scss';
 
 const GenreCheckbox = ({ options, selected, onSelectedChange, blobSize }) => {

@@ -11,7 +11,7 @@ function MapPin(props) {
   const displayInfo = (event) => {
     props.setActiveInfo(props.event._id);
     setIsVisible(true);
-    console.log(event);
+    console.log(event, isVisible);
   };
 
   const handleCloseClick = () => {
