@@ -41,8 +41,8 @@ function HomeView(props) {
               let distanceToUser = getDistancePoints(
                 event.location.coordinates[0],
                 event.location.coordinates[1],
-                props.userLocation.lat,
-                props.userLocation.lng
+                props.userLocation?.lat,
+                props.userLocation?.lng
               );
               return (
                 <PlayingTodayMini
