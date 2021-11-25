@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap } from '@react-google-maps/api';
 
 import { geocodeLatLng } from '../../helpers/geocodeLatLng';
 
@@ -8,17 +8,6 @@ import img from '../MapContainer/Vector.svg';
 import '../MapContainer/MapContainer.scss';
 
 function MapContainerView(props) {
-  const { isLoaded, loadError } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API
-  });
-
-  let geocoder = null;
-  if (isLoaded) {
-    geocoder = new window.google.maps.Geocoder();
-    console.log(geocoder);
-  }
-
   const setOptions = (map) => {
     return {
       // disableDefaultUI: true,
@@ -51,9 +40,9 @@ function MapContainerView(props) {
     let lng = map?.getCenter().lng();
     console.log(lat, lng);
     let address = 'Not set';
-    if (geocoder) {
+    if (props.geocoder) {
       address = await geocodeLatLng(
-        geocoder,
+        props.geocoder,
         { lat, lng },
         props.onConfirmation
       );
@@ -63,10 +52,10 @@ function MapContainerView(props) {
     props.onClose();
   };
 
-  if (loadError) {
+  if (!props.isLoaded) {
     return <div>Map cannot be loaded right now.</div>;
   }
-  return isLoaded ? (
+  return props.isLoaded ? (
     <GoogleMap
       mapContainerStyle={{
         width: '100%',

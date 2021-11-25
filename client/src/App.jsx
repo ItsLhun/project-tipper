@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { useJsApiLoader } from '@react-google-maps/api';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import BottomNavbar from './components/BottomNavbar/BottomNavbar';
@@ -30,6 +31,17 @@ import { updateLastLocation } from './services/auth';
 import './App.scss';
 
 function App() {
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API
+  });
+
+  let geocoder = null;
+  if (isLoaded) {
+    geocoder = new window.google.maps.Geocoder();
+    console.log(geocoder);
+  }
+
   const [user, setUser] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
@@ -149,6 +161,8 @@ function App() {
               onAuthenticationChange={setUser}
               definedGenres={genres}
               userLocation={userLocation}
+              isLoaded={isLoaded}
+              geocoder={geocoder}
             />
           )}
           exact

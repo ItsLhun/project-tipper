@@ -181,9 +181,11 @@ class CreateEventView extends Component {
           </div>
         )) || (
           <MapOverlay
+            isLoaded={this.props.isLoaded}
             onClose={this.handleMapToggle}
             onConfirmation={this.handleLocationChange}
             userLocation={this.props.userLocation}
+            geocoder={this.props.geocoder}
           />
         )}
       </div>
