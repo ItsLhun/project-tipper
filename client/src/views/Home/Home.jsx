@@ -9,16 +9,13 @@ import FeaturedMini from '../../components/FeaturedMini/FeaturedMini';
 import PlayingTodayMini from '../../components/PlayingTodayMini/PlayingTodayMini';
 
 import { getArtistList } from '../../services/artist';
-<<<<<<< HEAD
 import { listPlayingNowEvents } from '../../services/event';
-=======
 import { listPlayingTodayEvents } from '../../services/event';
 import { getDistancePoints } from '../../helpers/getDistancePoints';
 
 function HomeView(props) {
   const [featuredArtists, setFeaturedArtists] = useState([]);
   const [playingToday, setPlayingToday] = React.useState([]);
->>>>>>> c3174bb7730fe3074954feb9eb6fecd694bb5645
 
   useEffect(() => {
     getArtistList().then((artists) => {
@@ -27,13 +24,6 @@ function HomeView(props) {
     getPlayingToday();
   }, []);
 
-<<<<<<< HEAD
-  React.useEffect(() => {
-    listPlayingNowEvents().then((events) => {
-      console.log(events);
-    });
-  }, []);
-=======
   const getPlayingToday = () => {
     listPlayingTodayEvents().then((events) => {
       setPlayingToday(events);
@@ -41,20 +31,12 @@ function HomeView(props) {
       console.log(events.length);
     });
   };
->>>>>>> c3174bb7730fe3074954feb9eb6fecd694bb5645
 
   return (
     <div>
       <div className="HomeView">
         <section className="HomeView__section">
           <h2>Playing Today</h2>
-<<<<<<< HEAD
-          <ul>
-            {listPlayingNowEvents().map((event) => (
-              // <PlayingTodayMini />
-              <li>{event.name}</li>
-            ))}
-=======
           <ul className="playingToday">
             {playingToday.map((event) => {
               let distanceToUser = getDistancePoints(
@@ -72,7 +54,6 @@ function HomeView(props) {
                 />
               );
             })}
->>>>>>> c3174bb7730fe3074954feb9eb6fecd694bb5645
           </ul>
         </section>
         <section className="HomeView__section">

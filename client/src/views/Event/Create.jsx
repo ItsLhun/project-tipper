@@ -85,7 +85,7 @@ class CreateEventView extends Component {
       <div>
         {(!this.state.showMap && (
           <div className="CreateEventView">
-            <h1>New Event</h1>
+            <h1 className="section-title">New Event</h1>
 
             <form
               onSubmit={this.handleFormSubmission}
