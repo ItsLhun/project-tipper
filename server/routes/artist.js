@@ -36,7 +36,15 @@ router.get('/search', async (req, res, next) => {
           ],
           role: 'artist'
         },
-        { firstName: 1, lastName: 1, _id: 1, avatarUrl: 1, bio: 1, genre: 1 }
+        {
+          firstName: 1,
+          lastName: 1,
+          _id: 1,
+          avatarUrl: 1,
+          bio: 1,
+          genre: 1,
+          lastLocation: 1
+        }
       ).limit(limit);
       res.json({ artists });
     } else if (mode === 'count') {

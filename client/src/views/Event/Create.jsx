@@ -19,7 +19,8 @@ class CreateEventView extends Component {
       location: {
         lat: 0,
         lng: 0
-      }
+      },
+      address: ''
     };
   }
 
@@ -33,8 +34,12 @@ class CreateEventView extends Component {
     });
   };
 
-  handleLocationChange = (location) => {
-    this.setState({ location });
+  handleLocationChange = (location, address) => {
+    console.log(address);
+    this.setState({
+      location,
+      address
+    });
   };
 
   handleDateChange = (e) => {
@@ -155,9 +160,7 @@ class CreateEventView extends Component {
               </div>
 
               <h3>Location</h3>
-              <p>
-                Lat: {this.state.location.lat} Lng: {this.state.location.lng}
-              </p>
+              <p>{this.state.address || 'Address... '}</p>
               <span
                 className="select-location-btn event-btn"
                 onClick={this.handleMapToggle}

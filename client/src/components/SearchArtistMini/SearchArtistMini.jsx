@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import './SearchArtistMini.scss';
 
 function SearchArtistMini(props) {
+  const geocoder = new window.google.maps.Geocoder();
+
+  console.log(geocoder);
   return (
     <div className="SearchArtistMini">
       <Link
@@ -19,7 +22,11 @@ function SearchArtistMini(props) {
           <span>
             {props.artist?.firstName} {props.artist?.lastName}
           </span>
-          <span>XXXXX</span>
+          <span>
+            {props.artist?.lastLocation
+              ? props.artist?.lastLocation?.coordinates[0]
+              : 'The world'}
+          </span>
         </div>
       </Link>
 
