@@ -36,5 +36,11 @@ export const searchArtist = (body) => {
 export const findEvents = (id) => {
   return api
     .get(`artist/${id}/events`, id)
-    .then((response) => response.data.events);
+    .then((response) => response.data.upcomingEvents);
+};
+
+export const findNowEvents = (id) => {
+  return api
+    .get(`artist/${id}/events/now`, id)
+    .then((response) => response.data.runningEvents);
 };

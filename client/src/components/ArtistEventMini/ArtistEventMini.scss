@@ -1,4 +1,4 @@
-.artist-events {
+@mixin event-list {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -14,4 +14,13 @@
   span {
     font-weight: bold;
   }
+}
+
+.artist-events {
+  @include event-list;
+}
+
+.events-now {
+  @include event-list;
+  border: 2px solid red;
 }

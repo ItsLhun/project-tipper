@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { loadArtist, findEvents } from '../../services/artist';
+import { loadArtist, findEvents, findNowEvents } from '../../services/artist';
 import StarRating from './../../components/StarRating/StarRating';
 import { updateAccountSettings } from '../../services/profile-settings';
 import { Link } from 'react-router-dom';
@@ -29,6 +29,7 @@ function ArtistProfileView(props) {
   const [rating, setRating] = useState();
   const [count, setCount] = useState();
   const [events, setEvents] = useState([]);
+  const [nowEvents, setNowEvents] = useState([]);
 
   const isOwnProfile = props.match.params.id === props.user?._id;
 
@@ -62,6 +63,7 @@ function ArtistProfileView(props) {
 
   useEffect(() => {
     getEvents();
+    getNowEvents();
     getFollow();
     getRating();
     if (isOwnProfile) {
@@ -168,8 +170,16 @@ function ArtistProfileView(props) {
     try {
       const response = await findEvents(props.match.params.id);
       await setEvents([response]);
-
       console.log(events);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getNowEvents = async () => {
+    try {
+      const response = await findNowEvents(props.match.params.id);
+      await setNowEvents([response]);
     } catch (error) {
       console.log(error);
     }
@@ -355,7 +365,9 @@ function ArtistProfileView(props) {
             )}
           </div>
           {/* <EventDetailView /> */}
-          {events && <EventMini {...props} events={events} />}
+          {events && (
+            <EventMini {...props} events={events} nowEvents={nowEvents} />
+          )}
         </div>
       </div>
     </div>

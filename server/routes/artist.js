@@ -104,12 +104,37 @@ router.post(
   }
 );
 
+router.get('/:id/events/now', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const events = await Event.find({
+      $and: [{ artist: id }, { date: { $lte: new Date() } }]
+    }).sort({ date: 1 });
+    const runningEvents = events.filter((event) => {
+      const eventDate = new Date(event.date);
+      const now = new Date();
+      return eventDate.getTime() + event.duration * 60000 >= now.getTime();
+    });
+    console.log(events);
+    res.json({ runningEvents });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/:id/events', async (req, res, next) => {
   const { id } = req.params;
   try {
-    const events = await Event.find({ artist: id });
+    const events = await Event.find({
+      $and: [{ artist: id }, { date: { $gte: new Date() } }]
+    }).sort({ date: 1 });
+    const upcomingEvents = events.filter((event) => {
+      const eventDate = new Date(event.date);
+      const now = new Date();
+      return eventDate.getTime() + event.duration * 60000 >= now.getTime();
+    });
     console.log(events);
-    res.json({ events });
+    res.json({ upcomingEvents });
   } catch (error) {
     next(error);
   }
