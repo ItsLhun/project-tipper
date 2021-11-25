@@ -62,11 +62,14 @@ const schema = new mongoose.Schema({
   backgroundImg: {
     type: String
   },
-  paymentToken: {
-    type: String
-  },
   lastLocation: {
     type: pointSchema
+  },
+  paymentMethodToken: {
+    type: String
+  },
+  stripeCustomerId: {
+    type: String
   }
 });
 

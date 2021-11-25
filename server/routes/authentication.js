@@ -5,6 +5,7 @@ const { Router } = require('express');
 const bcryptjs = require('bcryptjs');
 const User = require('./../models/user');
 const routeGuardMiddleware = require('./../middleware/route-guard');
+const stripeApi = require('../helpers/stripe-api');
 
 const router = new Router();
 
@@ -93,5 +94,16 @@ router.post(
     res.json({ user, message: 'Location updated', code: 200 });
   }
 );
+
+// add stripe payment method details to user
+router.post('/payment', routeGuardMiddleware, async (req, res, next) => {
+  const { stripeToken } = req.body;
+  const name = req.user.firstName + ' ' + req.user.lastName;
+  const customer = await stripeApi.customers.create({
+    name: name,
+    email: req.user.email,
+    payment_method: stripeToken
+  });
+});
 
 module.exports = router;
