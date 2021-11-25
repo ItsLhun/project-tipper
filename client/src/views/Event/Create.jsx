@@ -6,15 +6,15 @@ import MapOverlay from '../../components/MapOverlay/MapOverlay';
 import './Event.scss';
 
 class CreateEventView extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       title: '',
       date: '',
       time: '',
       duration: 5,
       description: '',
-      genres: [],
+      genre: [],
       showMap: false,
       location: {
         lat: 0,
@@ -23,8 +23,8 @@ class CreateEventView extends Component {
     };
   }
 
-  handleGenreSelectionChange = (genres) => {
-    this.setState({ genres });
+  handleGenreSelectionChange = (genre) => {
+    this.setState({ genre });
   };
 
   handleMapToggle = () => {
@@ -66,10 +66,10 @@ class CreateEventView extends Component {
 
   handleFormSubmission = (e) => {
     e.preventDefault();
-    const { title, date, time, duration, description, genres, location } =
+    const { title, date, time, duration, description, genre, location } =
       this.state;
-    console.log(title, date, time, duration, description, genres, location);
-    createEvent({ title, date, time, duration, description, genres, location })
+    console.log(title, date, time, duration, description, genre, location);
+    createEvent({ title, date, time, duration, description, genre, location })
       .then((event) => {
         console.log(event);
         this.props.history.push('/event/list');
@@ -168,19 +168,8 @@ class CreateEventView extends Component {
               <h3>Genres</h3>
 
               <GenreCheckbox
-                options={[
-                  { value: 'genre-african', label: 'African' },
-                  { value: 'genre-arabic', label: 'Arabic' },
-                  { value: 'genre-axe', label: 'Axé' },
-                  { value: 'genre-blues', label: 'Blues' },
-                  {
-                    value: 'genre-bollywood-indian',
-                    label: 'Bollywood & Indian'
-                  },
-                  { value: 'genre-classical', label: 'Classical' },
-                  { value: 'genre-rock', label: 'Rock' }
-                ]}
-                selected={this.state.genres}
+                options={this.props.definedGenres}
+                selected={this.state.genre}
                 onSelectedChange={this.handleGenreSelectionChange}
               />
 
@@ -191,6 +180,7 @@ class CreateEventView extends Component {
           <MapOverlay
             onClose={this.handleMapToggle}
             onConfirmation={this.handleLocationChange}
+            userLocation={this.props.userLocation}
           />
         )}
       </div>

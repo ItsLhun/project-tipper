@@ -1,4 +1,8 @@
+@import '../../styles/colors.scss';
+@import '../../index.scss';
+
 .star-rating {
+  text-align: center;
   button {
     background-color: transparent;
     border: none;
@@ -6,7 +10,7 @@
     cursor: pointer;
   }
   .on {
-    color: rgb(238, 238, 28);
+    color: $accent-yellow;
   }
   .off {
     color: #ccc;

@@ -1,3 +1,73 @@
+@import '../../styles/colors.scss';
+@import '../../index.scss';
+
+$diameter: 5rem;
+$circle-font: $diameter / 2;
+
+.ArtistProfileView {
+  position: relative;
+  form {
+    h4 {
+      margin-top: 4rem;
+      margin-bottom: 0rem;
+    }
+  }
+  margin-bottom: 4rem;
+  .profile-name {
+    font-family: $font-michroma;
+    color: white;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: black;
+    position: absolute;
+    margin-top: -10rem;
+    width: inherit;
+    text-align: center;
+  }
+  .settings-btn {
+    filter: invert(100%) !important;
+    height: 2.5rem;
+  }
+  .avatar-circle {
+    margin: 0;
+    margin-top: -2.5rem !important;
+  }
+  .name-avatar-bio-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .avatar-change {
+      position: absolute;
+      // display: block;
+      // bottom: 0;
+      margin-left: calc(5rem - 0.5rem);
+      margin-top: calc(2.5rem / 2);
+    }
+  }
+  .UserProfileView_avatar {
+    margin: 0;
+    display: block;
+  }
+  .UserProfileView_avatar_wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  .UserProfileView_header {
+    position: relative;
+    z-index: 1;
+  }
+  .sign-out-btn {
+    height: 2.5rem;
+    mix-blend-mode: difference;
+  }
+}
+
 .Background {
   display: inline-block;
   max-width: 100vw;
@@ -13,16 +83,55 @@
   border: 0;
 }
 
+.AboutArtist-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .BackgroundImgAndButton {
   display: flex;
-  button {
-    margin-left: -30px;
-    background-color: white;
-    border: none;
-    padding: 5px;
+  position: relative;
+  z-index: -1;
+  img:first-child {
+    width: 100%;
+    z-index: -1;
+    height: 100%;
+    object-fit: cover;
+  }
+  .background-btn {
+    position: absolute;
+    z-index: 999;
+    right: 3px;
+    bottom: 3px;
+    mix-blend-mode: lighten;
+    width: 1.7rem;
+    height: 1.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    img {
+      width: 1.1rem;
+      height: 1.1rem;
+      filter: invert(80%) sepia(47%) saturate(1894%) hue-rotate(6deg)
+        brightness(103%) contrast(108%);
+      mix-blend-mode: lighten;
+    }
   }
 }
 
+.unfollow-btn {
+  font-weight: 600;
+  color: black;
+  font-family: $font-robo;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin: 0.2rem;
+  display: inline-block;
+  border: 0;
+  background-color: $accent-yellow;
+}
 .EventsAndNew {
   display: flex;
   justify-content: space-between;
@@ -32,17 +141,55 @@
     border: 1px solid black;
     height: 25px;
     width: 25px;
-    font-weight: bold;
+    font-weight: 800;
+    font-size: 20px;
   }
 }
 
-.Artist-avatar {
+.follow-btn {
+  border: 0;
+  font-weight: 600;
+  color: black;
+  font-family: $font-robo;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin: 0.2rem;
+  display: inline-block;
+}
+
+.ArtistProfileView_follow {
   display: flex;
-  img {
-    align-self: center;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.2rem;
+  margin-bottom: 2.4rem;
+  div:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    span:first-child {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: black;
+    }
+    span:last-child {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: black;
+    }
   }
-  button {
-    background-color: white;
-    border: 2px;
-  }
+}
+.artist-btn {
+  background-color: #38377b;
+  color: white;
+  border: 0;
+  font-weight: 500;
+  font-family: $font-robo;
+  padding: 0.55rem;
+  border-radius: 0.6rem;
+}
+.top-icon {
+  z-index: 999 !important;
 }

@@ -1,11 +1,7 @@
 @import '../../styles/colors.scss';
 @import '../../index.scss';
 
-.avatar-btn {
-  position: absolute;
-  margin-top: -1100px;
-  width: 33px;
-  height: 33px;
+.UserProfileAvatar {
 }
 
 .UserProfileView {
@@ -66,7 +62,7 @@ $circle-font: $diameter / 2;
   top: 0.5rem;
   right: 0.5rem;
   background-color: transparent;
-  border: 0;
+  border: none;
 }
 
 .UserProfileView_body_section {

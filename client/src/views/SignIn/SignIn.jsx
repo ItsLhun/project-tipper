@@ -31,35 +31,36 @@ function SignInView(props) {
   };
 
   return (
-    <div>
+    <div className={'CreateEventView'}>
       <h1>Sign In</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="input-email">Email</label>
-        <input
-          id="input-email"
-          type="email"
-          placeholder="Your Email"
-          name="email"
-          value={email}
-          onChange={handleInputChange}
-        />
-        <label htmlFor="input-password">Password</label>
-        <input
-          id="input-password"
-          type="password"
-          placeholder="A Secure Password"
-          name="password"
-          value={password}
-          onChange={handleInputChange}
-        />
-        <button>Sign In</button>
+      <form onSubmit={handleSubmit} className={'CreateEventView_content_form'}>
+        <div className={'CreateEventView_inputs'}>
+          <label htmlFor="input-email">Email</label>
+          <input
+            id="input-email"
+            type="email"
+            placeholder="Your Email"
+            name="email"
+            value={email}
+            onChange={handleInputChange}
+          />
+          <label htmlFor="input-password">Password</label>
+          <input
+            id="input-password"
+            type="password"
+            placeholder="A Secure Password"
+            name="password"
+            value={password}
+            onChange={handleInputChange}
+          />
+        </div>
+        <button className={'event-btn'}>Sign In</button>
       </form>
-      <p>
-        No account yet?{' '}
-        <Link to="/split">
-          <span>Sign Up</span>
-        </Link>
-      </p>
+
+      <p>No account yet?</p>
+      <Link to="/split">
+        <button className={'event-btn'}>Sign Up</button>
+      </Link>
     </div>
   );
 }

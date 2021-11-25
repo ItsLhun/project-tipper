@@ -29,23 +29,9 @@ function MapContainerView(props) {
   };
 
   const [map, setMap] = useState(null);
-  const [centerMap, setCenterMap] = useState({
-    lat: 0,
-    lng: 0
-  });
 
   const onLoad = useCallback((map) => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      if (pos) {
-        console.log(pos);
-        setCenterMap(pos);
-        setMap(map);
-      }
-    });
+    setMap(map);
   }, []);
 
   const onUnmount = useCallback(() => {
@@ -70,13 +56,12 @@ function MapContainerView(props) {
         height: '100%',
         position: 'absolute'
       }}
-      center={centerMap}
+      center={props.userLocation}
       zoom={14}
       onLoad={onLoad}
       onUnmount={onUnmount}
       yesIWantToUseGoogleMapApiInternals
-      // disableDefaultUI={true}
-      defaultCenter={centerMap}
+      defaultCenter={props.userLocation}
       options={setOptions(map)}
     >
       {/* Child components, such as markers, info windows, etc. */}

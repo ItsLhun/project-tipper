@@ -41,7 +41,8 @@ const schema = new mongoose.Schema({
     trim: true
   },
   genre: {
-    type: [String]
+    type: [String],
+    default: []
   },
   instruments: {
     type: [String]
@@ -50,12 +51,7 @@ const schema = new mongoose.Schema({
     type: String
   },
   paymentToken: {
-    type: String,
-    default: ''
-  },
-  followerCount: {
-    type: Number,
-    default: 0
+    type: String
   }
 });
 

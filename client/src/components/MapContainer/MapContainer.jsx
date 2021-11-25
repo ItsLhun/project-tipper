@@ -1,28 +1,33 @@
-import React, { useCallback, useState } from 'react';
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import React, { useCallback, useState, useEffect } from 'react';
+import {
+  GoogleMap,
+  useJsApiLoader,
+  Marker,
+  InfoWindow
+} from '@react-google-maps/api';
 import { listPlayingNowEvents } from '../../services/event';
-// import MapPin from '../../components/MapPin/MapPin';
+import MapPin from '../../components/MapPin/MapPin';
+import MapPopover from '../MapPopover/MapPopover';
+import { getDistancePoints } from '../../helpers/getDistancePoints';
 
 import img from './Vector.svg';
+import userLocation from './userlocation.svg';
 
 import './MapContainer.scss';
 
-function MapContainerView() {
+function MapContainerView(props) {
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API
   });
   const [map, setMap] = useState(null);
-  const [centerMap, setCenterMap] = useState({
-    lat: 40.745,
-    lng: -3.523
-  });
+  const [centerMap, setCenterMap] = useState(null);
   const [playingEvents, setPlayingEvents] = useState([]);
+  const [activeInfo, setActiveInfo] = useState(null);
 
   const fetchPlayingEvents = async () => {
     try {
       const events = await listPlayingNowEvents();
-      console.log(events);
       setPlayingEvents(events);
     } catch (error) {
       console.log(error);
@@ -31,7 +36,6 @@ function MapContainerView() {
 
   const setOptions = (map) => {
     return {
-      // disableDefaultUI: true,
       initZoomControl: true,
       zoomControlOptions: {
         // moved by SCSS
@@ -46,25 +50,18 @@ function MapContainerView() {
     };
   };
 
+  useEffect(() => {
+    setCenterMap(props.userLocation);
+  }, []);
+
   const onLoad = useCallback((map) => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      if (pos) {
-        console.log(pos);
-        setCenterMap(pos);
-        setMap(map);
-      }
-    });
+    setMap(map);
     fetchPlayingEvents();
   }, []);
 
   const handleMapClick = (event) => {
     console.log(event.latLng.lat());
     console.log(event.latLng.lng());
-
     let pos = navigator.geolocation.getCurrentPosition((position) => {
       const pos = {
         lat: position.coords.latitude,
@@ -74,6 +71,7 @@ function MapContainerView() {
         console.log(pos);
       }
     });
+    console.log('Current position: ' + pos);
   };
 
   const onUnmount = useCallback(() => {
@@ -83,34 +81,40 @@ function MapContainerView() {
   if (loadError) {
     return <div>Map cannot be loaded right now.</div>;
   }
-  return isLoaded ? (
+  return isLoaded && props.userLocation ? (
     <GoogleMap
       mapContainerStyle={{
         width: '100%',
         height: '100vh'
       }}
-      center={centerMap}
+      center={props.userLocation}
       zoom={14}
       onLoad={onLoad}
       onUnmount={onUnmount}
       yesIWantToUseGoogleMapApiInternals
-      defaultCenter={centerMap}
+      defaultCenter={props.userLocation}
       options={setOptions(map)}
       onClick={handleMapClick}
     >
-      {/* Child components, such as markers, info windows, etc. */}
-      {playingEvents.map((event) => (
-        <Marker
-          key={event._id}
-          position={{
-            lat: event.location.coordinates[0],
-            lng: event.location.coordinates[1]
-          }}
-          icon={img}
-        />
-      ))}
-
-      <Marker icon={img} position={centerMap} />
+      {playingEvents.map((event) => {
+        let distanceToUser = getDistancePoints(
+          event.location.coordinates[0],
+          event.location.coordinates[1],
+          props.userLocation.lat,
+          props.userLocation.lng
+        );
+        return (
+          <MapPin
+            event={event}
+            key={event._id}
+            icon={img}
+            activeInfo={activeInfo}
+            setActiveInfo={setActiveInfo}
+            distanceToUser={distanceToUser}
+          />
+        );
+      })}
+      <Marker icon={userLocation} position={centerMap} />
     </GoogleMap>
   ) : (
     <>Loading view?...</>

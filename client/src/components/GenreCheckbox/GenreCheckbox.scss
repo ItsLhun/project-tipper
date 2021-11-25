@@ -16,6 +16,9 @@
     border: 1px solid $profile-input-border;
     background-color: $accent-opaque-yellow;
     color: black;
+    &.small-blob {
+      font-size: 0.75rem;
+    }
   }
   .GenreBox-active {
     background-color: $accent-yellow;

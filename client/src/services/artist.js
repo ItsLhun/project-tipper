@@ -19,8 +19,22 @@ export const getArtistList = (body) => {
     .then((response) => response.data.artists);
 };
 
-export const followArtist = (id) => {
+export const searchArtist = (body) => {
   return api
-    .post(`/artist/${id}/follow`, id)
-    .then((response) => response.data.follow);
+    .get(`/artist/search`, {
+      params: {
+        q: body?.q || '',
+        limit: body?.limit || 0,
+        genres: body?.genres || [],
+        mode: body?.mode || 'query',
+        userLocation: body.userLocation
+      }
+    })
+    .then((response) => response.data);
+};
+
+export const findEvents = (id) => {
+  return api
+    .get(`artist/${id}/events`, id)
+    .then((response) => response.data.events);
 };

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './GenreCheckbox.scss';
 
-const GenreCheckbox = ({ options, selected, onSelectedChange }) => {
+const GenreCheckbox = ({ options, selected, onSelectedChange, blobSize }) => {
+  console.log(selected);
   const handleCheckboxChange = (event) => {
     const { checked, name } = event.target;
     if (checked) {
@@ -11,6 +12,7 @@ const GenreCheckbox = ({ options, selected, onSelectedChange }) => {
     }
   };
   const handleClickChange = (value) => {
+    console.log('clicked');
     const checked = selected.includes(value);
     if (!checked) {
       onSelectedChange([...selected, value]);
@@ -25,7 +27,7 @@ const GenreCheckbox = ({ options, selected, onSelectedChange }) => {
         <div
           className={`GenreBox ${
             selected?.includes(value) ? 'GenreBox-active' : ''
-          }`}
+          } ${blobSize === 'small' ? 'small-blob' : ''}`}
           key={value}
           onClick={() => {
             handleClickChange(value);

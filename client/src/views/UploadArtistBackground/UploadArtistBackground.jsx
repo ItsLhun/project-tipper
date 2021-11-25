@@ -72,7 +72,7 @@ function UploadArtistBackgroundView(props) {
           onChange={handleFileInputChange}
           className="form-input"
         />
-        <button className="btn" type="submit">
+        <button className="save-changes-btn" type="submit">
           Submit
         </button>
       </form>
@@ -81,7 +81,9 @@ function UploadArtistBackgroundView(props) {
       )}
       {redirect && (
         <Link to={`/artist/${props.user._id}`}>
-          <button>Take me back to my profile</button>
+          <button className={'save-changes-btn'}>
+            Take me back to my profile
+          </button>
         </Link>
       )}
     </div>

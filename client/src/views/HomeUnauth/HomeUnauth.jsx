@@ -2,9 +2,9 @@ import React from 'react';
 
 function HomeUnauthView() {
   return (
-    <div>
+    <div className={'CreateEventView'}>
       <h1>Home Unsigned</h1>
-      <p>Hello world</p>
+      <p>Find the Best Street Artists in Your City!</p>
     </div>
   );
 }
