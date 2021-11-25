@@ -4,6 +4,18 @@ const mongoose = require('mongoose');
 const validateEmail = require('../helpers/validate-email');
 const capitalizeFirstLetter = require('../helpers/capitalize');
 
+const pointSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ['Point'],
+    required: true
+  },
+  coordinates: {
+    type: [Number],
+    required: true
+  }
+});
+
 const schema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -52,6 +64,9 @@ const schema = new mongoose.Schema({
   },
   paymentToken: {
     type: String
+  },
+  lastLocation: {
+    type: pointSchema
   }
 });
 

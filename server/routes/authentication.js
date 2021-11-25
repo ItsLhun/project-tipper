@@ -77,4 +77,21 @@ router.get('/me', (req, res, next) => {
   res.json({ user });
 });
 
+// update last user location
+router.post(
+  '/update-location',
+  routeGuardMiddleware,
+  async (req, res, next) => {
+    const { location } = req.body;
+    const formatedLocation = {
+      type: 'Point',
+      coordinates: [location.lat, location.lng]
+    };
+    const user = await User.findByIdAndUpdate(req.session.userId, {
+      lastLocation: formatedLocation
+    });
+    res.json({ user, message: 'Location updated', code: 200 });
+  }
+);
+
 module.exports = router;

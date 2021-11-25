@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 import ProtectedRoute from './components/ProtectedRoute';
+import BottomNavbar from './components/BottomNavbar/BottomNavbar';
+
+// Views
 import SignInView from './views/SignIn/SignIn';
 import { signOut, loadAuthenticatedUser } from './services/auth';
 import SplitUsersView from './views/SplitUsers/SplitUsers';
@@ -18,8 +22,11 @@ import HomeUnauthView from './views/HomeUnauth/HomeUnauth';
 import UploadAvatarView from './views/UploadAvatar/UploadAvatar';
 import ExploreView from './views/Explore/Explore';
 import SearchListView from './views/SearchList/SearchList';
-import BottomNavbar from './components/BottomNavbar/BottomNavbar';
 import UploadArtistBackgroundView from './views/UploadArtistBackground/UploadArtistBackground';
+
+// Services
+import { updateLastLocation } from './services/auth';
+
 import './App.scss';
 
 function App() {
@@ -57,6 +64,8 @@ function App() {
     }
   ]);
 
+  console.log('Last loca: ', user?.lastLocation);
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const pos = {
@@ -65,6 +74,13 @@ function App() {
       };
       if (pos) {
         setUserLocation(pos);
+        updateLastLocation({ location: pos })
+          .then(() => {
+            console.log('updated last location');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       } else {
         setUserLocation({
           lat: 37.773972,

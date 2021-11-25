@@ -12,6 +12,7 @@ import { getArtistList } from '../../services/artist';
 import { listPlayingNowEvents } from '../../services/event';
 import { listPlayingTodayEvents } from '../../services/event';
 import { getDistancePoints } from '../../helpers/getDistancePoints';
+import { Link } from 'react-router-dom';
 
 function HomeView(props) {
   const [featuredArtists, setFeaturedArtists] = useState([]);
@@ -72,6 +73,11 @@ function HomeView(props) {
             ))}
           </ul>
         </section>
+        <Link to="/search">
+          <section className="HomeView__section">
+            <h2 className="search-title">Search...</h2>
+          </section>
+        </Link>
       </div>
     </div>
   );

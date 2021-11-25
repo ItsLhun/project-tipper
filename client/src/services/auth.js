@@ -19,3 +19,7 @@ export const signOut = () => {
 export const loadAuthenticatedUser = () => {
   return api.get('/auth/me').then((response) => response.data.user);
 };
+
+export const updateLastLocation = (body) => {
+  return api.post('/auth/update-location', body);
+};
