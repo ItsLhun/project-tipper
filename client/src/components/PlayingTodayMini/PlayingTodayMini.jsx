@@ -44,7 +44,9 @@ function PlayingTodayMini(props) {
             )}
           </span>
         </figcaption>
-        <span className="distance-span">{props.distanceToUser} km</span>
+        <span className="distance-span">
+          {props.distanceToUser && `${props.distanceToUser} km`}
+        </span>
       </Link>
     </li>
   );
