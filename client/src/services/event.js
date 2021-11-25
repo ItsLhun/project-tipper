@@ -1,10 +1,14 @@
 import api from './api';
 
-export const listEvents = (data) =>
-  api.get('/events').then((res) => res.data.event);
+export const listEvents = (body) => {
+  return api
+    .get('/events', { params: { limit: body?.limit || 0 } })
+    .then((res) => res.data.events);
+};
 
-export const listDetail = (id) =>
-  api.get(`/event/${id}`).then((res) => res.data.event);
+export const listDetail = (id) => {
+  return api.get(`/event/${id}`, id).then((res) => res.data.event);
+};
 
 export const createEvent = (body) =>
   api.post('/event/create', body).then((res) => res.data.event);
