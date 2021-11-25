@@ -6,6 +6,7 @@ import FeaturedMini from '../../components/FeaturedMini/FeaturedMini';
 // import PlayingTodayMini from '../../components/PlayingTodayMini/PlayingTodayMini';
 
 import { getArtistList } from '../../services/artist';
+import { listPlayingNowEvents } from '../../services/event';
 
 function HomeView() {
   // Genres can be set dynamically or from a DB.
@@ -25,12 +26,23 @@ function HomeView() {
     });
   }, []);
 
+  React.useEffect(() => {
+    listPlayingNowEvents().then((events) => {
+      console.log(events);
+    });
+  }, []);
+
   return (
     <div>
       <div className="HomeView">
         <section className="HomeView__section">
           <h2>Playing Today</h2>
-          <ul>{/* <PlayingTodayMini /> */}</ul>
+          <ul>
+            {listPlayingNowEvents().map((event) => (
+              // <PlayingTodayMini />
+              <li>{event.name}</li>
+            ))}
+          </ul>
         </section>
         <section className="HomeView__section">
           <h2>Featured Artists</h2>
