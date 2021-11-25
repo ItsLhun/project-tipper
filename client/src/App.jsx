@@ -307,7 +307,6 @@ function App() {
             <TipArtistView
               {...props}
               user={user}
-              onSignOut={signOutHandler}
               definedGenres={genres}
               onUserRefresh={loadUser}
             />

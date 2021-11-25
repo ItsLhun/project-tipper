@@ -61,9 +61,9 @@ function ArtistProfileView(props) {
   };
 
   useEffect(() => {
+    getEvents();
     getFollow();
     getRating();
-    getEvents();
     if (isOwnProfile) {
       setGenre([...props.user.genre]);
     }
@@ -168,7 +168,7 @@ function ArtistProfileView(props) {
     try {
       const response = await findEvents(props.match.params.id);
       await setEvents([response]);
-      console.log(typeof events);
+
       console.log(events);
     } catch (error) {
       console.log(error);
