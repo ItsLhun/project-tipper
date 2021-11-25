@@ -12,7 +12,7 @@ _**Tipper**_ is a platform where street performers across the globe can set up a
 
 Listeners, in the other hand, can follow their favorite artists and get updates of when and where they'll set up to play.
 
-![alt text]()
+![image example](https://github.com/ItsLhun/project-tipper/blob/master/client/public/merge_from_ofoct.jpg)
 
 ## Tools
 
