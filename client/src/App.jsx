@@ -254,6 +254,8 @@ function App() {
               {...props}
               definedGenres={genres}
               userLocation={userLocation}
+              isLoaded={isLoaded}
+              geocoder={geocoder}
             />
           )}
         />

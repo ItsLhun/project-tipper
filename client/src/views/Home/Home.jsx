@@ -28,8 +28,6 @@ function HomeView(props) {
   const getPlayingToday = () => {
     listPlayingTodayEvents().then((events) => {
       setPlayingToday(events);
-      console.log(events);
-      console.log(events.length);
     });
   };
 

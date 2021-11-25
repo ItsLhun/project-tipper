@@ -55,8 +55,8 @@ function SearchListView(props) {
         limit: 100,
         mode: 'query'
       });
-      setArtistsSearchList(artists.artists);
-      setArtistSearchCount(artists.artists.length);
+      setArtistsSearchList(artists?.artists);
+      setArtistSearchCount(artists?.artists.length);
     } catch (error) {
       console.log(error);
     }
@@ -109,36 +109,7 @@ function SearchListView(props) {
         />
       </div>
       <GenreCheckbox
-        options={[
-          {
-            label: 'hip hop',
-            value: 'hip-hop'
-          },
-          {
-            label: 'rock',
-            value: 'rock'
-          },
-          {
-            label: 'pop',
-            value: 'pop'
-          },
-          {
-            label: 'country',
-            value: 'country'
-          },
-          {
-            label: 'jazz',
-            value: 'jazz'
-          },
-          {
-            label: 'classical',
-            value: 'classical'
-          },
-          {
-            label: 'blues',
-            value: 'blues'
-          }
-        ]}
+        options={props.definedGenres}
         selected={genres}
         onSelectedChange={(selected) => setGenres(selected)}
         blobSize={'small'}
@@ -176,7 +147,11 @@ function SearchListView(props) {
       <div className="search-list">
         {activeSearch === 'artists' &&
           artistsSearchList.map((artist) => (
-            <SearchArtistMini key={artist._id} artist={artist} />
+            <SearchArtistMini
+              key={artist._id}
+              artist={artist}
+              geocoder={props.geocoder}
+            />
           ))}
 
         {activeSearch === 'events' &&

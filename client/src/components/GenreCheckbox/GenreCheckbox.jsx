@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import './GenreCheckbox.scss';
 
 const GenreCheckbox = ({ options, selected, onSelectedChange, blobSize }) => {
-  console.log(selected);
   const handleCheckboxChange = (event) => {
     const { checked, name } = event.target;
     if (checked) {

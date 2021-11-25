@@ -38,7 +38,7 @@ class CreateEventView extends Component {
     console.log(address);
     this.setState({
       location,
-      address
+      address: address.formatted_address
     });
   };
 
