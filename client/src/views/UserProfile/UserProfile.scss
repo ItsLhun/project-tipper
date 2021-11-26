@@ -1,7 +1,9 @@
 @import '../../styles/colors.scss';
 @import '../../index.scss';
 
-.UserProfileAvatar {
+.UserProfileAvatar,
+.UserProfileView_body {
+  max-width: $max-sections-width;
 }
 
 .UserProfileView {
@@ -50,6 +52,7 @@ $circle-font: $diameter / 2;
   font-size: 0.9rem;
   font-weight: 400;
 }
+
 .UserProfileView_body {
   display: flex;
   width: 100%;
@@ -87,6 +90,7 @@ $circle-font: $diameter / 2;
   width: 100%;
   font-size: 0.9rem;
   font-weight: 400;
+  margin: 0 auto;
   margin-top: 0.5rem;
 }
 
@@ -106,6 +110,15 @@ $circle-font: $diameter / 2;
   width: 8rem;
   align-self: center;
   margin-top: 1rem;
+}
+.card-section {
+  align-self: center;
+  text-align: center;
+  margin: 0 auto;
+  // display: flex;
+  // flex-direction: row;
+  // align-items: center;
+  // justify-content: space-between;
 }
 .UserProfileView_body_section_content_inputs {
   width: 100%;

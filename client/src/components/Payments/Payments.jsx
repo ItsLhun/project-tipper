@@ -6,6 +6,8 @@ import {
 } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
+import './Payments.scss';
+
 const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
@@ -21,6 +23,13 @@ const CARD_ELEMENT_OPTIONS = {
       color: '#fa755a',
       iconColor: '#fa755a'
     }
+  },
+  classes: {
+    base: 'form-control',
+    complete: 'form-control-success',
+    empty: 'form-control-danger',
+    focus: 'form-control-focus',
+    invalid: 'form-control-danger'
   }
 };
 
@@ -42,8 +51,11 @@ class NonInjectedPaymentForm extends Component {
           alert('There was an error processing your payment method details.');
           console.log(error);
         } else if (paymentMethod) {
-          const paymentMethodToken = paymentMethod.id;
-          this.props.onConfirmPaymentMethod(paymentMethodToken);
+          console.log(paymentMethod);
+          this.props.onConfirmPaymentMethod({
+            token: paymentMethod.id,
+            card: paymentMethod.card
+          });
         }
       })
       .catch((error) => {

@@ -5,7 +5,9 @@ import {
   creditCardDetails,
   updateAccountSettings
 } from '../../services/profile-settings';
+
 import Payments from '../../components/Payments/Payments';
+import CardPlaceholder from '../../components/CardPlaceholder/CardPlaceholder';
 
 import cameraIcon from './../ArtistProfile/camera.svg';
 
@@ -25,6 +27,8 @@ function UserProfileView(props) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [payment, setPayment] = useState();
 
+  // payment is useless state,
+  // refactor whenevever possible
   useEffect(() => {
     if (props.user?.paymentToken) {
       setPayment(true);
@@ -57,13 +61,14 @@ function UserProfileView(props) {
     }
   };
 
-  const handlePaymentMethod = async (paymentMethodToken) => {
+  const handlePaymentMethod = async (data) => {
     try {
-      console.log(paymentMethodToken);
-      const payment = await creditCardDetails({ paymentMethodToken });
-      console.log(payment);
-      setPayment(true);
-      props.onUserRefresh();
+      const { token, card } = data;
+      console.log(data);
+      // const payment = await creditCardDetails({ paymentMethodToken });
+      // console.log(payment);
+      // setPayment(true);
+      // props.onUserRefresh();
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +92,6 @@ function UserProfileView(props) {
           {props.user?.avatarUrl ? (
             <img
               className={'UserProfileView_avatar'}
-              // src={'https://source.unsplash.com/random'}
               src={props.user?.avatarUrl}
               alt={'avatar'}
             />
@@ -112,9 +116,11 @@ function UserProfileView(props) {
       <div className={'UserProfileView_body'}>
         <div className={'UserProfileView_body_section'}>
           <h4 className={'UserProfileView_body_section_title'}>PAYMENT INFO</h4>
-          <div className={'UserProfileView_body_section_content'}>
+          <div className={'UserProfileView_body_section_content card-section'}>
             {props.user?.paymentToken && payment && (
               <div>
+                <CardPlaceholder />
+
                 <button
                   className={'save-changes-btn'}
                   onClick={() => setPayment(false)}
