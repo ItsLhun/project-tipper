@@ -259,7 +259,9 @@ function ArtistProfileView(props) {
               </div>
             </div>
 
-            <button className="save-changes-btn">Save Changes</button>
+            <button className="save-changes-btn general-btn">
+              Save Changes
+            </button>
           </form>
         )}
         {isOwnProfile && (

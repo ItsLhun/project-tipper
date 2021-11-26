@@ -72,6 +72,12 @@ $circle-font: $diameter / 2;
     max-width: $max-sections-width;
     margin: 0 auto;
   }
+  .general-btn {
+    cursor: pointer;
+    padding: 0.5rem;
+    border: 0;
+    border-radius: 15px;
+  }
 }
 
 .Background {

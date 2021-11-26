@@ -5,6 +5,7 @@ const router = express.Router();
 const routeGuardMiddleware = require('./../middleware/route-guard');
 const stripeApi = require('./../helpers/stripe-api');
 const Transaction = require('./../models/transaction');
+const Withdrawal = require('./../models/withdrawal');
 const User = require('./../models/user');
 
 // route to create a new transaction
@@ -32,6 +33,29 @@ router.post('/tip', routeGuardMiddleware, async (req, res, next) => {
       }
     });
     res.json({ transaction, message: 'Transaction successful', code: 200 });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// endpoint for artists funds withdrawal
+router.post('/withdraw', routeGuardMiddleware, async (req, res, next) => {
+  const { token, amount } = req.body;
+  try {
+    const withdrawal = await Withdrawal.create({
+      user: req.user.id,
+      amount: amount
+    });
+    // this requires a bank account token
+    await stripeApi.payouts.create({
+      amount: amount * 100,
+      currency: 'usd',
+      source_type: 'card',
+      source: token,
+      statement_descriptor: `Withdrawal by ${req.user.firstName} ${req.user.lastName}`
+    });
+
+    res.json({ withdrawal, message: 'Withdrawal successful', code: 200 });
   } catch (err) {
     next(err);
   }
