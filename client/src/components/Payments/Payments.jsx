@@ -68,7 +68,7 @@ class NonInjectedPaymentForm extends Component {
     return (
       <form onSubmit={this.handleFormSubmission}>
         <CardElement options={CARD_ELEMENT_OPTIONS} />
-        <button className={'save-changes-btn'}>Save Details</button>
+        <button className={'save-changes-btn general-btn'}>Save Details</button>
       </form>
     );
   }

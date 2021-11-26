@@ -12,6 +12,10 @@ export const updateCardDetails = (body) => {
   return api.post('/profile/card', body).then((response) => response.data);
 };
 
+export const removeCardDetails = () => {
+  return api.patch('/profile/card').then((response) => response.data);
+};
+
 export const updateAccountSettings = (body) => {
   return api.post('/profile/edit', body).then((response) => response.data.user);
 };

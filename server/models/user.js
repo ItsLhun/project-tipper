@@ -72,6 +72,10 @@ const schema = new mongoose.Schema({
     brand: String,
     exp_month: String,
     exp_year: String
+  },
+  balance: {
+    type: Number,
+    default: 0
   }
 });
 

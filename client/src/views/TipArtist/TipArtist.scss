@@ -71,6 +71,34 @@
       border: 1px solid $home-text;
     }
   }
+  .tip-successful {
+    width: 100%;
+    height: 3rem;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    border: 1px solid white;
+    color: rgb(54, 207, 54);
+    font-size: 1.5rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    max-width: 15rem;
+    margin-top: 2rem;
+    cursor: not-allowed;
+  }
+  .tip-again {
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    border: none;
+    background-color: transparent;
+    color: red;
+    cursor: pointer;
+    &:hover {
+      transition: all 0.2s ease-in-out;
+      background-color: white;
+      color: red;
+    }
+  }
   .tip-amount {
     margin-top: 1.5rem;
     display: flex;
@@ -101,5 +129,26 @@
     font-size: 0.85rem;
     margin-top: 1rem;
     max-width: 18rem;
+  }
+  button.disabled-tip-btn {
+    background-color: grey;
+    color: $home-bg;
+    border: 1px solid grey;
+    cursor: not-allowed;
+  }
+  .no-method {
+    color: white;
+    a {
+      box-sizing: border-box;
+      margin-top: 1rem;
+      display: inline-block;
+      font-size: 1.2rem;
+      color: rgb(57, 207, 57);
+      margin-bottom: 1px;
+      &:hover {
+        margin-bottom: 0px;
+        border-bottom: 1px solid white;
+      }
+    }
   }
 }

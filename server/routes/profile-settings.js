@@ -60,6 +60,24 @@ router.post('/card', routeGuardMiddleware, async (req, res, next) => {
   }
 });
 
+router.patch('/card', routeGuardMiddleware, async (req, res, next) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.session.userId, {
+      paymentDetails: {
+        stripeCustomerId: null,
+        paymentToken: null,
+        last4: null,
+        brand: null,
+        exp_month: null,
+        exp_year: null
+      }
+    });
+    res.json({ user, message: 'Card removed successfully', status: 200 });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/edit', routeGuardMiddleware, async (req, res, next) => {
   console.log('Profile edit');
   const { email, password, confirmPassword, bio, genre, instruments } =

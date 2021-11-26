@@ -3,7 +3,8 @@ import TransactionListItem from '../../components/Transactions/TransactionListIt
 import { Link } from 'react-router-dom';
 import {
   updateCardDetails,
-  updateAccountSettings
+  updateAccountSettings,
+  removeCardDetails
 } from '../../services/profile-settings';
 
 import Payments from '../../components/Payments/Payments';
@@ -39,6 +40,15 @@ function UserProfileView(props) {
     e.preventDefault();
     try {
       await updateAccountSettings({ email, password, confirmPassword });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePaymentRemoval = async () => {
+    try {
+      await removeCardDetails();
+      props.onUserRefresh();
     } catch (error) {
       console.log(error);
     }
@@ -125,7 +135,7 @@ function UserProfileView(props) {
                 />
                 <button
                   className="remove-payment-btn general-btn"
-                  onClick={() => setPayment(false)}
+                  onClick={handlePaymentRemoval}
                 >
                   Remove payment method
                 </button>

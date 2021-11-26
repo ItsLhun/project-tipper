@@ -17,6 +17,7 @@ const profileSettingsRouter = require('./routes/profile-settings');
 const ArtistRouter = require('./routes/artist');
 const followRouter = require('./routes/follow');
 const rateRouter = require('./routes/rating');
+const transactionRouter = require('./routes/transaction');
 
 const app = express();
 
@@ -58,6 +59,7 @@ app.use('/profile', profileSettingsRouter);
 app.use('/artist', ArtistRouter);
 app.use('/artist', followRouter);
 app.use('/artist', rateRouter);
+app.use('/transaction', transactionRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {

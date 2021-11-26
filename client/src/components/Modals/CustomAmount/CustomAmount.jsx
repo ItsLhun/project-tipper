@@ -44,6 +44,7 @@ function CustomAmountModal(props) {
                 onChange={handleAmountChange}
                 min="0.5"
                 step="0.05"
+                max="100000"
               />
               <div className="modal-btns-wrapper">
                 <button className="custom-amount-modal-submit" type="submit">
@@ -52,7 +53,10 @@ function CustomAmountModal(props) {
 
                 <button
                   className="custom-amount-modal-cancel"
-                  onClick={props.closeModal}
+                  onClick={() => {
+                    props.handleAmountChange('');
+                    props.closeModal();
+                  }}
                 >
                   Cancel
                 </button>

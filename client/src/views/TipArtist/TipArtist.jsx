@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import CustomAmountModal from '../../components/Modals/CustomAmount/CustomAmount';
 
 import { loadArtist } from '../../services/artist';
+import { tipArtist } from '../../services/transaction';
 
 import './TipArtist.scss';
 
@@ -13,6 +15,7 @@ function TipArtistView(props) {
   const [currentAmount, setCurrentAmount] = useState(2);
   const [showCustomAmountModal, setShowCustomAmountModal] = useState(false);
   const [customAmounBtn, setCustomAmountBtn] = useState('');
+  const [hasTipped, setHasTipped] = useState(false);
 
   useEffect(() => {
     loadArtist(props.match.params.id).then((artist) => {
@@ -33,6 +36,7 @@ function TipArtistView(props) {
 
   const handleActiveBtnChange = (e) => {
     setActiveBtn(e.target.name);
+    setCurrentAmount(e.target.value);
   };
 
   const handleAmountChange = (value) => {
@@ -49,9 +53,26 @@ function TipArtistView(props) {
     handleActiveBtnChange(e);
   };
 
-  const handleTip = () => {
+  const handleTip = async () => {
     console.log('Tipping artist with ID: ' + artist._id);
     console.log('The quantity is: ', currentAmount);
+    try {
+      const response = await tipArtist({
+        token: props.user.paymentDetails.paymentToken,
+        customerId: props.user.paymentDetails.stripeCustomerId,
+        artistId: artist._id,
+        amount: currentAmount
+      });
+      if (response.code === 200) {
+        setHasTipped(true);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleTipAgain = () => {
+    setHasTipped(false);
   };
 
   return (
@@ -120,9 +141,29 @@ function TipArtistView(props) {
           </div>
         </>
       )}
-      <button className="tip-btn" onClick={handleTip}>
-        Send a Tip
-      </button>
+      {(props.user?.paymentDetails.paymentToken && !hasTipped && (
+        <button className="tip-btn" onClick={handleTip}>
+          Send a Tip
+        </button>
+      )) ||
+        (hasTipped && props.user?.paymentDetails.paymentToken && (
+          <>
+            <button className="tip-successful">Tip sent!</button>
+            <button className="tip-again" onClick={handleTipAgain}>
+              Tip again?
+            </button>
+          </>
+        )) || (
+          <>
+            <div className="tip-warning no-method">
+              Tipping is not possible: You need to set a payment method before
+              tipping.
+              <Link to="/profile">Add payment method</Link>
+            </div>
+            <button className="tip-btn disabled-tip-btn">Send a Tip</button>
+          </>
+        )}
+
       <div className="tip-warning">
         This action is not reversible, please check the amount before tipping.
       </div>
