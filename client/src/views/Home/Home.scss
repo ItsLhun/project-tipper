@@ -23,9 +23,11 @@
   }
 }
 .HomeView__section {
+  max-width: $max-sections-width;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   min-height: 10rem;
+  margin: 0 auto 1.5rem auto;
   margin-bottom: 1.5rem;
 }
 .HomeView__genres {

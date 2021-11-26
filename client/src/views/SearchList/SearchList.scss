@@ -6,7 +6,11 @@
   min-height: 100vh;
   background-color: $search-list-bg;
   color: $search-list-text;
-  padding: 2.5rem 1.5rem;
+  > div:first-child {
+    padding: 2.5rem 1.5rem;
+    max-width: $max-sections-width;
+    margin: 0 auto;
+  }
 
   h2 {
     margin-bottom: 1rem;

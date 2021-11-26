@@ -187,187 +187,192 @@ function ArtistProfileView(props) {
 
   return (
     <div className="ArtistProfileView">
-      {editSettings && (
-        <form className="UserProfileView_body_section" onSubmit={handleSubmit}>
-          <h4 className="UserProfileView_body_section_title">ACCOUNT</h4>
-          <div className="UserProfileView_body_section_content">
-            <div className="UserProfileView_body_section_content_inputs">
-              <span>Email:</span>
-              <input
-                //   This change is needed to prevent error of setting state to undefined
-                value={props.user?.email || email}
-                type="text"
-                id="email-input"
-                name="email"
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="UserProfileView_body_section_content_inputs">
-              <span>Password:</span>
-              <input
-                value={password}
-                type="password"
-                id="password-input"
-                name="password"
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="UserProfileView_body_section_content_inputs">
-              <span>Confirm Password:</span>
-              <input
-                value={confirmPassword}
-                type="password"
-                id="password-confirm-input"
-                name="confirmPassword"
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="UserProfileView_body_section_content_inputs">
-              <span>Write something about yourself:</span>
-              <input
-                value={props.user?.bio || bio}
-                type="text"
-                id="bio-input"
-                name="bio"
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="UserProfileView_body_section_content_inputs">
-              <span>Which Instruments Do You Play?:</span>
-              <input
-                value={instruments}
-                type="text"
-                id="instruments-input"
-                name="instruments"
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="UserProfileView_body_section_content_inputs">
-              <span>Please Select Your Genres:</span>
-
-              <GenreCheckbox
-                options={props.definedGenres}
-                selected={genre || props.user?.genre}
-                onSelectedChange={handleGenreSelectionChange}
-              />
-            </div>
-          </div>
-
-          <button className="save-changes-btn">Save Changes</button>
-        </form>
-      )}
-      {isOwnProfile && (
-        <button className="settings-btn top-icon" onClick={changeSettings}>
-          <img src={settingsIcon} alt="settings" />
-        </button>
-      )}
-      {isOwnProfile && (
-        <button className="sign-out-btn top-icon" onClick={props.onSignOut}>
-          <img src={signOutIcon} alt="sign out" />
-        </button>
-      )}
-      <div className="UserProfileView_header">
-        <div className="BackgroundImgAndButton">
-          {artist?.backgroundImg ? (
-            <img
-              className="Background"
-              src={artist.backgroundImg}
-              alt="Artist pic"
-            />
-          ) : (
-            <img
-              className="Background"
-              src={'https://source.unsplash.com/random/?musician'}
-              alt="random musician"
-            />
-          )}
-          {isOwnProfile && (
-            <Link to="/artist/upload-background" className="background-btn">
-              <img src={cameraIcon} alt="upload" />
-            </Link>
-          )}
-        </div>
-
-        <div className="name-avatar-bio-wrapper">
-          <div className="UserProfileView_avatar_wrap">
-            {artist?.avatarUrl ? (
-              <>
-                <img
-                  className="avatar-circle UserProfileView_avatar"
-                  src={artist?.avatarUrl}
-                  alt={'avatar'}
+      <div>
+        {editSettings && (
+          <form
+            className="UserProfileView_body_section"
+            onSubmit={handleSubmit}
+          >
+            <h4 className="UserProfileView_body_section_title">ACCOUNT</h4>
+            <div className="UserProfileView_body_section_content">
+              <div className="UserProfileView_body_section_content_inputs">
+                <span>Email:</span>
+                <input
+                  //   This change is needed to prevent error of setting state to undefined
+                  value={props.user?.email || email}
+                  type="text"
+                  id="email-input"
+                  name="email"
+                  onChange={handleInputChange}
+                  required
                 />
-                {isOwnProfile && (
-                  <Link className="avatar-change" to="/profile/upload-avatar">
-                    <img src={cameraIcon} alt="edit" />
-                  </Link>
-                )}
-                <h3 className="profile-name">
-                  {artist?.firstName} {artist?.lastName}
-                </h3>
-              </>
+              </div>
+              <div className="UserProfileView_body_section_content_inputs">
+                <span>Password:</span>
+                <input
+                  value={password}
+                  type="password"
+                  id="password-input"
+                  name="password"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="UserProfileView_body_section_content_inputs">
+                <span>Confirm Password:</span>
+                <input
+                  value={confirmPassword}
+                  type="password"
+                  id="password-confirm-input"
+                  name="confirmPassword"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="UserProfileView_body_section_content_inputs">
+                <span>Write something about yourself:</span>
+                <input
+                  value={props.user?.bio || bio}
+                  type="text"
+                  id="bio-input"
+                  name="bio"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="UserProfileView_body_section_content_inputs">
+                <span>Which Instruments Do You Play?:</span>
+                <input
+                  value={instruments}
+                  type="text"
+                  id="instruments-input"
+                  name="instruments"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="UserProfileView_body_section_content_inputs">
+                <span>Please Select Your Genres:</span>
+
+                <GenreCheckbox
+                  options={props.definedGenres}
+                  selected={genre || props.user?.genre}
+                  onSelectedChange={handleGenreSelectionChange}
+                />
+              </div>
+            </div>
+
+            <button className="save-changes-btn">Save Changes</button>
+          </form>
+        )}
+        {isOwnProfile && (
+          <button className="settings-btn top-icon" onClick={changeSettings}>
+            <img src={settingsIcon} alt="settings" />
+          </button>
+        )}
+        {isOwnProfile && (
+          <button className="sign-out-btn top-icon" onClick={props.onSignOut}>
+            <img src={signOutIcon} alt="sign out" />
+          </button>
+        )}
+        <div className="UserProfileView_header">
+          <div className="BackgroundImgAndButton">
+            {artist?.backgroundImg ? (
+              <img
+                className="Background"
+                src={artist.backgroundImg}
+                alt="Artist pic"
+              />
             ) : (
-              <>
-                <div className="avatar-circle UserProfileView_avatar_text">
-                  <span className="Profile-letters">
-                    {artist?.firstName[0]}
-                    {artist?.lastName[0]}
-                  </span>
-                </div>
-                {isOwnProfile && (
-                  <Link className="avatar-change" to="/profile/upload-avatar">
-                    <img src={cameraIcon} alt="edit" />
-                  </Link>
-                )}
-                <h3 className="profile-name">
-                  {artist?.firstName} {artist?.lastName}
-                </h3>
-              </>
+              <img
+                className="Background"
+                src={'https://source.unsplash.com/random/?musician'}
+                alt="random musician"
+              />
             )}
-          </div>
-          {(artist?.bio && <em>{artist.bio}</em>) || <em></em>}
-        </div>
-
-        {/* <StarRating {...props} user={props.user} isLoggedIn={isLoggedIn} /> */}
-
-        <div className={'ArtistProfileView_follow'}>
-          <div>
-            <span>{count}</span>
-            <span>{count === 1 ? 'follower' : 'followers'}</span>
-          </div>
-          {!isOwnProfile && follow && (
-            <button className="unfollow-btn" onClick={followNow}>
-              unfollow
-            </button>
-          )}
-          {!isOwnProfile && !follow && (
-            <button className="follow-btn artist-btn" onClick={followNow}>
-              follow
-            </button>
-          )}
-          {!isOwnProfile && (
-            <button className="artist-btn">
-              <Link to={`/artist/${artist?._id}/tip`}>$ tip 🤑</Link>
-            </button>
-          )}
-        </div>
-      </div>
-      <div className={'UserProfileView_body'}>
-        <div className={'UserProfileView_body_section'}>
-          <div className={'EventsAndNew'}>
-            <h3>Upcoming Events</h3>
             {isOwnProfile && (
-              <Link to="/event/create">
-                <button className={'addEvent-btn'}>+</button>
+              <Link to="/artist/upload-background" className="background-btn">
+                <img src={cameraIcon} alt="upload" />
               </Link>
             )}
           </div>
-          {/* <EventDetailView /> */}
-          {events && (
-            <EventMini {...props} events={events} nowEvents={nowEvents} />
-          )}
+
+          <div className="name-avatar-bio-wrapper">
+            <div className="UserProfileView_avatar_wrap">
+              {artist?.avatarUrl ? (
+                <>
+                  <img
+                    className="avatar-circle UserProfileView_avatar"
+                    src={artist?.avatarUrl}
+                    alt={'avatar'}
+                  />
+                  {isOwnProfile && (
+                    <Link className="avatar-change" to="/profile/upload-avatar">
+                      <img src={cameraIcon} alt="edit" />
+                    </Link>
+                  )}
+                  <h3 className="profile-name">
+                    {artist?.firstName} {artist?.lastName}
+                  </h3>
+                </>
+              ) : (
+                <>
+                  <div className="avatar-circle UserProfileView_avatar_text">
+                    <span className="Profile-letters">
+                      {artist?.firstName[0]}
+                      {artist?.lastName[0]}
+                    </span>
+                  </div>
+                  {isOwnProfile && (
+                    <Link className="avatar-change" to="/profile/upload-avatar">
+                      <img src={cameraIcon} alt="edit" />
+                    </Link>
+                  )}
+                  <h3 className="profile-name">
+                    {artist?.firstName} {artist?.lastName}
+                  </h3>
+                </>
+              )}
+            </div>
+            {(artist?.bio && <em>{artist.bio}</em>) || <em></em>}
+          </div>
+
+          {/* <StarRating {...props} user={props.user} isLoggedIn={isLoggedIn} /> */}
+
+          <div className={'ArtistProfileView_follow'}>
+            <div>
+              <span>{count}</span>
+              <span>{count === 1 ? 'follower' : 'followers'}</span>
+            </div>
+            {!isOwnProfile && follow && (
+              <button className="unfollow-btn" onClick={followNow}>
+                unfollow
+              </button>
+            )}
+            {!isOwnProfile && !follow && (
+              <button className="follow-btn artist-btn" onClick={followNow}>
+                follow
+              </button>
+            )}
+            {!isOwnProfile && (
+              <button className="artist-btn">
+                <Link to={`/artist/${artist?._id}/tip`}>$ tip 🤑</Link>
+              </button>
+            )}
+          </div>
+        </div>
+        <div className={'UserProfileView_body'}>
+          <div className={'UserProfileView_body_section'}>
+            <div className={'EventsAndNew'}>
+              <h3>Upcoming Events</h3>
+              {isOwnProfile && (
+                <Link to="/event/create">
+                  <button className={'addEvent-btn'}>+</button>
+                </Link>
+              )}
+            </div>
+            {/* <EventDetailView /> */}
+            {events && (
+              <EventMini {...props} events={events} nowEvents={nowEvents} />
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ $circle-font: $diameter / 2;
 
 .ArtistProfileView {
   background-color: white;
+  min-height: calc(100vh - 3rem);
   position: relative;
   form {
     h4 {
@@ -67,12 +68,17 @@ $circle-font: $diameter / 2;
     height: 2.5rem;
     mix-blend-mode: difference;
   }
+  > div:first-child {
+    max-width: $max-sections-width;
+    margin: 0 auto;
+  }
 }
 
 .Background {
   display: inline-block;
-  max-width: 100vw;
-  height: auto;
+  width: auto;
+  max-height: 30rem;
+  object-fit: cover;
   margin: 0;
 }
 
@@ -193,4 +199,8 @@ $circle-font: $diameter / 2;
 }
 .top-icon {
   z-index: 999 !important;
+}
+
+// media query when user is in landscape mode
+@media screen and (orientation: landscape) {
 }

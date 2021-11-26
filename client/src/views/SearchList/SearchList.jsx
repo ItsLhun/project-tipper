@@ -87,89 +87,91 @@ function SearchListView(props) {
 
   return (
     <div className="SearchListView">
-      <h2>Ready to explore?</h2>
-      <div className="input-wrapper">
-        <img
-          src="https://img.icons8.com/ios/50/000000/search.png"
-          alt="search"
+      <div>
+        <h2>Ready to explore?</h2>
+        <div className="input-wrapper">
+          <img
+            src="https://img.icons8.com/ios/50/000000/search.png"
+            alt="search"
+          />
+          <input
+            type="text"
+            name="search"
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            autoComplete="off"
+          />
+          <img
+            onClick={clearSearch}
+            src={closeIcon}
+            alt="search"
+            className={search ? '' : 'd-none'}
+          />
+        </div>
+        <GenreCheckbox
+          options={props.definedGenres}
+          selected={genres}
+          onSelectedChange={(selected) => setGenres(selected)}
+          blobSize={'small'}
         />
-        <input
-          type="text"
-          name="search"
-          placeholder="Search..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          autoComplete="off"
-        />
-        <img
-          onClick={clearSearch}
-          src={closeIcon}
-          alt="search"
-          className={search ? '' : 'd-none'}
-        />
-      </div>
-      <GenreCheckbox
-        options={props.definedGenres}
-        selected={genres}
-        onSelectedChange={(selected) => setGenres(selected)}
-        blobSize={'small'}
-      />
-      <ul className="type-selection">
-        <li
-          onClick={toggleActiveSearch}
-          name="artists"
-          className={(activeSearch === 'artists' && `active`) || ''}
-        >
-          Artists
-          <span
+        <ul className="type-selection">
+          <li
             onClick={toggleActiveSearch}
             name="artists"
             className={(activeSearch === 'artists' && `active`) || ''}
           >
-            {artistSearchCount > 99 ? '99+' : artistSearchCount}
-          </span>
-        </li>
-        <li
-          onClick={toggleActiveSearch}
-          name="events"
-          className={(activeSearch === 'events' && `active`) || ''}
-        >
-          Events
-          <span
+            Artists
+            <span
+              onClick={toggleActiveSearch}
+              name="artists"
+              className={(activeSearch === 'artists' && `active`) || ''}
+            >
+              {artistSearchCount > 99 ? '99+' : artistSearchCount}
+            </span>
+          </li>
+          <li
             onClick={toggleActiveSearch}
             name="events"
             className={(activeSearch === 'events' && `active`) || ''}
           >
-            {eventsSearchCount > 99 ? '99+' : eventsSearchCount}
-          </span>
-        </li>
-      </ul>
-      <div className="search-list">
-        {activeSearch === 'artists' &&
-          artistsSearchList.map((artist) => (
-            <SearchArtistMini
-              key={artist._id}
-              artist={artist}
-              geocoder={props.geocoder}
-            />
-          ))}
-
-        {activeSearch === 'events' &&
-          eventsSearchList.map((event) => {
-            let distanceToUser = getDistancePoints(
-              event.location.coordinates[0],
-              event.location.coordinates[1],
-              props.userLocation.lat,
-              props.userLocation.lng
-            );
-            return (
-              <SearchEventMini
-                key={event._id}
-                event={event}
-                distanceToUser={distanceToUser.toFixed(2)}
+            Events
+            <span
+              onClick={toggleActiveSearch}
+              name="events"
+              className={(activeSearch === 'events' && `active`) || ''}
+            >
+              {eventsSearchCount > 99 ? '99+' : eventsSearchCount}
+            </span>
+          </li>
+        </ul>
+        <div className="search-list">
+          {activeSearch === 'artists' &&
+            artistsSearchList.map((artist) => (
+              <SearchArtistMini
+                key={artist._id}
+                artist={artist}
+                geocoder={props.geocoder}
               />
-            );
-          })}
+            ))}
+
+          {activeSearch === 'events' &&
+            eventsSearchList.map((event) => {
+              let distanceToUser = getDistancePoints(
+                event.location.coordinates[0],
+                event.location.coordinates[1],
+                props.userLocation.lat,
+                props.userLocation.lng
+              );
+              return (
+                <SearchEventMini
+                  key={event._id}
+                  event={event}
+                  distanceToUser={distanceToUser.toFixed(2)}
+                />
+              );
+            })}
+        </div>
       </div>
     </div>
   );
