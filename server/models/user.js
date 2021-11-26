@@ -65,11 +65,13 @@ const schema = new mongoose.Schema({
   lastLocation: {
     type: pointSchema
   },
-  paymentMethodToken: {
-    type: String
-  },
-  stripeCustomerId: {
-    type: String
+  paymentDetails: {
+    stripeCustomerId: String,
+    paymentToken: String,
+    last4: String,
+    brand: String,
+    exp_month: String,
+    exp_year: String
   }
 });
 

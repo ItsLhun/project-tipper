@@ -74,13 +74,11 @@ class NonInjectedPaymentForm extends Component {
   }
 }
 
-const STRIPE_PUBLIC_API_KEY = 'pk_test_f3duw0VsAEM2TJFMtWQ90QAT';
-
 class Payments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stripePromise: loadStripe(STRIPE_PUBLIC_API_KEY)
+      stripePromise: loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_API_KEY)
     };
   }
 

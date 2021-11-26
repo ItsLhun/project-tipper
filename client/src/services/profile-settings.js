@@ -8,10 +8,8 @@ export const uploadAvatar = (image) => {
     .then((response) => response.data.avatarUpdate);
 };
 
-export const creditCardDetails = (body) => {
-  return api
-    .post('/profile/card', body)
-    .then((response) => response.data.payment);
+export const updateCardDetails = (body) => {
+  return api.post('/profile/card', body).then((response) => response.data);
 };
 
 export const updateAccountSettings = (body) => {

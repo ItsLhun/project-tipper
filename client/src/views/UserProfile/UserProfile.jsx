@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TransactionListItem from '../../components/Transactions/TransactionListItem';
 import { Link } from 'react-router-dom';
 import {
-  creditCardDetails,
+  updateCardDetails,
   updateAccountSettings
 } from '../../services/profile-settings';
 
@@ -65,10 +65,10 @@ function UserProfileView(props) {
     try {
       const { token, card } = data;
       console.log(data);
-      // const payment = await creditCardDetails({ paymentMethodToken });
-      // console.log(payment);
-      // setPayment(true);
-      // props.onUserRefresh();
+      const updatedData = await updateCardDetails(data);
+      console.log(updatedData);
+      setPayment(true);
+      props.onUserRefresh();
     } catch (error) {
       console.log(error);
     }

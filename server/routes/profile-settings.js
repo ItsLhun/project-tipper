@@ -27,21 +27,34 @@ router.post(
   }
 );
 
+// add payment method details to user
 router.post('/card', routeGuardMiddleware, async (req, res, next) => {
-  const { paymentMethodToken } = req.body;
-  console.log(paymentMethodToken);
+  const { token, card } = req.body;
+  const name = req.user.firstName + ' ' + req.user.lastName;
+  console.log('session: ', req.session.userId);
   try {
     const newStripeCustomer = await stripeApi.customers.create({
-      name: req.user.firstName,
+      name: name,
       email: req.user.email,
-      paymentToken: paymentMethodToken
+      payment_method: token
     });
     console.log(newStripeCustomer);
-    const payment = await User.findByIdAndUpdate(req.user._id, {
-      paymentToken: paymentMethodToken
-    });
-    // console.log(payment);
-    res.json({ payment });
+    const updatedUser = await User.findByIdAndUpdate(
+      req.session.userId,
+      {
+        paymentDetails: {
+          stripeCustomerId: newStripeCustomer.id,
+          paymentToken: token,
+          last4: card.last4,
+          brand: card.brand,
+          exp_month: card.exp_month,
+          exp_year: card.exp_year
+        }
+      },
+      { new: true }
+    );
+    console.log(updatedUser);
+    res.json({ updatedUser, message: 'Card added successfully', status: 200 });
   } catch (error) {
     next(error);
   }
