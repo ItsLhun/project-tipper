@@ -33,39 +33,41 @@ function BottomNavbar(props) {
 
   return (
     <div className={`BottomNavbar ${activeClass}`} onClick={handlePathChange}>
-      <Link to="/" className="button">
-        <div className="button-wrapper">
-          <span className="circle" />
-          <span>Home</span>
-        </div>
-      </Link>
-      <Link to="/explore" className="button">
-        <div className="button-wrapper">
-          <span className="circle" />
-          <span>Explore</span>
-        </div>
-      </Link>
-      <Link
-        to={
-          (props.user?.role === 'defaultUser' && '/profile') ||
-          (props.user?.role === 'artist' && `/artist/${props.user._id}`) ||
-          '/sign-in'
-        }
-        className="button"
-      >
-        <div className="button-wrapper">
-          <span className="circle" />
-          <span>{props.user ? 'Profile' : 'Sign In'}</span>
-        </div>
-      </Link>
-      {props.user?.role === 'artist' && (
-        <Link to="/event/create" className="button">
+      <div>
+        <Link to="/" className="button">
           <div className="button-wrapper">
-            <span className="circle circle-live" />
-            Go Live
+            <span className="circle" />
+            <span>Home</span>
           </div>
         </Link>
-      )}
+        <Link to="/explore" className="button">
+          <div className="button-wrapper">
+            <span className="circle" />
+            <span>Explore</span>
+          </div>
+        </Link>
+        <Link
+          to={
+            (props.user?.role === 'defaultUser' && '/profile') ||
+            (props.user?.role === 'artist' && `/artist/${props.user._id}`) ||
+            '/sign-in'
+          }
+          className="button"
+        >
+          <div className="button-wrapper">
+            <span className="circle" />
+            <span>{props.user ? 'Profile' : 'Sign In'}</span>
+          </div>
+        </Link>
+        {props.user?.role === 'artist' && (
+          <Link to="/event/create" className="button">
+            <div className="button-wrapper">
+              <span className="circle circle-live" />
+              Go Live
+            </div>
+          </Link>
+        )}
+      </div>
     </div>
   );
 }
