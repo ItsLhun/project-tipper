@@ -117,19 +117,21 @@ function UserProfileView(props) {
         <div className={'UserProfileView_body_section'}>
           <h4 className={'UserProfileView_body_section_title'}>PAYMENT INFO</h4>
           <div className={'UserProfileView_body_section_content card-section'}>
-            {props.user?.paymentToken && payment && (
+            {props.user?.paymentDetails.paymentToken && (
               <div>
-                <CardPlaceholder />
-
+                <CardPlaceholder
+                  paymentDetails={props.user?.paymentDetails}
+                  user={props.user}
+                />
                 <button
-                  className={'save-changes-btn'}
+                  className="remove-payment-btn general-btn"
                   onClick={() => setPayment(false)}
                 >
-                  Change Credit Card Info
+                  Remove payment method
                 </button>
               </div>
             )}
-            {!payment && (
+            {!props.user?.paymentDetails.paymentToken && (
               <Payments onConfirmPaymentMethod={handlePaymentMethod} />
             )}
           </div>
@@ -190,7 +192,7 @@ function UserProfileView(props) {
               />
             </div>
           </div>
-          <button className="save-changes-btn">Save Changes</button>
+          <button className="save-changes-btn general-btn">Save Changes</button>
         </form>
       </div>
     </div>

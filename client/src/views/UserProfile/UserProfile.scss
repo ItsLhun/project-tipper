@@ -14,6 +14,12 @@
   margin-bottom: 3rem;
   background-color: $profile-bg;
   color: $profile-text;
+  .general-btn {
+    cursor: pointer;
+    padding: 0.5rem;
+    border: 0;
+    border-radius: 15px;
+  }
 }
 .UserProfileView_body_section {
   box-sizing: border-box;
@@ -24,6 +30,22 @@
   align-items: center;
   margin-bottom: 1rem;
   margin-top: 4rem;
+}
+.card-section > div:first-child {
+  display: flex;
+  flex-direction: column;
+  max-width: 28rem;
+  margin: 1rem auto;
+  justify-content: center;
+  align-items: center;
+  button {
+    max-width: 15rem;
+    background-color: rgb(128, 38, 38);
+    color: white;
+    width: 100%;
+    align-self: center;
+    margin-top: 1rem;
+  }
 }
 
 $diameter: 5rem;
@@ -102,11 +124,8 @@ $circle-font: $diameter / 2;
   margin-bottom: 1rem;
 }
 .save-changes-btn {
-  border: 0px;
   background-color: $profile-save-button-bg;
   color: $profile-save-button-text;
-  padding: 0.5rem;
-  border-radius: 15px;
   width: 8rem;
   align-self: center;
   margin-top: 1rem;
