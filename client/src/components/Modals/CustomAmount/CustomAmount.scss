@@ -1,0 +1,119 @@
+@import '../../../index.scss';
+@import '../../../styles/colors.scss';
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.custom-amount-modal {
+  $heigth: 15rem;
+  $width: 20rem;
+  position: fixed;
+  top: calc(50% - (15rem));
+  left: calc(50% - (8rem));
+  background-color: transparent;
+  max-width: 20rem;
+  height: $heigth;
+  margin: 2rem auto;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(75, 75, 75);
+  .custom-amount-modal-content {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 2rem;
+    .custom-amount-modal-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.2rem;
+      border-bottom: 1px solid black;
+      h2 {
+        font-family: $font-merri;
+        font-size: 1.5rem;
+        font-weight: 300;
+        text-align: center;
+        margin-top: 0rem;
+        padding-top: 0rem;
+      }
+      button {
+        font-family: monospace;
+        position: absolute;
+        border: 0;
+        top: 0;
+        right: 0;
+        padding: 1rem;
+        user-select: none;
+        font-size: 1.2rem;
+        background-color: transparent;
+        flex: 0 0 25%;
+        border-radius: 0.5rem;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    .custom-amount-modal-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      gap: 0.5rem;
+      input {
+        border: 0;
+        padding: 0.5rem 1rem;
+        background-color: rgb(233, 231, 231);
+        color: black;
+        flex: 0 0 25%;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+}
+.modal-btns-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  > button {
+    border: 0;
+    padding: 0.5rem 1rem;
+    background-color: rgb(233, 231, 231);
+    color: black;
+    flex: 0 0 25%;
+    border-radius: 0.5rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  > button:first-child {
+    background-color: rgb(173, 235, 102);
+    &:hover {
+      background-color: rgb(139, 214, 71);
+    }
+  }
+  > button:last-child {
+    background-color: rgb(255, 102, 102);
+    &:hover {
+      background-color: rgb(204, 0, 0);
+    }
+  }
+}

@@ -96,14 +96,19 @@ router.post(
 );
 
 // add stripe payment method details to user
-router.post('/payment', routeGuardMiddleware, async (req, res, next) => {
-  const { stripeToken } = req.body;
-  const name = req.user.firstName + ' ' + req.user.lastName;
-  const customer = await stripeApi.customers.create({
-    name: name,
-    email: req.user.email,
-    payment_method: stripeToken
-  });
-});
+router.post(
+  '/payment-method-update',
+  routeGuardMiddleware,
+  async (req, res, next) => {
+    const { stripeToken } = req.body;
+    const name = req.user.firstName + ' ' + req.user.lastName;
+    // const customer = await stripeApi.customers.create({
+    //   name: name,
+    //   email: req.user.email,
+    //   payment_method: stripeToken
+    // });
+    res.json({ message: 'Payment method updated', code: 200 });
+  }
+);
 
 module.exports = router;
