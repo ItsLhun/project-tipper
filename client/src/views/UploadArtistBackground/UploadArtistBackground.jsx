@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { uploadArtistBackground } from '../../services/artist';
 
 import Alert from '../../components/Alert';
+import './UploadArtistBackground.scss';
 
 function UploadArtistBackgroundView(props) {
   const [fileInputState, setFileInputState] = useState('');
@@ -13,15 +14,6 @@ function UploadArtistBackgroundView(props) {
   const [errMsg, setErrMsg] = useState('');
   const [background, setBackground] = useState('');
   const [redirect, setRedirect] = useState(false);
-  const isInitialMount = useRef(true);
-
-  // useEffect(() => {
-  //   if (isInitialMount.current) {
-  //     isInitialMount.current = false;
-  //   } else {
-  //     props.history.push(`/artist/${props.user._id}`);
-  //   }
-  // }, [redirect]);
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -59,8 +51,8 @@ function UploadArtistBackgroundView(props) {
   };
 
   return (
-    <div>
-      <h1 className="title">Upload Your Background Image</h1>
+    <div className={'Upload-View'}>
+      <h1>Upload Your Background Image</h1>
       <Alert msg={errMsg} type="danger" />
       <Alert msg={successMsg} type="success" />
       <form onSubmit={handleSubmitFile} className="form">
@@ -72,7 +64,7 @@ function UploadArtistBackgroundView(props) {
           onChange={handleFileInputChange}
           className="form-input"
         />
-        <button className="save-changes-btn" type="submit">
+        <button className="upload-background" type="submit">
           Submit
         </button>
       </form>
@@ -81,7 +73,7 @@ function UploadArtistBackgroundView(props) {
       )}
       {redirect && (
         <Link to={`/artist/${props.user._id}`}>
-          <button className={'save-changes-btn'}>
+          <button className={'upload-background'}>
             Take me back to my profile
           </button>
         </Link>

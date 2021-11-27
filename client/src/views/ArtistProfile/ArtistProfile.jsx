@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { loadArtist, findEvents, findNowEvents } from '../../services/artist';
-import StarRating from './../../components/StarRating/StarRating';
 import { updateAccountSettings } from '../../services/profile-settings';
 import { Link } from 'react-router-dom';
 import { countFollow, followArtist } from '../../services/follow';
@@ -12,7 +11,6 @@ import EventMini from '../../components/ArtistEventMini/ArtistEventMini';
 import './ArtistProfile.scss';
 
 import settingsIcon from './cog.svg';
-import editIcon from './pencil.svg';
 import cameraIcon from './camera.svg';
 import signOutIcon from './sign-out.svg';
 
@@ -372,7 +370,12 @@ function ArtistProfileView(props) {
             </div>
             {/* <EventDetailView /> */}
             {events && (
-              <EventMini {...props} events={events} nowEvents={nowEvents} />
+              <EventMini
+                {...props}
+                events={events}
+                nowEvents={nowEvents}
+                isOwnProfile={isOwnProfile}
+              />
             )}
           </div>
         </div>

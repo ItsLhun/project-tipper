@@ -4,8 +4,8 @@ const express = require('express');
 const router = express.Router();
 const Artist = require('./../models/user');
 const upload = require('../middleware/file-upload');
-const routeGuardMiddleware = require('./../middleware/route-guard');
-const Rating = require('./../models/rating');
+// const routeGuardMiddleware = require('./../middleware/route-guard');
+// const Rating = require('./../models/rating');
 const Event = require('./../models/event');
 
 router.get('/list', async (req, res, next) => {
@@ -135,6 +135,15 @@ router.get('/:id/events', async (req, res, next) => {
     });
     console.log(events);
     res.json({ upcomingEvents });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post('/event/:eventid/delete', async (req, res, next) => {
+  const { eventid } = req.params;
+  try {
+    await Event.findByIdAndDelete(eventid);
   } catch (error) {
     next(error);
   }
