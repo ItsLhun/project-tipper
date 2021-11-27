@@ -3,6 +3,8 @@ import SearchArtistMini from '../../components/SearchArtistMini/SearchArtistMini
 import SearchEventMini from '../../components/SearchEventMini/SearchEventMini';
 import closeIcon from './close-icon.svg';
 import GenreCheckbox from '../../components/GenreCheckbox/GenreCheckbox';
+import NoResults from '../../components/NoResults/NoResults';
+
 import './SearchList.scss';
 import { getDistancePoints } from '../../helpers/getDistancePoints';
 
@@ -171,6 +173,12 @@ function SearchListView(props) {
                 />
               );
             })}
+          {activeSearch === 'artists' && !artistsSearchList.length && (
+            <NoResults message={`No artists found for "${search}"`} />
+          )}
+          {activeSearch === 'events' && !eventsSearchList.length && (
+            <NoResults message={`No events found for "${search}"`} />
+          )}
         </div>
       </div>
     </div>
