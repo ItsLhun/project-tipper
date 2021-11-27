@@ -50,7 +50,7 @@ router.post('/withdraw', routeGuardMiddleware, async (req, res, next) => {
     await stripeApi.payouts.create({
       amount: amount * 100,
       currency: 'usd',
-      source_type: 'card',
+      source_type: 'bank_account',
       source: token,
       statement_descriptor: `Withdrawal by ${req.user.firstName} ${req.user.lastName}`
     });
