@@ -13,12 +13,12 @@ function EventList(props) {
 
   return (
     <div>
-      <h1>Here is the LIST event{EventList.map}</h1>
+      <h1>Here is the LIST event</h1>
 
       <ul>
-        {EventList.map((events) => (
-          <li key={events._id}>
-            <Link to={`/course/${events._id}/manage`}>{events.title}</Link>
+        {events.map((event) => (
+          <li key={event._id}>
+            <Link to={`/event/${event._id}`}>{event.title}</Link>
           </li>
         ))}
       </ul>
