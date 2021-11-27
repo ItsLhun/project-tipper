@@ -6,20 +6,22 @@ import './SplitUsers.scss';
 
 function SplitUsersView() {
   return (
-    <div className={'CreateEventView'}>
-      <h1>Welcome</h1>
-      {/* Make users select between player or listener */}
-      <div className="split-users-container">
-        <p>I am a ...</p>
+    <div className="SplitViewOutter">
+      <div>
+        <h1>Welcome</h1>
+        {/* Make users select between player or listener */}
+        <div className="split-users-container">
+          <p>I am a ...</p>
 
-        <div className={'SplitUser'}>
-          <Link to="/sign-up">
-            <button className={'event-btn'}>Listener</button>
-          </Link>
+          <div className="SplitUser">
+            <Link to="/sign-up">
+              <button className="event-btn">Listener</button>
+            </Link>
 
-          <Link to="/artist-sign-up">
-            <button className={'event-btn'}>Player</button>
-          </Link>
+            <Link to="/artist-sign-up">
+              <button className="event-btn">Player</button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

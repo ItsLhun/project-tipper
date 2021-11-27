@@ -1,11 +1,11 @@
 @import '../../styles/colors.scss';
 @import '../../style.scss';
 
-.SignInViewOutter {
+.HomeUnauthViewOutter {
   margin: 0;
   padding-top: 1rem;
   color: $home-text;
-  text-align: center;
+
   h1 {
     font-size: 2rem;
     font-weight: 600;
@@ -15,10 +15,5 @@
   > div:first-child {
     max-width: $max-sections-width;
     margin: 0 auto;
-  }
-  .event-btn {
-    margin: 0 auto;
-    margin-top: 1rem;
-    display: block;
   }
 }
