@@ -27,15 +27,14 @@ function EventDetail(props) {
   return (
     <div className="EventDetailView">
       <div>
-        Here is the DETAIL event
         <h1>{event?.title}</h1>
         <h3>Location</h3>
         <p>add here location</p>
         <h3>Description</h3>
         <p>{event?.description}</p>
         <h3>Date</h3>
-        <p>{event?.date}</p>
-        <p>{event?.duration}</p>
+        <p>{event?.date.split('T')[0]}</p>
+        <p>Duration: {event?.duration} minutes</p>
         <h3>Genres</h3>
         <p>
           {event?.genre.map((genre) => {
@@ -44,7 +43,9 @@ function EventDetail(props) {
           })}
         </p>
         <h3>Artist</h3>
-        <p>{event?.artist}</p>
+        <p>
+          {event?.artist.firstName} {event?.artist.lastName}
+        </p>
       </div>
     </div>
   );

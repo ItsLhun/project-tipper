@@ -10,6 +10,7 @@ router.get('/list', (req, res, next) => {
     .then((events) => {
       res.json({ events });
     })
+    .populate('artist')
     .catch((error) => {
       next(error);
     });
@@ -146,7 +147,7 @@ router.get('/list/today', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
   try {
-    const event = await Event.findById(id);
+    const event = await Event.findById(id).populate('artist');
     res.json({ event });
   } catch (error) {
     next(error);
