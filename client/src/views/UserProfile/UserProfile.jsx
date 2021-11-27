@@ -31,10 +31,18 @@ function UserProfileView(props) {
   // payment is useless state,
   // refactor whenevever possible
   useEffect(() => {
-    if (props.user?.paymentToken) {
+    if (props.user?.paymentDetails?.paymentToken) {
       setPayment(true);
     }
-  }, [props.user?.paymentToken]);
+  }, [props.user?.paymentDetails?.paymentToken]);
+
+  // On load, check if user is artist and if so, redirect to artist profile
+  useEffect(() => {
+    if (props.user?.role === 'artist') {
+      props.history.push(`/artist/${props.user?._id}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.user?.role]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -127,7 +135,7 @@ function UserProfileView(props) {
         <div className={'UserProfileView_body_section'}>
           <h4 className={'UserProfileView_body_section_title'}>PAYMENT INFO</h4>
           <div className={'UserProfileView_body_section_content card-section'}>
-            {props.user?.paymentDetails.paymentToken && (
+            {props.user?.paymentDetails?.paymentToken && (
               <div>
                 <CardPlaceholder
                   paymentDetails={props.user?.paymentDetails}
@@ -141,7 +149,7 @@ function UserProfileView(props) {
                 </button>
               </div>
             )}
-            {!props.user?.paymentDetails.paymentToken && (
+            {!props.user?.paymentDetails?.paymentToken && (
               <Payments onConfirmPaymentMethod={handlePaymentMethod} />
             )}
           </div>
