@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { signUp } from '../../services/auth';
 
+import './ArtistSignUp.scss';
+
 function ArtistSignUpView(props) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -45,53 +47,58 @@ function ArtistSignUpView(props) {
   };
 
   return (
-    <div className={'CreateEventView'}>
-      <h1>Artist Sign Up</h1>
-      <form onSubmit={handleSubmit} className={'CreateEventView_content_form'}>
-        <div className={'CreateEventView_inputs'}>
-          <label htmlFor="input-name">Name</label>
-          <input
-            id="input-first-name"
-            type="text"
-            placeholder="First Name"
-            name="firstName"
-            value={firstName}
-            onChange={handleInputChange}
-          />
-          <label htmlFor="input-name">Name</label>
-          <input
-            id="input-last-name"
-            type="text"
-            placeholder="Last name"
-            name="lastName"
-            value={lastName}
-            onChange={handleInputChange}
-          />
-          <label htmlFor="input-email">Email</label>
-          <input
-            id="input-email"
-            type="email"
-            placeholder="your@email.com"
-            name="email"
-            value={email}
-            onChange={handleInputChange}
-          />
-          <label htmlFor="input-password">Password</label>
-          <input
-            id="input-password"
-            type="password"
-            placeholder="A Secure Password"
-            name="password"
-            value={password}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button className={'event-btn'}>Sign Up</button>
-      </form>
-      <p>Already have an account?</p>
-      <Link to="/sign-in">
-        <button className={'event-btn'}>Sign In</button>
-      </Link>
+    <div className="ArtistSignUpViewOutter">
+      <div>
+        <h1>Artist Sign Up</h1>
+        <form
+          onSubmit={handleSubmit}
+          className={'CreateEventView_content_form'}
+        >
+          <div className={'CreateEventView_inputs'}>
+            <label htmlFor="input-name">Name</label>
+            <input
+              id="input-first-name"
+              type="text"
+              placeholder="First Name"
+              name="firstName"
+              value={firstName}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="input-name">Name</label>
+            <input
+              id="input-last-name"
+              type="text"
+              placeholder="Last name"
+              name="lastName"
+              value={lastName}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="input-email">Email</label>
+            <input
+              id="input-email"
+              type="email"
+              placeholder="your@email.com"
+              name="email"
+              value={email}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="input-password">Password</label>
+            <input
+              id="input-password"
+              type="password"
+              placeholder="A Secure Password"
+              name="password"
+              value={password}
+              onChange={handleInputChange}
+            />
+          </div>
+          <button className={'event-btn'}>Sign Up</button>
+        </form>
+        <p>Already have an account?</p>
+        <Link to="/sign-in">
+          <button className={'event-btn'}>Sign In</button>
+        </Link>
+      </div>
     </div>
   );
 }
