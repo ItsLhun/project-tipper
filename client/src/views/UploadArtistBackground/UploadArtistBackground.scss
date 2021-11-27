@@ -1,0 +1,23 @@
+@import '../../styles/colors.scss';
+@import '../../index.scss';
+
+.Upload-View {
+  background-color: white;
+  min-height: calc(100vh - 3rem);
+  position: relative;
+  form {
+    h4 {
+      margin-top: 4rem;
+      margin-bottom: 0rem;
+    }
+  }
+  margin-bottom: 4rem;
+}
+
+.upload-background {
+  background-color: $profile-save-button-bg;
+  color: $profile-save-button-text;
+  width: 8rem;
+  align-self: center;
+  margin-top: 1rem;
+}

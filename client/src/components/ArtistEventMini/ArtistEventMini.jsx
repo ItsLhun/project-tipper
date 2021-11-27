@@ -1,10 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatTimeWithOffset } from '../../helpers/formatTimeWithOffset';
+import { deleteEvent } from '../../services/artist';
 
 import './ArtistEventMini.scss';
 
 const EventMini = (props) => {
+  const handleDeleteEvent = async (e, id) => {
+    e.preventDefault();
+    try {
+      await deleteEvent(id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       {props.nowEvents.map((event, index) => {
@@ -34,6 +44,11 @@ const EventMini = (props) => {
                       <span>Genre:</span> {subitem.genre}
                     </p>
                   </Link>
+                  {props.isOwnProfile && (
+                    <form onSubmit={(e) => handleDeleteEvent(e, subitem._id)}>
+                      <button className={'delete-btn'}>Delete</button>
+                    </form>
+                  )}
                 </div>
               );
             })}
@@ -67,6 +82,11 @@ const EventMini = (props) => {
                       <span>Genre:</span> {subitem.genre}
                     </p>
                   </Link>
+                  {props.isOwnProfile && (
+                    <form onSubmit={(e) => handleDeleteEvent(e, subitem._id)}>
+                      <button className={'delete-btn'}>Delete</button>
+                    </form>
+                  )}
                 </div>
               );
             })}
