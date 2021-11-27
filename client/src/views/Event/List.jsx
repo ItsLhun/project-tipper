@@ -6,9 +6,14 @@ function EventList(props) {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    listEvents().then((events) => {
-      setEvents(events);
-    });
+    listEvents()
+      .then((events) => {
+        console.log(events);
+        setEvents(events);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
