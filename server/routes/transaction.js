@@ -50,12 +50,23 @@ router.post('/withdraw', routeGuardMiddleware, async (req, res, next) => {
     await stripeApi.payouts.create({
       amount: amount * 100,
       currency: 'usd',
-      source_type: 'card',
+      source_type: 'bank_account',
       source: token,
       statement_descriptor: `Withdrawal by ${req.user.firstName} ${req.user.lastName}`
     });
 
     res.json({ withdrawal, message: 'Withdrawal successful', code: 200 });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/list', routeGuardMiddleware, async (req, res, next) => {
+  try {
+    const transactions = await Transaction.find({
+      user: req.user.id
+    }).populate('artistTipped');
+    res.json({ transactions, code: 200 });
   } catch (err) {
     next(err);
   }

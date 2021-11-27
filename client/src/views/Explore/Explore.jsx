@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import MapContainer from '../../components/MapContainer/MapContainer';
-import MapSearch from '../../components/MapSearch/MapSearch';
 import './Explore.scss';
 
 function ExploreView(props) {
-  const handleSearchClick = (e) => {
-    console.log('Search clicked');
-  };
+  // useEffect(() => {
+  //   if (!props.user || !props.user.location) {
+  //     props.onUserRefresh();
+  //   }
+  // }, []);
+
   return (
     <div className="ExploreView">
-      <MapSearch onClick={handleSearchClick} />
-      <MapContainer userLocation={props.userLocation} />
+      {/* <MapSearch onClick={handleSearchClick} /> */}
+      <MapContainer
+        userLocation={props.userLocation}
+        onUserRefresh={props.onUserRefresh}
+      />
     </div>
   );
 }

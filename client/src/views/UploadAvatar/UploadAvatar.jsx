@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { uploadAvatar } from '../../services/profile-settings';
@@ -15,7 +15,6 @@ function UploadAvatarView(props) {
   const [errMsg, setErrMsg] = useState('');
   const [avatar, setAvatar] = useState('');
   const [redirect, setRedirect] = useState(false);
-  const isInitialMount = useRef(true);
   const [isDefaultUser, setIsDefaultUser] = useState(false);
 
   // useEffect(() => {
@@ -69,7 +68,7 @@ function UploadAvatarView(props) {
   };
 
   return (
-    <div>
+    <div className={'Upload-View'}>
       <h1 className="title">Upload Your Picture</h1>
       <Alert msg={errMsg} type="danger" />
       <Alert msg={successMsg} type="success" />

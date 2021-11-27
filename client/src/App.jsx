@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useJsApiLoader } from '@react-google-maps/api';
-
 import ProtectedRoute from './components/ProtectedRoute';
 import BottomNavbar from './components/BottomNavbar/BottomNavbar';
 
@@ -33,7 +32,8 @@ import './App.scss';
 function App() {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API,
+    libraries: ['places']
   });
 
   let geocoder = null;
@@ -76,8 +76,6 @@ function App() {
     }
   ]);
 
-  console.log('Last loca: ', user?.lastLocation);
-
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const pos = {
@@ -112,6 +110,27 @@ function App() {
       if (user) {
         setUser(user);
       }
+      navigator.geolocation.getCurrentPosition((position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        if (pos) {
+          setUserLocation(pos);
+          updateLastLocation({ location: pos })
+            .then(() => {
+              console.log('updated last location');
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          setUserLocation({
+            lat: 37.773972,
+            lng: -122.431297
+          });
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -244,7 +263,11 @@ function App() {
         <Route
           path="/explore"
           render={(props) => (
-            <ExploreView {...props} userLocation={userLocation} />
+            <ExploreView
+              {...props}
+              userLocation={userLocation}
+              onUserRefresh={loadUser}
+            />
           )}
         />
         <Route

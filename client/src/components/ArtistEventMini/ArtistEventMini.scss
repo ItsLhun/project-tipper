@@ -24,3 +24,15 @@
   @include event-list;
   border: 2px solid red;
 }
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  border-radius: 25px;
+  padding: 3px;
+}
+
+.event-box {
+  display: flex;
+  justify-content: space-between;
+}

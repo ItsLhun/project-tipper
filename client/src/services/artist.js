@@ -44,3 +44,7 @@ export const findNowEvents = (id) => {
     .get(`artist/${id}/events/now`, id)
     .then((response) => response.data.runningEvents);
 };
+
+export const deleteEvent = (eventid) => {
+  return api.post(`artist/event/${eventid}/delete`, eventid);
+};

@@ -141,12 +141,12 @@ function TipArtistView(props) {
           </div>
         </>
       )}
-      {(props.user?.paymentDetails.paymentToken && !hasTipped && (
+      {(props.user?.paymentDetails?.paymentToken && !hasTipped && (
         <button className="tip-btn" onClick={handleTip}>
           Send a Tip
         </button>
       )) ||
-        (hasTipped && props.user?.paymentDetails.paymentToken && (
+        (hasTipped && props.user?.paymentDetails?.paymentToken && (
           <>
             <button className="tip-successful">Tip sent!</button>
             <button className="tip-again" onClick={handleTipAgain}>

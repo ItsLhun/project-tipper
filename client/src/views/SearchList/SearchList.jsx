@@ -3,6 +3,8 @@ import SearchArtistMini from '../../components/SearchArtistMini/SearchArtistMini
 import SearchEventMini from '../../components/SearchEventMini/SearchEventMini';
 import closeIcon from './close-icon.svg';
 import GenreCheckbox from '../../components/GenreCheckbox/GenreCheckbox';
+import NoResults from '../../components/NoResults/NoResults';
+
 import './SearchList.scss';
 import { getDistancePoints } from '../../helpers/getDistancePoints';
 
@@ -16,16 +18,9 @@ function SearchListView(props) {
   const [artistSearchCount, setArtistSearchCount] = useState(0);
   const [eventsSearchList, setEventsSearchList] = useState([]);
   const [eventsSearchCount, setEventsSearchCount] = useState(0);
-
   const [search, setSearch] = useState('');
-  // const [activeSearch, setActiveSearch] = useState('artists');
   const [activeSearch, setActiveSearch] = useState('artists');
-
   const [genres, setGenres] = useState([]);
-
-  const clearSearch = () => {
-    setSearch('');
-  };
 
   useEffect(() => {
     const parsed = queryString.parse(props.location.search);
@@ -44,6 +39,10 @@ function SearchListView(props) {
     fetchEvents();
     // }
   }, [search, genres]);
+
+  const clearSearch = () => {
+    setSearch('');
+  };
 
   const fetchArtists = async () => {
     try {
@@ -171,6 +170,12 @@ function SearchListView(props) {
                 />
               );
             })}
+          {activeSearch === 'artists' && !artistsSearchList.length && (
+            <NoResults message={`No artists found for "${search}"`} />
+          )}
+          {activeSearch === 'events' && !eventsSearchList.length && (
+            <NoResults message={`No events found for "${search}"`} />
+          )}
         </div>
       </div>
     </div>
