@@ -1,13 +1,20 @@
 @import '../../styles/colors.scss';
 @import '../../index.scss';
 
-.CreateEventView {
-  background-color: $home-bg;
+.CreateEventOutterWrapper {
   color: $home-text;
+  background-color: $home-bg;
+  height: 100vh;
+  > div:first-child {
+    max-width: $max-sections-width;
+    margin: 0 auto;
+  }
+}
+
+.CreateEventView {
   margin: 0;
   padding-top: 1rem;
   overflow: scroll;
-  height: 100vh;
   h1 {
     font-family: $font-merri;
     font-weight: 300;
