@@ -49,7 +49,7 @@ function SignUpView(props) {
           className={'CreateEventView_content_form'}
         >
           <div className={'CreateEventView_inputs'}>
-            <label htmlFor="input-name">Name</label>
+            <label htmlFor="input-name">First Name</label>
             <input
               id="input-first-name"
               type="text"
@@ -58,7 +58,7 @@ function SignUpView(props) {
               value={firstName}
               onChange={handleInputChange}
             />
-            <label htmlFor="input-name">Name</label>
+            <label htmlFor="input-name">Last Name</label>
             <input
               id="input-last-name"
               type="text"

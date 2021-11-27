@@ -7,6 +7,8 @@ import {
   removeCardDetails
 } from '../../services/profile-settings';
 
+import { getTransactions } from '../../services/transaction';
+
 import Payments from '../../components/Payments/Payments';
 import CardPlaceholder from '../../components/CardPlaceholder/CardPlaceholder';
 
@@ -14,19 +16,13 @@ import cameraIcon from './../ArtistProfile/camera.svg';
 
 import './UserProfile.scss';
 
-const transaction = {
-  id: '1',
-  amount: '$5',
-  date: '12/12/2019',
-  concept: 'Tip to Nick Lager'
-};
-
 function UserProfileView(props) {
   // const [transactions, setTransactions] = useState(null);
   const [email, setEmail] = useState(props.user?.email || '');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [payment, setPayment] = useState();
+  const [transactions, setTransactions] = useState([]);
 
   // payment is useless state,
   // refactor whenevever possible
@@ -45,6 +41,21 @@ function UserProfileView(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.user?.role]);
+
+  useEffect(() => {
+    fetchTransactions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const fetchTransactions = async () => {
+    try {
+      const data = await getTransactions(props.user?._id);
+      setTransactions(data.transactions);
+      console.log(data.transactions);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -161,18 +172,15 @@ function UserProfileView(props) {
           <div className="UserProfileView_body_section_content">
             {/* Map to transactions array goes here, limit to last 10*/}
             <div className="UserProfileView_transactions">
-              <TransactionListItem transaction={transaction} />
-              <TransactionListItem transaction={transaction} />
-              <TransactionListItem transaction={transaction} />
-              <TransactionListItem transaction={transaction} />
-              <TransactionListItem transaction={transaction} />
-              <TransactionListItem transaction={transaction} />
-              <TransactionListItem transaction={transaction} />
-              <TransactionListItem transaction={transaction} />
-              <TransactionListItem transaction={transaction} />
+              {transactions.length > 0 ? (
+                transactions.map((transaction) => (
+                  <TransactionListItem transaction={transaction} />
+                ))
+              ) : (
+                <p>No transactions yet</p>
+              )}
             </div>
           </div>
-          <p>See more...</p>
         </div>
         <form className="UserProfileView_body_section" onSubmit={handleSubmit}>
           <h4 className="UserProfileView_body_section_title">ACCOUNT</h4>

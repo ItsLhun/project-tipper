@@ -62,10 +62,14 @@ router.post('/withdraw', routeGuardMiddleware, async (req, res, next) => {
 });
 
 router.get('/list', routeGuardMiddleware, async (req, res, next) => {
+  // get last 10 transactions for a user
   try {
     const transactions = await Transaction.find({
       user: req.user.id
-    }).populate('artistTipped');
+    })
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .populate('artistTipped');
     res.json({ transactions, code: 200 });
   } catch (err) {
     next(err);
