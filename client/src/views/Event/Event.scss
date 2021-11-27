@@ -6,8 +6,9 @@
   background-color: $home-bg;
   height: 100vh;
   > div:first-child {
-    // max-width: $max-sections-width;
-    // margin: 0 auto;
+  }
+  .CreateEventView_content_form {
+    background-color: $home-bg;
   }
 }
 
