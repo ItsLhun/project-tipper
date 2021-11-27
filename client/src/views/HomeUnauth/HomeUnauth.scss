@@ -6,14 +6,38 @@
   padding-top: 1rem;
   color: $home-text;
   text-align: center;
+  min-height: 100vh;
   h1 {
-    font-size: 2rem;
+    font-size: 4.4rem;
     font-weight: 600;
     margin: 0;
     padding: 0;
+    margin: 5rem auto;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: $accent-yellow;
+    color: black;
+  }
+  h1 + p {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    margin: 0 auto;
+    margin-top: 1rem;
+    padding: 2rem;
+    line-height: 1.5;
   }
   > div:first-child {
     max-width: $max-sections-width;
     margin: auto;
+    height: 100%;
+  }
+  #triangle-bottomleft {
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: 0;
+    border-bottom: 100px solid $accent-yellow;
+    border-right: 100px solid transparent;
   }
 }
