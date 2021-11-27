@@ -1,15 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import MapContainer from '../../components/MapContainer/MapContainer';
 import './Explore.scss';
 
 function ExploreView(props) {
-  // useEffect(() => {
-  //   if (!props.user || !props.user.location) {
-  //     props.onUserRefresh();
-  //   }
-  // }, []);
-
   return (
     <div className="ExploreView">
       {/* <MapSearch onClick={handleSearchClick} /> */}

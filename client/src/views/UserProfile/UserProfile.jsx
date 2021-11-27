@@ -33,7 +33,9 @@ function UserProfileView(props) {
   useEffect(() => {
     if (props.user?.paymentDetails?.paymentToken) {
       setPayment(true);
+      console.log(payment);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.user?.paymentDetails?.paymentToken]);
 
   // On load, check if user is artist and if so, redirect to artist profile
@@ -81,7 +83,7 @@ function UserProfileView(props) {
 
   const handlePaymentMethod = async (data) => {
     try {
-      const { token, card } = data;
+      // const { token, card } = data;
       console.log(data);
       const updatedData = await updateCardDetails(data);
       console.log(updatedData);

@@ -9,7 +9,6 @@ import FeaturedMini from '../../components/FeaturedMini/FeaturedMini';
 import PlayingTodayMini from '../../components/PlayingTodayMini/PlayingTodayMini';
 
 import { getArtistList } from '../../services/artist';
-import { listPlayingNowEvents } from '../../services/event';
 import { listPlayingTodayEvents } from '../../services/event';
 import { getDistancePoints } from '../../helpers/getDistancePoints';
 import { Link } from 'react-router-dom';

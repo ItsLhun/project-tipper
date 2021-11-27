@@ -10,6 +10,7 @@ function EventDetail(props) {
   useEffect(() => {
     // listEventDetail();
     getEvent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.match.params.id]);
 
   const getEvent = async () => {

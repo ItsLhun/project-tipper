@@ -30,7 +30,7 @@ function SearchListView(props) {
     } else if (parsed.genre) {
       setGenres([...genres, parsed.genre]);
     }
-  }, []);
+  }, [genres, props.location.search]);
 
   useEffect(() => {
     // if (activeSearch === 'artists') {
@@ -38,6 +38,7 @@ function SearchListView(props) {
     // } else if (activeSearch === 'events') {
     fetchEvents();
     // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, genres]);
 
   const clearSearch = () => {

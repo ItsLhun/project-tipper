@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { loadArtist, findEvents, findNowEvents } from '../../services/artist';
 import { updateAccountSettings } from '../../services/profile-settings';
 import { Link } from 'react-router-dom';
 import { countFollow, followArtist } from '../../services/follow';
 import GenreCheckbox from '../../components/GenreCheckbox/GenreCheckbox';
 import { checkFollow } from '../../services/follow';
-import { checkRating } from '../../services/rating';
+// import { checkRating } from '../../services/rating';
 import EventMini from '../../components/ArtistEventMini/ArtistEventMini';
 
 import './ArtistProfile.scss';
@@ -24,7 +24,7 @@ function ArtistProfileView(props) {
   const [instruments, setInstruments] = useState(props.user?.instruments);
   const [genre, setGenre] = useState(props.user?.genre);
   const [follow, setFollow] = useState();
-  const [rating, setRating] = useState();
+  // const [rating, setRating] = useState();
   const [count, setCount] = useState();
   const [events, setEvents] = useState([]);
   const [nowEvents, setNowEvents] = useState([]);
@@ -35,6 +35,7 @@ function ArtistProfileView(props) {
   // if user comes from another artist's profile
   useEffect(() => {
     getArtist();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.match.params.id]);
 
   console.log(genre);
@@ -63,10 +64,11 @@ function ArtistProfileView(props) {
     getEvents();
     getNowEvents();
     getFollow();
-    getRating();
+    // getRating();
     if (isOwnProfile) {
       setGenre([...props.user.genre]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getFollow = async () => {
@@ -82,18 +84,18 @@ function ArtistProfileView(props) {
     }
   };
 
-  const getRating = async () => {
-    try {
-      const response = await checkRating(props.match.params.id);
-      if (response) {
-        setRating(true);
-      } else if (!response) {
-        setRating(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getRating = async () => {
+  //   try {
+  //     const response = await checkRating(props.match.params.id);
+  //     if (response) {
+  //       setRating(true);
+  //     } else if (!response) {
+  //       setRating(false);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const changeSettings = async () => {
     try {
