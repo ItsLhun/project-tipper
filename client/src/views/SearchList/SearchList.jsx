@@ -18,16 +18,9 @@ function SearchListView(props) {
   const [artistSearchCount, setArtistSearchCount] = useState(0);
   const [eventsSearchList, setEventsSearchList] = useState([]);
   const [eventsSearchCount, setEventsSearchCount] = useState(0);
-
   const [search, setSearch] = useState('');
-  // const [activeSearch, setActiveSearch] = useState('artists');
   const [activeSearch, setActiveSearch] = useState('artists');
-
   const [genres, setGenres] = useState([]);
-
-  const clearSearch = () => {
-    setSearch('');
-  };
 
   useEffect(() => {
     const parsed = queryString.parse(props.location.search);
@@ -46,6 +39,10 @@ function SearchListView(props) {
     fetchEvents();
     // }
   }, [search, genres]);
+
+  const clearSearch = () => {
+    setSearch('');
+  };
 
   const fetchArtists = async () => {
     try {

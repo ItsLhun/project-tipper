@@ -61,4 +61,15 @@ router.post('/withdraw', routeGuardMiddleware, async (req, res, next) => {
   }
 });
 
+router.get('/list', routeGuardMiddleware, async (req, res, next) => {
+  try {
+    const transactions = await Transaction.find({
+      user: req.user.id
+    }).populate('artistTipped');
+    res.json({ transactions, code: 200 });
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;

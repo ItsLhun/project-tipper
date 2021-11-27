@@ -1,8 +1,14 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  useJsApiLoader,
+  Marker,
+  Autocomplete
+} from '@react-google-maps/api';
 import { listPlayingNowEvents } from '../../services/event';
 import MapPin from '../../components/MapPin/MapPin';
 import { getDistancePoints } from '../../helpers/getDistancePoints';
+import MapSearch from '../MapSearch/MapSearch';
 
 import img from './Vector.svg';
 import userLocation from './userlocation.svg';
@@ -12,12 +18,17 @@ import './MapContainer.scss';
 function MapContainerView(props) {
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API,
+    libraries: ['places']
   });
   const [map, setMap] = useState(null);
-  const [centerMap, setCenterMap] = useState(null);
+  const [centerMap, setCenterMap] = useState({
+    lat: +props.userLocation?.lat,
+    lng: +props.userLocation?.lng
+  });
   const [playingEvents, setPlayingEvents] = useState([]);
   const [activeInfo, setActiveInfo] = useState(null);
+  const [autocomplete, setAutocomplete] = useState(null);
 
   const fetchPlayingEvents = async () => {
     try {
@@ -26,6 +37,21 @@ function MapContainerView(props) {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const onPlaceChanged = () => {
+    console.log('onPlaceChanged');
+    const place = autocomplete.getPlace();
+    let center;
+    if (place.geometry) {
+      const { lat, lng } = place.geometry.location;
+      center = { lat: +parseFloat(lat()), lng: +parseFloat(lng()) };
+    } else {
+      center = { lat: +props.userLocation?.lat, lng: +props.userLocation?.lng };
+    }
+    setCenterMap(center);
+
+    console.log(center);
   };
 
   const setOptions = (map) => {
@@ -44,9 +70,26 @@ function MapContainerView(props) {
     };
   };
 
-  useEffect(() => {
-    setCenterMap(props.userLocation);
-  }, []);
+  // useEffect(() => {
+  //   if (!props.userLocation && !props.user?.lastLocation) {
+  //     props.onUserRefresh();
+  //     return;
+  //   } else if (props.user.lastLocation) {
+  //     const { lat, lng } = props.user.lastLocation;
+  //     const center = { lat: parseFloat(lat), lng: parseFloat(lng) };
+  //     setCenterMap(center);
+  //   } else {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       const pos = {
+  //         lat: position.coords.latitude,
+  //         lng: position.coords.longitude
+  //       };
+  //       if (pos) {
+  //         setCenterMap(pos);
+  //       }
+  //     });
+  //   }
+  // }, []);
 
   const onLoad = useCallback((map) => {
     setMap(map);
@@ -58,8 +101,8 @@ function MapContainerView(props) {
     console.log(event.latLng.lng());
     let pos = navigator.geolocation.getCurrentPosition((position) => {
       const pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lat: +position.coords.latitude,
+        lng: +position.coords.longitude
       };
       if (pos) {
         console.log(pos);
@@ -81,7 +124,7 @@ function MapContainerView(props) {
         width: '100%',
         height: '100vh'
       }}
-      center={props.userLocation}
+      center={centerMap}
       zoom={14}
       onLoad={onLoad}
       onUnmount={onUnmount}
@@ -90,6 +133,14 @@ function MapContainerView(props) {
       options={setOptions(map)}
       onClick={handleMapClick}
     >
+      <Autocomplete
+        onLoad={(autocomplete) => {
+          setAutocomplete(autocomplete);
+        }}
+        onPlaceChanged={onPlaceChanged}
+      >
+        <MapSearch />
+      </Autocomplete>
       {playingEvents.map((event) => {
         let distanceToUser = getDistancePoints(
           event.location.coordinates[0],
@@ -108,7 +159,8 @@ function MapContainerView(props) {
           />
         );
       })}
-      <Marker icon={userLocation} position={centerMap} />
+
+      <Marker icon={userLocation} position={props.userLocation} />
     </GoogleMap>
   ) : (
     <>Loading view?...</>
