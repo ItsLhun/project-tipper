@@ -332,6 +332,8 @@ function ArtistProfileView(props) {
               )}
             </div>
             {(artist?.bio && <em>{artist.bio}</em>) || <em></em>}
+            {artist?.instruments && <em>Instruments: {artist.instruments}</em>}
+            {artist?.genre && <em>Genres: {artist.genre}</em>}
           </div>
 
           {/* <StarRating {...props} user={props.user} isLoggedIn={isLoggedIn} /> */}
