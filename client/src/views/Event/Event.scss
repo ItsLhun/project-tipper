@@ -1,13 +1,13 @@
 @import '../../styles/colors.scss';
-@import '../../index.scss';
+@import '../../style.scss';
 
 .CreateEventOutterWrapper {
   color: $home-text;
   background-color: $home-bg;
   height: 100vh;
   > div:first-child {
-    max-width: $max-sections-width;
-    margin: 0 auto;
+    // max-width: $max-sections-width;
+    // margin: 0 auto;
   }
 }
 

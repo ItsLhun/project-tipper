@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { signUp } from '../../services/auth';
 
 import './../../styles/colors.scss';
-import '../../index.scss';
+import '../../style.scss';
 
 function SignUpView(props) {
   const [firstName, setFirstName] = useState('');

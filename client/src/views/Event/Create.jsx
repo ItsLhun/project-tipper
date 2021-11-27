@@ -77,7 +77,7 @@ class CreateEventView extends Component {
     createEvent({ title, date, time, duration, description, genre, location })
       .then((event) => {
         console.log(event);
-        this.props.history.push('/event/list');
+        this.props.history.push('/');
       })
       .catch((error) => {
         alert('There was an error creating event.');
