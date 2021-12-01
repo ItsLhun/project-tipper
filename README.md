@@ -21,9 +21,9 @@ This repository holds the full stack that makes the application.
 # Front-end
 
 - React
-- Google maps API for geo display
+- Google maps API for geolocation and display.
 - @react-google-maps/api to streamline google maps into react
-- Deployment through Netlify.
+- Deployment through Netlify
 
 # Back-end
 
