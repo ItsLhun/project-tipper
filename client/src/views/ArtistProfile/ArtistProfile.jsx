@@ -38,8 +38,6 @@ function ArtistProfileView(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.match.params.id]);
 
-  console.log(genre);
-
   const getArtist = async () => {
     if (!isOwnProfile) {
       try {
@@ -83,19 +81,6 @@ function ArtistProfileView(props) {
       console.log(error);
     }
   };
-
-  // const getRating = async () => {
-  //   try {
-  //     const response = await checkRating(props.match.params.id);
-  //     if (response) {
-  //       setRating(true);
-  //     } else if (!response) {
-  //       setRating(false);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const changeSettings = async () => {
     try {
@@ -154,12 +139,12 @@ function ArtistProfileView(props) {
   const followNow = async () => {
     try {
       await followArtist(artist?._id);
-      setFollow(!follow);
-      await countFollow(artist?.id);
+      setFollow((follow) => !follow);
+      await countFollow(artist?._id);
       if (!follow) {
-        setCount(count + 1);
+        setCount((count) => count + 1);
       } else {
-        setCount(count - 1);
+        setCount((count) => count - 1);
       }
     } catch (error) {
       console.log(error);
@@ -169,8 +154,7 @@ function ArtistProfileView(props) {
   const getEvents = async () => {
     try {
       const response = await findEvents(props.match.params.id);
-      await setEvents([response]);
-      console.log(events);
+      setEvents([response]);
     } catch (error) {
       console.log(error);
     }
@@ -179,7 +163,7 @@ function ArtistProfileView(props) {
   const getNowEvents = async () => {
     try {
       const response = await findNowEvents(props.match.params.id);
-      await setNowEvents([response]);
+      setNowEvents([response]);
     } catch (error) {
       console.log(error);
     }
@@ -379,8 +363,10 @@ function ArtistProfileView(props) {
                 events={events}
                 nowEvents={nowEvents}
                 isOwnProfile={isOwnProfile}
+                onDeleteEvent={getEvents}
               />
             )}
+            {!events && <p>No events yet</p>}
           </div>
         </div>
       </div>

@@ -1,5 +1,4 @@
 export const geocodeLatLng = (geocoder, coordinates, callback) => {
-  console.log('coordinates ', coordinates);
   geocoder
     .geocode({ location: coordinates })
     .then((response) => {

@@ -45,7 +45,12 @@ const EventMini = (props) => {
                     </p>
                   </Link>
                   {props.isOwnProfile && (
-                    <form onSubmit={(e) => handleDeleteEvent(e, subitem._id)}>
+                    <form
+                      onSubmit={(e) => {
+                        handleDeleteEvent(e, subitem._id);
+                        props.onDeleteEvent();
+                      }}
+                    >
                       <button className={'delete-btn'}>Delete</button>
                     </form>
                   )}

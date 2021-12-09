@@ -29,7 +29,6 @@ function SearchArtistMini(props) {
     }
   };
 
-  console.log(lastLocationCity);
   useEffect(() => {
     handleGeocode();
     // eslint-disable-next-line react-hooks/exhaustive-deps
