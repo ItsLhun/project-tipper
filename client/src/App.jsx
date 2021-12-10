@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { useJsApiLoader } from '@react-google-maps/api';
 import ProtectedRoute from './components/ProtectedRoute';
 import BottomNavbar from './components/BottomNavbar/BottomNavbar';
+import { Helmet } from 'react-helmet';
 
 // Views
 import SignInView from './views/SignIn/SignIn';
@@ -148,6 +149,46 @@ function App() {
 
   return (
     <div className="App">
+      <Helmet>
+        <title>Tipper</title>
+        <meta
+          property="og:title"
+          content="Tipper"
+          key="title"
+          data-react-helmet="true"
+        />
+        <meta
+          property="og:description"
+          content="Tipper is a social network for musicians and fans. Find events near you, tip artists, and share your favorite music."
+          key="description"
+          data-react-helmet="true"
+        />
+        <meta
+          property="og:image"
+          content="https://raw.githubusercontent.com/ItsLhun/project-tipper/master/client/public/screens.jpg"
+          key="image"
+          data-react-helmet="true"
+        />
+        <meta
+          property="og:url"
+          content={`${process.env.REACT_APP_API_URL}/`}
+          key="url"
+          data-react-helmet="true"
+        />
+        <meta
+          property="og:type"
+          content="website"
+          key="type"
+          data-react-helmet="true"
+        />
+        <meta
+          property="og:site_name"
+          content="Tipper"
+          key="site_name"
+          data-react-helmet="true"
+        />
+      </Helmet>
+
       <Switch>
         <Route
           path="/"
